@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ع السريع - خدمة توصيل كافة الطلبات في صان الحجر</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tahoma', sans-serif;
+        }
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* تصميم اللوجو */
+        .logo-box {
+            background-color: #1a1a1a;
+            border: 3px solid #ffcc00;
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.25);
+            transition: transform 0.3s ease;
+        }
+        .logo-box:hover {
+            transform: scale(1.03);
+        }
+        .logo-title {
+            color: #ffcc00;
+            font-size: 30px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+        .logo-sub {
+            color: #e0e0e0;
+            font-size: 11px;
+            margin-top: 5px;
+            padding: 0 10px;
+        }
+        /* العنوان التوضيحي تحت اللوجو */
+        .tagline {
+            color: #ffcc00;
+            font-size: 17px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        /* شريط البحث أو إدخال المنطقة */
+        .search-box {
+            background-color: #ffffff;
+            border-radius: 35px;
+            display: flex;
+            align-items: center;
+            padding: 8px 10px 8px 15px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            transition: box-shadow 0.3s ease;
+        }
+        .search-box:focus-within {
+            box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.4);
+        }
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+            text-align: right;
+            padding: 5px;
+            color: #333;
+            background: transparent;
+        }
+        .search-box input::placeholder {
+            color: #888;
+        }
+        .search-btn {
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #121212;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .search-btn:hover {
+            background-color: #e6b800;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- دائرة الشعار -->
+        <div class="logo-box">
+            <div class="logo-title">ع السريع</div>
+            <div class="logo-sub">توصيل كافة الطلبات في صان الحجر</div>
+        </div>
+
+        <!-- النص التوضيحي -->
+        <div class="tagline">توصيل سريع للطلبات، الأكل، والمزيد في صان الحجر</div>
+
+        <!-- شريط البحث عن المنطقة أو العنوان -->
+        <div class="search-box">
+            <button class="search-btn" id="searchBtn" title="بحث">←</button>
+            <input type="text" id="locationInput" placeholder="ابحث عن شارع، منطقة، أو معلم في صان الحجر...">
+        </div>
+    </div>
+
+    <script>
+        // تفاعل بسيط لزر البحث وإدخال النص
+        const searchBtn = document.getElementById('searchBtn');
+        const locationInput = document.getElementById('locationInput');
+
+        function handleSearch() {
+            const query = locationInput.value.trim();
+            if (query) {
+                alert(`جاري البحث عن المنطقة في صان الحجر: ${query}`);
+                // يمكنك هنا توجيه المستخدم لصفحة النتائج أو تنفيذ الكود الخاص بك
+            } else {
+                alert('الرجاء إدخال اسم الشارع أو المنطقة في صان الحجر أولاً.');
+                locationInput.focus();
+            }
+        }
+
+        searchBtn.addEventListener('click', handleSearch);
+        
+        locationInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    </script>
+
+</body>
+</html>
