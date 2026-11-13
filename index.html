@@ -236,7 +236,7 @@
             cursor: pointer;
         }
         
-        /* القوائم الداخلية داخل الـ Modals */
+        /* القوائم الداخلية */
         .options-list {
             display: flex;
             flex-direction: column;
@@ -327,7 +327,7 @@
         </div>
     </div>
 
-    <!-- نافذة المطاعم المتاحة (Modal) -->
+    <!-- نافذة المطاعم المتاحة -->
     <div class="modal" id="restaurantsModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -351,7 +351,31 @@
         </div>
     </div>
 
-    <!-- نافذة خيارات البقالة المتاحة (Modal) -->
+    <!-- نافذة منيو مطعم البيك حسن الجديدة -->
+    <div class="modal" id="baikMenuModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>منيو مطعم البيك حسن</h3>
+                <button class="close-btn" id="closeBaikModalBtn">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="selectBaikCategory('بيتزا')">
+                    بيتزا 🍕 <span>اختر الحجم والنوع</span>
+                </div>
+                <div class="option-item" onclick="selectBaikCategory('بروست')">
+                    بروست 🍗 <span>مقرمش وطازج</span>
+                </div>
+                <div class="option-item" onclick="selectBaikCategory('شاورما')">
+                    شاورما 🌯 <span>سوري وعربي</span>
+                </div>
+                <div class="option-item" onclick="selectBaikCategory('كريب')">
+                    كريب 🌯 <span>حلو وحادق</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة خيارات البقالة -->
     <div class="modal" id="groceryModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -404,12 +428,30 @@
             restaurantsModal.style.display = 'none';
         });
 
+        // نافذة منيو البيك
+        const baikMenuModal = document.getElementById('baikMenuModal');
+        const closeBaikModalBtn = document.getElementById('closeBaikModalBtn');
+
+        closeBaikModalBtn.addEventListener('click', () => {
+            baikMenuModal.style.display = 'none';
+        });
+
         function selectRestaurant(restaurantName) {
-            alert(`لقد اخترت مطعم: ${restaurantName} 🍽️\nجاري فتح منيو الأكل للطلب...`);
             restaurantsModal.style.display = 'none';
+            if (restaurantName === 'البيك حسن') {
+                // فتح منيو البيك مباشرة
+                baikMenuModal.style.display = 'flex';
+            } else {
+                alert(`لقد اخترت مطعم: ${restaurantName} 🍽️\nجاري فتح المنيو...`);
+            }
         }
 
-        // نافذة البقالة الجديدة
+        function selectBaikCategory(categoryName) {
+            alert(`لقد اخترت قسم: ${categoryName} 😋 من مطعم البيك حسن\nجاري عرض الأصناف للطلب...`);
+            baikMenuModal.style.display = 'none';
+        }
+
+        // نافذة البقالة
         const groceryModal = document.getElementById('groceryModal');
         const openGroceryBtn = document.getElementById('openGroceryBtn');
         const closeGroceryModalBtn = document.getElementById('closeGroceryModalBtn');
@@ -431,6 +473,9 @@
         window.addEventListener('click', (e) => {
             if (e.target === restaurantsModal) {
                 restaurantsModal.style.display = 'none';
+            }
+            if (e.target === baikMenuModal) {
+                baikMenuModal.style.display = 'none';
             }
             if (e.target === groceryModal) {
                 groceryModal.style.display = 'none';
