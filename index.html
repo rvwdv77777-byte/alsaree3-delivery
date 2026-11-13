@@ -210,7 +210,9 @@
             border: 2px solid #ffcc00;
             border-radius: 16px;
             width: 100%;
-            max-width: 350px;
+            max-width: 360px;
+            max-height: 85vh;
+            overflow-y: auto;
             padding: 20px;
             text-align: right;
             box-shadow: 0 5px 25px rgba(255, 204, 0, 0.3);
@@ -226,7 +228,7 @@
         }
         .modal-header h3 {
             color: #ffcc00;
-            font-size: 18px;
+            font-size: 16px;
         }
         .close-btn {
             background: none;
@@ -235,7 +237,7 @@
             font-size: 20px;
             cursor: pointer;
         }
-        
+        
         /* القوائم الداخلية */
         .options-list {
             display: flex;
@@ -244,7 +246,7 @@
         }
         .option-item {
             background-color: #2c2c2c;
-            padding: 12px 15px;
+            padding: 10px 12px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
@@ -254,6 +256,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 13px;
         }
         .option-item:hover {
             background-color: #383838;
@@ -261,8 +264,9 @@
         }
         .option-item span {
             color: #ffcc00;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
+            text-align: left;
         }
     </style>
 </head>
@@ -287,7 +291,7 @@
 
         <!-- قسم البطاقات -->
         <div class="cards-section">
-            
+            
             <!-- بطاقة 1: اطلب الطعام -->
             <div class="card">
                 <div class="card-img-container">
@@ -336,7 +340,7 @@
             </div>
             <div class="options-list">
                 <div class="option-item" onclick="selectRestaurant('البيك حسن')">
-                    البيك حسن <span>متاح للطلب ⚡</span>
+                    مطعم البيك حسن <span>متاح للطلب ⚡</span>
                 </div>
                 <div class="option-item" onclick="selectRestaurant('الزعيم')">
                     الزعيم <span>متاح للطلب ⚡</span>
@@ -351,7 +355,7 @@
         </div>
     </div>
 
-    <!-- نافذة منيو مطعم البيك حسن -->
+    <!-- نافذة منيو مطعم البيك حسن (الأقسام الرئيسية) -->
     <div class="modal" id="baikMenuModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -359,36 +363,176 @@
                 <button class="close-btn" id="closeBaikModalBtn">&times;</button>
             </div>
             <div class="options-list">
-                <div class="option-item" onclick="selectBaikCategory('بيتزا')">
-                    بيتزا 🍕 <span>اختر الحجم والنوع</span>
-                </div>
-                <div class="option-item" onclick="selectBaikCategory('بروست')">
-                    بروست 🍗 <span>مقرمش وطازج</span>
-                </div>
-                <div class="option-item" onclick="selectBaikCategory('شاورما')">
-                    شاورما 🌯 <span>سوري وعربي</span>
-                </div>
-                <div class="option-item" onclick="selectBaikCategory('كريب')">
-                    كريب 🌯 <span>حلو وحادق</span>
-                </div>
+                <div class="option-item" onclick="openMenuSection('pizzaModal')">بيتزا فراخ وأقسام البيتزا 🍕 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('sandwichesModal')">سندوتشات وجبات وجريل 🌯 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('broastModal')">وجبات البروست 🍗 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('crepeChickenModal')">كريب فراخ 🌯 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('crepeMixModal')">كريبات ميكسات 🌯 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('crepeMeatModal')">كريب اللحوم 🥩 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('crepeCheeseModal')">كريب جبن 🧀 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('stripesMealsModal')">وجبات استريس 🍗 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('seafoodModal')">كريبات السي فود 🍤 <span>عرض الأصناف</span></div>
             </div>
         </div>
     </div>
 
-    <!-- نافذة أصناف الشاورما الخاصة بالبيك حسن -->
-    <div class="modal" id="shawarmaModal">
+    <!-- 1. نافذة البيتزا -->
+    <div class="modal" id="pizzaModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>قسم الشاورما - البيك حسن</h3>
-                <button class="close-btn" id="closeShawarmaModalBtn">&times;</button>
+                <h3>بيتزا (صغير / وسط / كبير)</h3>
+                <button class="close-btn" onclick="closeModal('pizzaModal')">&times;</button>
             </div>
             <div class="options-list">
-                <div class="option-item" onclick="orderItem('شاورما سوري فراخ (حجم كبير)', 100)">
-                    شاورما سوري فراخ (كبير) <span>100 جنيه</span>
-                </div>
-                <div class="option-item" onclick="orderItem('شاورما سوري فراخ (حجم صغير)', 70)">
-                    شاورما سوري فراخ (صغير) <span>70 جنيه</span>
-                </div>
+                <div class="option-item" onclick="orderItem('بيتزا شاورما فراخ', '135 / 170 / 210 ج')">بيتزا شاورما فراخ <span>135 / 170 / 210</span></div>
+                <div class="option-item" onclick="orderItem('بيتزا سوبر فراجني', '120 / 150 / 190 ج')">بيتزا سوبر فراجني <span>120 / 150 / 190</span></div>
+                <div class="option-item" onclick="orderItem('بيتزا استريس حار', '130 / 170 / 200 ج')">بيتزا استريس حار <span>130 / 170 / 200</span></div>
+                <div class="option-item" onclick="orderItem('بيتزا شاورما لحمة', '130 / 170 / 200 ج')">بيتزا شاورما لحمة <span>130 / 170 / 200</span></div>
+                <div class="option-item" onclick="orderItem('بيتزا مارجريتا', '105 / 130 / 165 ج')">بيتزا مارجريتا <span>105 / 130 / 165</span></div>
+                <div class="option-item" onclick="orderItem('بيتزا مكس جبن', '130 / 170 / 200 ج')">بيتزا مكس جبن <span>130 / 170 / 200</span></div>
+                <div class="option-item" onclick="orderItem('بيتزا سي فود', '165 / 215 / 270 ج')">بيتزا سي فود <span>165 / 215 / 270</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. نافذة السندوتشات والوجبات -->
+    <div class="modal" id="sandwichesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>سندوتشات وجبات (صغير / وسط / كبير أو حسب السعر)</h3>
+                <button class="close-btn" onclick="closeModal('sandwichesModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="orderItem('شاورما فراخ', '70 / 80 / 100 ج')">شاورما فراخ <span>70 / 80 / 100</span></div>
+                <div class="option-item" onclick="orderItem('شاورما لحمة', '90 / 100 / 120 ج')">شاورما لحمة <span>90 / 100 / 120</span></div>
+                <div class="option-item" onclick="orderItem('استريس', '60 / 80 / 80 ج')">استريس <span>60 / 80 / 80</span></div>
+                <div class="option-item" onclick="orderItem('كوردون بلو', '60 / 80 / 80 ج')">كوردون بلو <span>60 / 80 / 80</span></div>
+                <div class="option-item" onclick="orderItem('كفته', '60 / 80 / 60 ج')">كفته <span>60 / 80 / 60</span></div>
+                <div class="option-item" onclick="orderItem('برجر كومبو', '90 ج')">برجر كومبو <span>90 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('وجبة عربي', '120 / 160 ج')">وجبة عربي <span>120 / 160 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('وجبة عربي إكسترا', '220 ج')">وجبة عربي إكسترا <span>220 جنيه</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. نافذة وجبات البروست -->
+    <div class="modal" id="broastModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>وجبات البروست</h3>
+                <button class="close-btn" onclick="closeModal('broastModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="orderItem('وجبة فرد', '120 ج')">وجبة فرد <span>120 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('وجبة فرد سوبر', '160 ج')">وجبة فرد سوبر <span>160 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('وجبة سوبر', '210 ج')">وجبة سوبر <span>210 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('وجبة كومبو', '250 ج')">وجبة كومبو <span>250 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('وجبة جامبو', '300 ج')">وجبة جامبو <span>300 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('سوبر فاميلي', '420 ج')">سوبر فاميلي <span>420 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('وجبة فاميلي', '550 ج')">وجبة فاميلي <span>550 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('ليالي فاميلي', '650 ج')">ليالي فاميلي <span>650 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('بيج فاميلي', '850 ج')">بيج فاميلي <span>850 جنيه</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. نافذة كريب فراخ -->
+    <div class="modal" id="crepeChickenModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>كريب فراخ</h3>
+                <button class="close-btn" onclick="closeModal('crepeChickenModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="orderItem('كريب بانيه', '80 ج')">كريب بانيه <span>80 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب كرنشي حار', '80 ج')">كريب كرنشي حار <span>80 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب استريس', '100 ج')">كريب استريس <span>100 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب شاورما فراخ', '100 ج')">كريب شاورما فراخ <span>100 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب كوردون بلو', '105 ج')">كريب كوردون بلو <span>105 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب شيش طاووق', '110 ج')">كريب شيش طاووق <span>110 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب فرايدي', '105 ج')">كريب فرايدي <span>105 جنيه</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. نافذة كريبات ميكسات -->
+    <div class="modal" id="crepeMixModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>كريبات ميكسات</h3>
+                <button class="close-btn" onclick="closeModal('crepeMixModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="orderItem('كريب مكس فراخ', '100 ج')">كريب مكس فراخ <span>100 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب مكس لحم', '100 ج')">كريب مكس لحم <span>100 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب سبيشيال', '130 ج')">كريب سبيشيال <span>130 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب كريستي بو', '90 ج')">كريب كريستي بو <span>90 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب ستار سوبريم', '95 ج')">كريب ستار سوبريم <span>95 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب تشيليو', '100 ج')">كريب تشيليو <span>100 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب البيك', '130 ج')">كريب البيك <span>130 جنيه</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. نافذة كريب اللحوم -->
+    <div class="modal" id="crepeMeatModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>كريب اللحوم</h3>
+                <button class="close-btn" onclick="closeModal('crepeMeatModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="orderItem('كريب لحم مفروم', '90 ج')">كريب لحم مفروم <span>90 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب سجق', '90 ج')">كريب سجق <span>90 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب سوسيس', '90 ج')">كريب سوسيس <span>90 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب برجر', '90 ج')">كريب برجر <span>90 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب إيطاليانو', '100 ج')">كريب إيطاليانو <span>100 جنيه</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. نافذة كريب جبن -->
+    <div class="modal" id="crepeCheeseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>كريب جبن</h3>
+                <button class="close-btn" onclick="closeModal('crepeCheeseModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="orderItem('كريب جبن', '65 ج')">كريب جبن <span>65 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب رومي', '70 ج')">كريب رومي <span>70 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب بطاطس', '65 ج')">كريب بطاطس <span>65 جنيه</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. نافذة وجبات استريس -->
+    <div class="modal" id="stripesMealsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>وجبات استريس</h3>
+                <button class="close-btn" onclick="closeModal('stripesMealsModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="orderItem('3 قطع استريس', '120 ج')">3 قطع استريس <span>120 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('6 قطع استريس', '230 ج')">6 قطع استريس <span>230 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('8 قطع استريس', '300 ج')">8 قطع استريس <span>300 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('10 قطع استريس', '370 ج')">10 قطع استريس <span>370 جنيه</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. نافذة السي فود -->
+    <div class="modal" id="seafoodModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>كريبات السي فود</h3>
+                <button class="close-btn" onclick="closeModal('seafoodModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="orderItem('كريب جمبري', '140 ج')">كريب جمبري <span>140 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب سي فود', '145 ج')">كريب سي فود <span>145 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('كريب سبيشيال فريفا', '150 ج')">كريب سبيشيال فريفا <span>150 جنيه</span></div>
             </div>
         </div>
     </div>
@@ -449,39 +593,30 @@
         function selectRestaurant(restaurantName) {
             restaurantsModal.style.display = 'none';
             if (restaurantName === 'البيك حسن') {
-                baikMenuModal.style.display = 'flex';
+                document.getElementById('baikMenuModal').style.display = 'flex';
             } else {
                 alert(`لقد اخترت مطعم: ${restaurantName} 🍽️\nجاري فتح المنيو...`);
             }
         }
 
-        // نافذة منيو البيك
         const baikMenuModal = document.getElementById('baikMenuModal');
         const closeBaikModalBtn = document.getElementById('closeBaikModalBtn');
-        const shawarmaModal = document.getElementById('shawarmaModal');
-        const closeShawarmaModalBtn = document.getElementById('closeShawarmaModalBtn');
+        closeBaikModalBtn.addEventListener('click', () => { baikMenuModal.style.display = 'none'; });
 
-        closeBaikModalBtn.addEventListener('click', () => {
+        function openMenuSection(sectionId) {
             baikMenuModal.style.display = 'none';
-        });
+            document.getElementById(sectionId).style.display = 'flex';
+        }
 
-        closeShawarmaModalBtn.addEventListener('click', () => {
-            shawarmaModal.style.display = 'none';
-        });
-
-        function selectBaikCategory(categoryName) {
-            baikMenuModal.style.display = 'none';
-            if (categoryName === 'شاورما') {
-                // فتح نافذة الشاورما بالأسعار والأحجام المطلوبة
-                shawarmaModal.style.display = 'flex';
-            } else {
-                alert(`جاري عرض أصناف قسم (${categoryName}) من مطعم البيك حسن...`);
-            }
+        function closeModal(sectionId) {
+            document.getElementById(sectionId).style.display = 'none';
         }
 
         function orderItem(itemName, price) {
-            alert(`تم إضافة طلبك بنجاح! 🛒\n\nالطلب: ${itemName}\nالسعر: ${price} جنيه\n\nجاري إتمام الطلب وتوصيله ع السريع في صان الحجر ⚡`);
-            shawarmaModal.style.display = 'none';
+            alert(`تم إضافة طلبك بنجاح! 🛒\n\nالطلب: ${itemName}\nالسعر: ${price}\n\nجاري إتمام الطلب وتوصيله ع السريع في صان الحجر ⚡`);
+            // إغلاق كافة النوافذ المفتوحة
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(m => m.style.display = 'none');
         }
 
         // نافذة البقالة
@@ -504,17 +639,8 @@
 
         // إغلاق أي نافذة عند النقر خارجها
         window.addEventListener('click', (e) => {
-            if (e.target === restaurantsModal) {
-                restaurantsModal.style.display = 'none';
-            }
-            if (e.target === baikMenuModal) {
-                baikMenuModal.style.display = 'none';
-            }
-            if (e.target === shawarmaModal) {
-                shawarmaModal.style.display = 'none';
-            }
-            if (e.target === groceryModal) {
-                groceryModal.style.display = 'none';
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
             }
         });
     </script>
