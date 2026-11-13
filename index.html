@@ -191,7 +191,7 @@
             background-color: #2c2c2c;
         }
 
-        /* نافذة المطاعم المتاحة (Modal) */
+        /* نافذة منبثقة عامة (Modals) */
         .modal {
             display: none;
             position: fixed;
@@ -235,12 +235,14 @@
             font-size: 20px;
             cursor: pointer;
         }
-        .restaurants-list {
+        
+        /* القوائم الداخلية داخل الـ Modals */
+        .options-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        .restaurant-item {
+        .option-item {
             background-color: #2c2c2c;
             padding: 12px 15px;
             border-radius: 8px;
@@ -253,11 +255,11 @@
             justify-content: space-between;
             align-items: center;
         }
-        .restaurant-item:hover {
+        .option-item:hover {
             background-color: #383838;
             transform: translateX(-3px);
         }
-        .restaurant-item span {
+        .option-item span {
             color: #ffcc00;
             font-size: 12px;
             font-weight: normal;
@@ -298,7 +300,7 @@
                 </div>
             </div>
 
-            <!-- بطاقة 2: اطلب البقالة (محدثة بصورة سوبر ماركت) -->
+            <!-- بطاقة 2: اطلب البقالة -->
             <div class="card">
                 <div class="card-img-container">
                     <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80" alt="اطلب البقالة">
@@ -306,7 +308,7 @@
                 </div>
                 <div class="card-content">
                     <div class="card-desc">لا تضيع وقتك في الانتظار. نصلك بكل ما تحتاجه من أفضل متاجر البقالة.</div>
-                    <button class="card-btn" onclick="alert('جاري الانتقال لقسم البقالة...')">Shop now</button>
+                    <button class="card-btn" id="openGroceryBtn">Shop now</button>
                 </div>
             </div>
 
@@ -330,20 +332,38 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>اختر المطعم المفضل لديك</h3>
-                <button class="close-btn" id="closeModalBtn">&times;</button>
+                <button class="close-btn" id="closeRestaurantsModalBtn">&times;</button>
             </div>
-            <div class="restaurants-list">
-                <div class="restaurant-item" onclick="selectRestaurant('البيك حسن')">
+            <div class="options-list">
+                <div class="option-item" onclick="selectRestaurant('البيك حسن')">
                     البيك حسن <span>متاح للطلب ⚡</span>
                 </div>
-                <div class="restaurant-item" onclick="selectRestaurant('الزعيم')">
+                <div class="option-item" onclick="selectRestaurant('الزعيم')">
                     الزعيم <span>متاح للطلب ⚡</span>
                 </div>
-                <div class="restaurant-item" onclick="selectRestaurant('الريان')">
+                <div class="option-item" onclick="selectRestaurant('الريان')">
                     الريان <span>متاح للطلب ⚡</span>
                 </div>
-                <div class="restaurant-item" onclick="selectRestaurant('كبده وصدقتها')">
+                <div class="option-item" onclick="selectRestaurant('كبده وصدقتها')">
                     كبده وصدقتها <span>متاح للطلب ⚡</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة خيارات البقالة المتاحة (Modal) -->
+    <div class="modal" id="groceryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>اختر قسم البقالة</h3>
+                <button class="close-btn" id="closeGroceryModalBtn">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="selectGroceryOption('خضار وفواكه')">
+                    خضار وفواكه <span>طازج يومياً 🥬</span>
+                </div>
+                <div class="option-item" onclick="selectGroceryOption('سوبر ماركت')">
+                    سوبر ماركت <span>جميع المنتجات 🛒</span>
                 </div>
             </div>
         </div>
@@ -372,28 +392,50 @@
         });
 
         // نافذة المطاعم
-        const modal = document.getElementById('restaurantsModal');
-        const openBtn = document.getElementById('openRestaurantsBtn');
-        const closeBtn = document.getElementById('closeModalBtn');
+        const restaurantsModal = document.getElementById('restaurantsModal');
+        const openRestaurantsBtn = document.getElementById('openRestaurantsBtn');
+        const closeRestaurantsModalBtn = document.getElementById('closeRestaurantsModalBtn');
 
-        openBtn.addEventListener('click', () => {
-            modal.style.display = 'flex';
+        openRestaurantsBtn.addEventListener('click', () => {
+            restaurantsModal.style.display = 'flex';
         });
 
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
+        closeRestaurantsModalBtn.addEventListener('click', () => {
+            restaurantsModal.style.display = 'none';
         });
 
         function selectRestaurant(restaurantName) {
             alert(`لقد اخترت مطعم: ${restaurantName} 🍽️\nجاري فتح منيو الأكل للطلب...`);
-            modal.style.display = 'none';
+            restaurantsModal.style.display = 'none';
         }
+
+        // نافذة البقالة الجديدة
+        const groceryModal = document.getElementById('groceryModal');
+        const openGroceryBtn = document.getElementById('openGroceryBtn');
+        const closeGroceryModalBtn = document.getElementById('closeGroceryModalBtn');
+
+        openGroceryBtn.addEventListener('click', () => {
+            groceryModal.style.display = 'flex';
+        });
+
+        closeGroceryModalBtn.addEventListener('click', () => {
+            groceryModal.style.display = 'none';
+        });
+
+        function selectGroceryOption(optionName) {
+            alert(`جاري الانتقال إلى قسم: ${optionName} في صان الحجر ⚡`);
+            groceryModal.style.display = 'none';
+        }
+
+        // إغلاق أي نافذة عند النقر خارجها
+        window.addEventListener('click', (e) => {
+            if (e.target === restaurantsModal) {
+                restaurantsModal.style.display = 'none';
+            }
+            if (e.target === groceryModal) {
+                groceryModal.style.display = 'none';
+            }
+        });
     </script>
 
 </body>
