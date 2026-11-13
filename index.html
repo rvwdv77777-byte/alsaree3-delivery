@@ -261,8 +261,8 @@
         }
         .option-item span {
             color: #ffcc00;
-            font-size: 12px;
-            font-weight: normal;
+            font-size: 13px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -351,7 +351,7 @@
         </div>
     </div>
 
-    <!-- نافذة منيو مطعم البيك حسن الجديدة -->
+    <!-- نافذة منيو مطعم البيك حسن -->
     <div class="modal" id="baikMenuModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -370,6 +370,24 @@
                 </div>
                 <div class="option-item" onclick="selectBaikCategory('كريب')">
                     كريب 🌯 <span>حلو وحادق</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة أصناف الشاورما الخاصة بالبيك حسن -->
+    <div class="modal" id="shawarmaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>قسم الشاورما - البيك حسن</h3>
+                <button class="close-btn" id="closeShawarmaModalBtn">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="orderItem('شاورما سوري فراخ (حجم كبير)', 100)">
+                    شاورما سوري فراخ (كبير) <span>100 جنيه</span>
+                </div>
+                <div class="option-item" onclick="orderItem('شاورما سوري فراخ (حجم صغير)', 70)">
+                    شاورما سوري فراخ (صغير) <span>70 جنيه</span>
                 </div>
             </div>
         </div>
@@ -428,27 +446,42 @@
             restaurantsModal.style.display = 'none';
         });
 
-        // نافذة منيو البيك
-        const baikMenuModal = document.getElementById('baikMenuModal');
-        const closeBaikModalBtn = document.getElementById('closeBaikModalBtn');
-
-        closeBaikModalBtn.addEventListener('click', () => {
-            baikMenuModal.style.display = 'none';
-        });
-
         function selectRestaurant(restaurantName) {
             restaurantsModal.style.display = 'none';
             if (restaurantName === 'البيك حسن') {
-                // فتح منيو البيك مباشرة
                 baikMenuModal.style.display = 'flex';
             } else {
                 alert(`لقد اخترت مطعم: ${restaurantName} 🍽️\nجاري فتح المنيو...`);
             }
         }
 
-        function selectBaikCategory(categoryName) {
-            alert(`لقد اخترت قسم: ${categoryName} 😋 من مطعم البيك حسن\nجاري عرض الأصناف للطلب...`);
+        // نافذة منيو البيك
+        const baikMenuModal = document.getElementById('baikMenuModal');
+        const closeBaikModalBtn = document.getElementById('closeBaikModalBtn');
+        const shawarmaModal = document.getElementById('shawarmaModal');
+        const closeShawarmaModalBtn = document.getElementById('closeShawarmaModalBtn');
+
+        closeBaikModalBtn.addEventListener('click', () => {
             baikMenuModal.style.display = 'none';
+        });
+
+        closeShawarmaModalBtn.addEventListener('click', () => {
+            shawarmaModal.style.display = 'none';
+        });
+
+        function selectBaikCategory(categoryName) {
+            baikMenuModal.style.display = 'none';
+            if (categoryName === 'شاورما') {
+                // فتح نافذة الشاورما بالأسعار والأحجام المطلوبة
+                shawarmaModal.style.display = 'flex';
+            } else {
+                alert(`جاري عرض أصناف قسم (${categoryName}) من مطعم البيك حسن...`);
+            }
+        }
+
+        function orderItem(itemName, price) {
+            alert(`تم إضافة طلبك بنجاح! 🛒\n\nالطلب: ${itemName}\nالسعر: ${price} جنيه\n\nجاري إتمام الطلب وتوصيله ع السريع في صان الحجر ⚡`);
+            shawarmaModal.style.display = 'none';
         }
 
         // نافذة البقالة
@@ -476,6 +509,9 @@
             }
             if (e.target === baikMenuModal) {
                 baikMenuModal.style.display = 'none';
+            }
+            if (e.target === shawarmaModal) {
+                shawarmaModal.style.display = 'none';
             }
             if (e.target === groceryModal) {
                 groceryModal.style.display = 'none';
