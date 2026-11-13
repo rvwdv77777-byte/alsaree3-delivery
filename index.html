@@ -17,7 +17,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
             padding: 20px;
         }
@@ -36,27 +35,23 @@
             background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
             border: 3px solid #ffcc00;
             border-radius: 50%;
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 20px auto;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 30px rgba(255, 204, 0, 0.35);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
             transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
         .logo-box:hover {
             transform: scale(1.03);
         }
-        /* أيقونة البرق */
         .lightning-icon {
-            font-size: 32px;
+            font-size: 28px;
             color: #ffcc00;
             margin-bottom: 2px;
-            filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.6));
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
@@ -66,42 +61,37 @@
         }
         .logo-title {
             color: #ffcc00;
-            font-size: 26px;
+            font-size: 22px;
             font-weight: bold;
-            letter-spacing: -1px;
         }
         .logo-sub {
             color: #e0e0e0;
-            font-size: 10px;
-            margin-top: 3px;
-            padding: 0 10px;
+            font-size: 9px;
+            margin-top: 2px;
+            padding: 0 5px;
         }
-        /* العنوان التوضيحي تحت اللوجو */
         .tagline {
             color: #ffcc00;
-            font-size: 17px;
-            margin-bottom: 30px;
+            font-size: 15px;
+            margin-bottom: 20px;
             font-weight: 600;
         }
-        /* شريط البحث عن المنتجات */
+        /* شريط البحث */
         .search-box {
             background-color: #ffffff;
             border-radius: 35px;
             display: flex;
             align-items: center;
-            padding: 8px 10px 8px 15px;
+            padding: 6px 8px 6px 12px;
             width: 100%;
             box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            transition: box-shadow 0.3s ease;
-        }
-        .search-box:focus-within {
-            box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.4);
+            margin-bottom: 25px;
         }
         .search-box input {
             border: none;
             outline: none;
             width: 100%;
-            font-size: 14px;
+            font-size: 13px;
             text-align: right;
             padding: 5px;
             color: #333;
@@ -114,21 +104,90 @@
             background-color: #ffcc00;
             border: none;
             border-radius: 50%;
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             color: #121212;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
             flex-shrink: 0;
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            transition: background-color 0.2s ease;
         }
         .search-btn:hover {
             background-color: #e6b800;
-            transform: scale(1.05);
+        }
+
+        /* تصميم البطاقات الجديدة تحت اللوجو */
+        .cards-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: #1e1e1e;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            text-align: right;
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+        }
+        .card-img-container {
+            position: relative;
+            height: 160px;
+            width: 100%;
+            background-color: #2a2a2a;
+        }
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+        }
+        .card-title-overlay {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        .card-content {
+            background-color: #ff6600; /* لون برتقالي مشابه للصور المرفقة */
+            padding: 15px;
+            color: #fff;
+        }
+        .card-desc {
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .card-btn {
+            background-color: #121212;
+            color: #fff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .card-btn:hover {
+            background-color: #333;
         }
     </style>
 </head>
@@ -150,10 +209,50 @@
             <button class="search-btn" id="searchBtn" title="بحث">←</button>
             <input type="text" id="productInput" placeholder="ابحث عن أكلة، منتج، أو طلب معين...">
         </div>
+
+        <!-- قسم البطاقات (اطلب الطعام، اطلب البقالة، اطلب الدواء) -->
+        <div class="cards-section">
+            
+            <!-- بطاقة 1: اطلب الطعام -->
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" alt="اطلب الطعام">
+                    <div class="card-title-overlay">اطلب الطعام</div>
+                </div>
+                <div class="card-content">
+                    <div class="card-desc">توصيل سريع وأفضل العروض الحصرية لدى شراكتنا من المطاعم في صان الحجر.</div>
+                    <button class="card-btn" onclick="alert('جاري الانتقال لقائمة المطاعم...')">Order now</button>
+                </div>
+            </div>
+
+            <!-- بطاقة 2: اطلب البقالة -->
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" alt="اطلب البقالة">
+                    <div class="card-title-overlay">اطلب البقالة</div>
+                </div>
+                <div class="card-content">
+                    <div class="card-desc">لا تضيع وقتك في الانتظار. نصلك بكل ما تحتاجه من أفضل متاجر البقالة.</div>
+                    <button class="card-btn" onclick="alert('جاري الانتقال لقسم البقالة...')">Shop now</button>
+                </div>
+            </div>
+
+            <!-- بطاقة 3: اطلب الدواء -->
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="اطلب الدواء">
+                    <div class="card-title-overlay">اطلب الدواء</div>
+                </div>
+                <div class="card-content">
+                    <div class="card-desc">تشعر بالتعب؟ كل الأدوية التي تحتاجها تصلك بسرعة وبدون عناء إلى منزلك.</div>
+                    <button class="card-btn" onclick="alert('جاري الانتقال لصيدليات صان الحجر...')">Shop now</button>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <script>
-        // تفاعل زر البحث وإدخال اسم المنتجات
         const searchBtn = document.getElementById('searchBtn');
         const productInput = document.getElementById('productInput');
 
@@ -168,7 +267,6 @@
         }
 
         searchBtn.addEventListener('click', handleSearch);
-        
         productInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 handleSearch();
