@@ -19,7 +19,7 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            padding-bottom: 90px;
+            padding-bottom: 90px; /* مساحة للسلة العائمة */
         }
         .container {
             width: 100%;
@@ -31,6 +31,7 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* تصميم اللوجو مع تأثير البرق */
         .logo-box {
             background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
             border: 3px solid #ffcc00;
@@ -76,6 +77,7 @@
             margin-bottom: 20px;
             font-weight: 600;
         }
+        /* شريط البحث */
         .search-box {
             background-color: #ffffff;
             border-radius: 35px;
@@ -118,6 +120,8 @@
         .search-btn:hover {
             background-color: #e6b800;
         }
+
+        /* تصميم البطاقات */
         .cards-section {
             display: flex;
             flex-direction: column;
@@ -187,6 +191,8 @@
         .card-btn:hover {
             background-color: #2c2c2c;
         }
+
+        /* شريط سلة المشتريات العائم */
         .floating-cart {
             position: fixed;
             bottom: 15px;
@@ -227,6 +233,8 @@
             justify-content: center;
             font-size: 12px;
         }
+
+        /* نافذة منبثقة عامة (Modals) */
         .modal {
             display: none;
             position: fixed;
@@ -235,20 +243,20 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.85);
+            background-color: rgba(0,0,0,0.8);
             align-items: center;
             justify-content: center;
-            padding: 10px;
+            padding: 20px;
         }
         .modal-content {
             background-color: #1e1e1e;
             border: 2px solid #ffcc00;
             border-radius: 16px;
             width: 100%;
-            max-width: 420px;
-            max-height: 90vh;
+            max-width: 360px;
+            max-height: 85vh;
             overflow-y: auto;
-            padding: 15px;
+            padding: 20px;
             text-align: right;
             box-shadow: 0 5px 25px rgba(255, 204, 0, 0.3);
             animation: fadeIn 0.3s ease;
@@ -269,9 +277,11 @@
             background: none;
             border: none;
             color: #fff;
-            font-size: 22px;
+            font-size: 20px;
             cursor: pointer;
         }
+       
+        /* القوائم الداخلية */
         .options-list {
             display: flex;
             flex-direction: column;
@@ -301,97 +311,8 @@
             font-weight: bold;
             text-align: left;
         }
-        
-        /* تصميم كروت المطاعم والأصناف بشكل شبيه بـ Talabat (صفحة كاملة بالصور) */
-        .page-header-title {
-            font-size: 18px;
-            color: #ffcc00;
-            margin-bottom: 15px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .restaurant-card-item {
-            background-color: #262626;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 12px;
-            border: 1px solid #383838;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .restaurant-card-item:hover {
-            transform: scale(1.02);
-        }
-        .rest-card-img {
-            height: 130px;
-            width: 100%;
-            object-fit: cover;
-        }
-        .rest-card-info {
-            padding: 10px 12px;
-        }
-        .rest-card-name {
-            font-size: 15px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 4px;
-        }
-        .rest-card-desc {
-            font-size: 12px;
-            color: #aaa;
-        }
 
-        /* كروت الأكل بالأكل (صورة وأسفلها الاسم والسعر) زي طلبات */
-        .food-item-card {
-            background-color: #262626;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 15px;
-            border: 1px solid #383838;
-            display: flex;
-            flex-direction: column;
-        }
-        .food-item-img {
-            height: 140px;
-            width: 100%;
-            object-fit: cover;
-        }
-        .food-item-details {
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .food-item-title {
-            font-size: 15px;
-            font-weight: bold;
-            color: #fff;
-        }
-        .food-item-price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .food-price {
-            color: #ffcc00;
-            font-size: 13px;
-            font-weight: bold;
-        }
-        .add-to-cart-small-btn {
-            background-color: #ffcc00;
-            color: #121212;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 12px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .add-to-cart-small-btn:hover {
-            background-color: #e6b800;
-        }
-
+        /* عناصر سلة المشتريات داخل النافذة */
         .cart-items-container {
             display: flex;
             flex-direction: column;
@@ -460,14 +381,18 @@
             <div class="logo-sub">توصيل كافة الطلبات في صان الحجر</div>
         </div>
 
+        <!-- النص التوضيحي -->
         <div class="tagline">اطلب أكل، منتجات، وكل ما تحتاجه في صان الحجر</div>
 
+        <!-- شريط البحث عن المنتجات -->
         <div class="search-box">
             <button class="search-btn" id="searchBtn" title="بحث">←</button>
             <input type="text" id="productInput" placeholder="ابحث عن أكلة، منتج، أو طلب معين...">
         </div>
 
+        <!-- قسم البطاقات -->
         <div class="cards-section">
+           
             <!-- بطاقة 1: اطلب الطعام -->
             <div class="card">
                 <div class="card-img-container">
@@ -515,6 +440,7 @@
                     <button class="card-btn" id="medicineBtn">Shop now</button>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -545,136 +471,56 @@
         </div>
     </div>
 
-    <!-- 1. صفحة جميع المطاعم (شبيهة بطلبات) -->
+    <!-- نافذة المطاعم المتاحة -->
     <div class="modal" id="restaurantsModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>جميع المطاعم 🍔</h3>
+                <h3>اختر المطعم المفضل لديك</h3>
                 <button class="close-btn" id="closeRestaurantsModalBtn">&times;</button>
             </div>
-            <div class="page-header-title">اختر المطعم المفضل لديك في صان الحجر</div>
-            
-            <div class="restaurant-card-item" onclick="selectRestaurant('البيك حسن')">
-                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80" class="rest-card-img" alt="البيك حسن">
-                <div class="rest-card-info">
-                    <div class="rest-card-name">مطعم البيك حسن ⚡</div>
-                    <div class="rest-card-desc">بيتزا، كريب، بروست، سندوتشات وجريل</div>
+            <div class="options-list">
+                <div class="option-item" onclick="selectRestaurant('البيك حسن')">
+                    مطعم البيك حسن <span>متاح للطلب ⚡</span>
                 </div>
-            </div>
-
-            <div class="restaurant-card-item" onclick="selectRestaurant('الزعيم')">
-                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" class="rest-card-img" alt="الزعيم">
-                <div class="rest-card-info">
-                    <div class="rest-card-name">مطعم الزعيم ⚡</div>
-                    <div class="rest-card-desc">مشويات، أكل مصري، وجبات سريعة</div>
+                <div class="option-item" onclick="selectRestaurant('الزعيم')">
+                    الزعيم <span>متاح للطلب ⚡</span>
                 </div>
-            </div>
-
-            <div class="restaurant-card-item" onclick="selectRestaurant('الريان')">
-                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80" class="rest-card-img" alt="الريان">
-                <div class="rest-card-info">
-                    <div class="rest-card-name">مطعم الريان ⚡</div>
-                    <div class="rest-card-desc">أشهى الأكلات والمأكولات السريعة</div>
+                <div class="option-item" onclick="selectRestaurant('الريان')">
+                    الريان <span>متاح للطلب ⚡</span>
                 </div>
-            </div>
-
-            <div class="restaurant-card-item" onclick="selectRestaurant('كبده وصدقتها')">
-                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" class="rest-card-img" alt="كبده وصدقتها">
-                <div class="rest-card-info">
-                    <div class="rest-card-name">كبده وصدقتها ⚡</div>
-                    <div class="rest-card-desc">كبدة بلدي، سجق، سندوتشات مميزة</div>
+                <div class="option-item" onclick="selectRestaurant('كبده وصدقتها')">
+                    كبده وصدقتها <span>متاح للطلب ⚡</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 2. صفحة منيو مطعم البيك حسن (بالصور والأصناف زي طلبات) -->
+    <!-- نافذة منيو مطعم البيك حسن -->
     <div class="modal" id="baikMenuModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>منيو مطعم البيك حسن 🍗</h3>
+                <h3>منيو مطعم البيك حسن</h3>
                 <button class="close-btn" id="closeBaikModalBtn">&times;</button>
             </div>
-            
-            <div class="food-item-card">
-                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" class="food-item-img" alt="بيتزا شاورما فراخ">
-                <div class="food-item-details">
-                    <div class="food-item-title">بيتزا شاورما فراخ</div>
-                    <div class="food-item-price-row">
-                        <span class="food-price">من 135 جنيه</span>
-                        <button class="add-to-cart-small-btn" onclick="openMenuSection('pizzaModal')">اختر الحجم 🍕</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item-card">
-                <img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=600&q=80" class="food-item-img" alt="سندوتشات وجبات وجريل">
-                <div class="food-item-details">
-                    <div class="food-item-title">سندوتشات وجبات وجريل</div>
-                    <div class="food-item-price-row">
-                        <span class="food-price">تبدأ من 70 جنيه</span>
-                        <button class="add-to-cart-small-btn" onclick="openMenuSection('sandwichesModal')">عرض الأصناف 🌯</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item-card">
-                <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=600&q=80" class="food-item-img" alt="وجبات البروست">
-                <div class="food-item-details">
-                    <div class="food-item-title">وجبات البروست المقرمشة</div>
-                    <div class="food-item-price-row">
-                        <span class="food-price">تبدأ من 120 جنيه</span>
-                        <button class="add-to-cart-small-btn" onclick="openMenuSection('broastModal')">عرض الوجبات 🍗</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item-card">
-                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80" class="food-item-img" alt="كريبات متنوعة">
-                <div class="food-item-details">
-                    <div class="food-item-title">قسم الكريبات (فراخ، لحوم، جبن، سي فود)</div>
-                    <div class="food-item-price-row">
-                        <span class="food-price">تبدأ من 65 جنيه</span>
-                        <button class="add-to-cart-small-btn" onclick="openCrepesCategories()">عرض الكريب 🌯</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item-card">
-                <img src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=600&q=80" class="food-item-img" alt="وجبات استريس">
-                <div class="food-item-details">
-                    <div class="food-item-title">وجبات استريس</div>
-                    <div class="food-item-price-row">
-                        <span class="food-price">تبدأ من 120 جنيه</span>
-                        <button class="add-to-cart-small-btn" onclick="openMenuSection('stripesMealsModal')">عرض الأصناف 🍗</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة فرعية لاختيار أنواع الكريب المختلفة -->
-    <div class="modal" id="crepesCategoriesModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>أقسام الكريب 🌯</h3>
-                <button class="close-btn" onclick="closeModal('crepesCategoriesModal')">&times;</button>
-            </div>
             <div class="options-list">
-                <div class="option-item" onclick="openMenuSection('crepeChickenModal')">كريب فراخ (بانيه، استريس، شاورما) <span>عرض</span></div>
-                <div class="option-item" onclick="openMenuSection('crepeMixModal')">كريبات ميكسات <span>عرض</span></div>
-                <div class="option-item" onclick="openMenuSection('crepeMeatModal')">كريب اللحوم (سجق، برجر، مفروم) <span>عرض</span></div>
-                <div class="option-item" onclick="openMenuSection('crepeCheeseModal')">كريب جبن وبطاطس <span>عرض</span></div>
-                <div class="option-item" onclick="openMenuSection('seafoodModal')">كريبات السي فود والجمبري <span>عرض</span></div>
+                <div class="option-item" onclick="openMenuSection('pizzaModal')">بيتزا فراخ وأقسام البيتزا 🍕 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('sandwichesModal')">سندوتشات وجبات وجريل 🌯 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('broastModal')">وجبات البروست 🍗 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('crepeChickenModal')">كريب فراخ 🌯 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('crepeMixModal')">كريبات ميكسات 🌯 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('crepeMeatModal')">كريب اللحوم 🥩 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('crepeCheeseModal')">كريب جبن 🧀 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('stripesMealsModal')">وجبات استريس 🍗 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('seafoodModal')">كريبات السي فود 🍤 <span>عرض الأصناف</span></div>
             </div>
         </div>
     </div>
 
-    <!-- نافذة البيتزا -->
+    <!-- 1. نافذة البيتزا -->
     <div class="modal" id="pizzaModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>بيتزا (صغير / وسط / كبير) 🍕</h3>
+                <h3>بيتزا (صغير / وسط / كبير)</h3>
                 <button class="close-btn" onclick="closeModal('pizzaModal')">&times;</button>
             </div>
             <div class="options-list">
@@ -689,11 +535,11 @@
         </div>
     </div>
 
-    <!-- نافذة السندوتشات والوجبات -->
+    <!-- 2. نافذة السندوتشات والوجبات -->
     <div class="modal" id="sandwichesModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>سندوتشات وجبات 🌯</h3>
+                <h3>سندوتشات وجبات</h3>
                 <button class="close-btn" onclick="closeModal('sandwichesModal')">&times;</button>
             </div>
             <div class="options-list">
@@ -709,11 +555,11 @@
         </div>
     </div>
 
-    <!-- نافذة وجبات البروست -->
+    <!-- 3. نافذة وجبات البروست -->
     <div class="modal" id="broastModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>وجبات البروست 🍗</h3>
+                <h3>وجبات البروست</h3>
                 <button class="close-btn" onclick="closeModal('broastModal')">&times;</button>
             </div>
             <div class="options-list">
@@ -730,7 +576,7 @@
         </div>
     </div>
 
-    <!-- نافذة كريب فراخ -->
+    <!-- 4. نافذة كريب فراخ -->
     <div class="modal" id="crepeChickenModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -749,7 +595,7 @@
         </div>
     </div>
 
-    <!-- نافذة كريبات ميكسات -->
+    <!-- 5. نافذة كريبات ميكسات -->
     <div class="modal" id="crepeMixModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -768,7 +614,7 @@
         </div>
     </div>
 
-    <!-- نافذة كريب اللحوم -->
+    <!-- 6. نافذة كريب اللحوم -->
     <div class="modal" id="crepeMeatModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -785,7 +631,7 @@
         </div>
     </div>
 
-    <!-- نافذة كريب جبن -->
+    <!-- 7. نافذة كريب جبن -->
     <div class="modal" id="crepeCheeseModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -800,7 +646,7 @@
         </div>
     </div>
 
-    <!-- نافذة وجبات استريس -->
+    <!-- 8. نافذة وجبات استريس -->
     <div class="modal" id="stripesMealsModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -816,7 +662,7 @@
         </div>
     </div>
 
-    <!-- نافذة السي فود -->
+    <!-- 9. نافذة السي فود -->
     <div class="modal" id="seafoodModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -835,7 +681,7 @@
     <div class="modal" id="supermarketModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>سوبر ماركت - المنتجات المتاحة 🛒</h3>
+                <h3>سوبر ماركت - المنتجات المتاحة</h3>
                 <button class="close-btn" id="closeSupermarketModalBtn">&times;</button>
             </div>
             <div class="options-list">
@@ -853,7 +699,7 @@
     <div class="modal" id="vegetablesModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>خضار وفواكه طازجة 🍎</h3>
+                <h3>خضار وفواكه طازجة</h3>
                 <button class="close-btn" id="closeVegetablesModalBtn">&times;</button>
             </div>
             <div class="options-list">
@@ -868,24 +714,32 @@
     </div>
 
     <script>
+        // رقم الواتساب الرسمي لخدمة ع السريع في صان الحجر ⚡
         const deliveryWhatsAppNumber = "201001598125";
+        
+        // مصفوفة سلة المشتريات
         let cart = [];
 
+        // إضافة منتج للسلة
         function addItemToCart(name, price) {
             cart.push({ name: name, price: price });
             updateCartUI();
             
+            // إغلاق كافة النوافذ المفتوحة
             const modals = document.querySelectorAll('.modal');
             modals.forEach(m => m.style.display = 'none');
 
+            // إشعار سريع ومؤقت
             alert(`تم إضافة "${name}" إلى سلة المشتريات 🛒`);
         }
 
+        // حذف منتج من السلة
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCartUI();
         }
 
+        // تحديث واجهة السلة (العدد، الإجمالي، محتويات النافذة)
         function updateCartUI() {
             const cartCount = document.getElementById('cartCount');
             const cartTotalSummary = document.getElementById('cartTotalSummary');
@@ -914,6 +768,7 @@
             }
         }
 
+        // إرسال محتوى السلة عبر الواتساب
         function sendCartToWhatsApp() {
             if (cart.length === 0) {
                 alert('سلة المشتريات فارغة! اختر بعض المنتجات أولاً.');
@@ -932,18 +787,24 @@
             const whatsappUrl = `https://wa.me/${deliveryWhatsAppNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
 
+            // تفريغ السلة بعد الطلب وإغلاق النافذة
             cart = [];
             updateCartUI();
             document.getElementById('cartModal').style.display = 'none';
         }
 
-        // سلة المشتريات
+        // تحكم في فتح وإغلاق نافذة السلة
         const cartModal = document.getElementById('cartModal');
         const openCartBtn = document.getElementById('openCartBtn');
         const closeCartModalBtn = document.getElementById('closeCartModalBtn');
 
-        openCartBtn.addEventListener('click', () => { cartModal.style.display = 'flex'; });
-        closeCartModalBtn.addEventListener('click', () => { cartModal.style.display = 'none'; });
+        openCartBtn.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+
+        closeCartModalBtn.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
 
         // البحث العام
         const searchBtn = document.getElementById('searchBtn');
@@ -962,16 +823,23 @@
 
         searchBtn.addEventListener('click', handleSearch);
         productInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') { handleSearch(); }
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
         });
 
-        // نافذة قائمة المطاعم
+        // نافذة المطاعم
         const restaurantsModal = document.getElementById('restaurantsModal');
         const openRestaurantsBtn = document.getElementById('openRestaurantsBtn');
         const closeRestaurantsModalBtn = document.getElementById('closeRestaurantsModalBtn');
 
-        openRestaurantsBtn.addEventListener('click', () => { restaurantsModal.style.display = 'flex'; });
-        closeRestaurantsModalBtn.addEventListener('click', () => { restaurantsModal.style.display = 'none'; });
+        openRestaurantsBtn.addEventListener('click', () => {
+            restaurantsModal.style.display = 'flex';
+        });
+
+        closeRestaurantsModalBtn.addEventListener('click', () => {
+            restaurantsModal.style.display = 'none';
+        });
 
         function selectRestaurant(restaurantName) {
             restaurantsModal.style.display = 'none';
@@ -988,14 +856,7 @@
 
         function openMenuSection(sectionId) {
             baikMenuModal.style.display = 'none';
-            const crepesCat = document.getElementById('crepesCategoriesModal');
-            if(crepesCat) crepesCat.style.display = 'none';
             document.getElementById(sectionId).style.display = 'flex';
-        }
-
-        function openCrepesCategories() {
-            baikMenuModal.style.display = 'none';
-            document.getElementById('crepesCategoriesModal').style.display = 'flex';
         }
 
         function closeModal(sectionId) {
@@ -1007,18 +868,28 @@
         const openSupermarketBtn = document.getElementById('openSupermarketBtn');
         const closeSupermarketModalBtn = document.getElementById('closeSupermarketModalBtn');
 
-        openSupermarketBtn.addEventListener('click', () => { supermarketModal.style.display = 'flex'; });
-        closeSupermarketModalBtn.addEventListener('click', () => { supermarketModal.style.display = 'none'; });
+        openSupermarketBtn.addEventListener('click', () => {
+            supermarketModal.style.display = 'flex';
+        });
+
+        closeSupermarketModalBtn.addEventListener('click', () => {
+            supermarketModal.style.display = 'none';
+        });
 
         // نافذة الخضار والفواكه
         const vegetablesModal = document.getElementById('vegetablesModal');
         const openVegetablesBtn = document.getElementById('openVegetablesBtn');
         const closeVegetablesModalBtn = document.getElementById('closeVegetablesModalBtn');
 
-        openVegetablesBtn.addEventListener('click', () => { vegetablesModal.style.display = 'flex'; });
-        closeVegetablesModalBtn.addEventListener('click', () => { vegetablesModal.style.display = 'none'; });
+        openVegetablesBtn.addEventListener('click', () => {
+            vegetablesModal.style.display = 'flex';
+        });
 
-        // زر اطلب الدواء
+        closeVegetablesModalBtn.addEventListener('click', () => {
+            vegetablesModal.style.display = 'none';
+        });
+
+        // زر اطلب الدواء (البطاقة الرابعة)
         const medicineBtn = document.getElementById('medicineBtn');
         if (medicineBtn) {
             medicineBtn.addEventListener('click', () => {
