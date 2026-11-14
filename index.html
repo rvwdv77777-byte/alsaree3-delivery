@@ -237,7 +237,7 @@
             font-size: 20px;
             cursor: pointer;
         }
-       
+       
         /* القوائم الداخلية */
         .options-list {
             display: flex;
@@ -291,8 +291,8 @@
 
         <!-- قسم البطاقات -->
         <div class="cards-section">
-           
-            <!-- بطاقة 1: اطلب الطعام (صورة بيتزا) -->
+           
+            <!-- بطاقة 1: اطلب الطعام -->
             <div class="card">
                 <div class="card-img-container">
                     <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt="اطلب الطعام">
@@ -336,7 +336,7 @@
                 </div>
                 <div class="card-content">
                     <div class="card-desc">تشعر بالتعب؟ كل الأدوية التي تحتاجها تصلك بسرعة وبدون عناء إلى منزلك.</div>
-                    <button class="card-btn" onclick="alert('جاري الانتقال لصيدليات صان الحجر...')">Shop now</button>
+                    <button class="card-btn" id="medicineBtn">Shop now</button>
                 </div>
             </div>
 
@@ -367,7 +367,7 @@
         </div>
     </div>
 
-    <!-- نافذة منيو مطعم البيك حسن (الأقسام الرئيسية) -->
+    <!-- نافذة منيو مطعم البيك حسن -->
     <div class="modal" id="baikMenuModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -586,6 +586,9 @@
     </div>
 
     <script>
+        // رقم الواتساب الرسمي لخدمة ع السريع في صان الحجر ⚡
+        const deliveryWhatsAppNumber = "201001598125";
+
         // البحث العام
         const searchBtn = document.getElementById('searchBtn');
         const productInput = document.getElementById('productInput');
@@ -593,7 +596,8 @@
         function handleSearch() {
             const query = productInput.value.trim();
             if (query) {
-                alert(`جاري البحث عن المنتج: ${query} في صان الحجر`);
+                const whatsappUrl = `https://wa.me/${deliveryWhatsAppNumber}?text=${encodeURIComponent(`مرحباً ع السريع ⚡، أريد البحث عن / طلب: ${query}`)}`;
+                window.open(whatsappUrl, '_blank');
             } else {
                 alert('الرجاء كتابة اسم المنتج أو الطلب الذي تبحث عنه أولاً.');
                 productInput.focus();
@@ -625,7 +629,8 @@
             if (restaurantName === 'البيك حسن') {
                 document.getElementById('baikMenuModal').style.display = 'flex';
             } else {
-                alert(`لقد اخترت مطعم: ${restaurantName} 🍽️\nجاري فتح المنيو...`);
+                const whatsappUrl = `https://wa.me/${deliveryWhatsAppNumber}?text=${encodeURIComponent(`أهلاً ع السريع ⚡، أريد الطلب من مطعم: ${restaurantName} 🍽️`)}`;
+                window.open(whatsappUrl, '_blank');
             }
         }
 
@@ -642,8 +647,13 @@
             document.getElementById(sectionId).style.display = 'none';
         }
 
+        // دالة طلب المنتج وإرساله عبر واتساب
         function orderItem(itemName, price) {
-            alert(`تم إضافة طلبك بنجاح! 🛒\n\nالطلب: ${itemName}\nالسعر: ${price}\n\nجاري إتمام الطلب وتوصيله ع السريع في صان الحجر ⚡`);
+            const message = `أهلاً ع السريع ⚡، أريد طلب الآتي:\n\n🛒 *الطلب:* ${itemName}\n💰 *السعر:* ${price}\n\nيرجى تأكيد التوصيل في صان الحجر.`;
+            const whatsappUrl = `https://wa.me/${deliveryWhatsAppNumber}?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+
             // إغلاق كافة النوافذ المفتوحة
             const modals = document.querySelectorAll('.modal');
             modals.forEach(m => m.style.display = 'none');
@@ -674,6 +684,15 @@
         closeVegetablesModalBtn.addEventListener('click', () => {
             vegetablesModal.style.display = 'none';
         });
+
+        // زر اطلب الدواء (البطاقة الرابعة)
+        const medicineBtn = document.getElementById('medicineBtn');
+        if (medicineBtn) {
+            medicineBtn.addEventListener('click', () => {
+                const whatsappUrl = `https://wa.me/${deliveryWhatsAppNumber}?text=${encodeURIComponent('مرحباً ع السريع ⚡، أريد طلب أدوية أو مستلزمات طبية من الصيدلية.')}`;
+                window.open(whatsappUrl, '_blank');
+            });
+        }
 
         // إغلاق أي نافذة عند النقر خارجها
         window.addEventListener('click', (e) => {
