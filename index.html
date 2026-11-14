@@ -237,7 +237,7 @@
             font-size: 20px;
             cursor: pointer;
         }
-        
+       
         /* القوائم الداخلية */
         .options-list {
             display: flex;
@@ -291,11 +291,11 @@
 
         <!-- قسم البطاقات -->
         <div class="cards-section">
-            
-            <!-- بطاقة 1: اطلب الطعام -->
+           
+            <!-- بطاقة 1: اطلب الطعام (صورة شاورما) -->
             <div class="card">
                 <div class="card-img-container">
-                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" alt="اطلب الطعام">
+                    <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80" alt="اطلب الطعام">
                     <div class="card-title-overlay">اطلب الطعام</div>
                 </div>
                 <div class="card-content">
@@ -304,19 +304,31 @@
                 </div>
             </div>
 
-            <!-- بطاقة 2: اطلب البقالة -->
+            <!-- بطاقة 2: سوبر ماركت -->
             <div class="card">
                 <div class="card-img-container">
-                    <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80" alt="اطلب البقالة">
-                    <div class="card-title-overlay">اطلب البقالة</div>
+                    <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80" alt="سوبر ماركت">
+                    <div class="card-title-overlay">سوبر ماركت</div>
                 </div>
                 <div class="card-content">
-                    <div class="card-desc">لا تضيع وقتك في الانتظار. نصلك بكل ما تحتاجه من أفضل متاجر البقالة.</div>
-                    <button class="card-btn" id="openGroceryBtn">Shop now</button>
+                    <div class="card-desc">جميع احتياجات المنزل والمنتجات الغذائية تصلك بسرعة وبدقة.</div>
+                    <button class="card-btn" id="openSupermarketBtn">Shop now</button>
                 </div>
             </div>
 
-            <!-- بطاقة 3: اطلب الدواء -->
+            <!-- بطاقة 3: خضار وفواكه -->
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&w=600&q=80" alt="خضار وفواكه">
+                    <div class="card-title-overlay">خضار وفواكه</div>
+                </div>
+                <div class="card-content">
+                    <div class="card-desc">خضار وفواكه طازجة يومياً تختار بعناية وتصلك لباب البيت.</div>
+                    <button class="card-btn" id="openVegetablesBtn">Shop now</button>
+                </div>
+            </div>
+
+            <!-- بطاقة 4: اطلب الدواء -->
             <div class="card">
                 <div class="card-img-container">
                     <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="اطلب الدواء">
@@ -399,7 +411,7 @@
     <div class="modal" id="sandwichesModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>سندوتشات وجبات (صغير / وسط / كبير أو حسب السعر)</h3>
+                <h3>سندوتشات وجبات</h3>
                 <button class="close-btn" onclick="closeModal('sandwichesModal')">&times;</button>
             </div>
             <div class="options-list">
@@ -537,20 +549,38 @@
         </div>
     </div>
 
-    <!-- نافذة خيارات البقالة -->
-    <div class="modal" id="groceryModal">
+    <!-- نافذة منتجات السوبر ماركت -->
+    <div class="modal" id="supermarketModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>اختر قسم البقالة</h3>
-                <button class="close-btn" id="closeGroceryModalBtn">&times;</button>
+                <h3>سوبر ماركت - المنتجات المتاحة</h3>
+                <button class="close-btn" id="closeSupermarketModalBtn">&times;</button>
             </div>
             <div class="options-list">
-                <div class="option-item" onclick="selectGroceryOption('خضار وفواكه')">
-                    خضار وفواكه <span>طازج يومياً 🥬</span>
-                </div>
-                <div class="option-item" onclick="selectGroceryOption('سوبر ماركت')">
-                    سوبر ماركت <span>جميع المنتجات 🛒</span>
-                </div>
+                <div class="option-item" onclick="orderItem('مياه معدنية (عبوة)', '10 ج')">مياه معدنية <span>10 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('مشروب غازي (كنز)', '15 ج')">مشروب غازي <span>15 جنيه</span></div>
+                <div class="option-item" onclick="orderItem('شكولاتة وبسكويت', '25 ج')">شكولاتة وبسكويت <span>منوع</span></div>
+                <div class="option-item" onclick="orderItem('مستلزمات تنظيف ومسحوق', '45 ج')">منظفات منزلية <span>منوع</span></div>
+                <div class="option-item" onclick="orderItem('جبنة وألبان', '30 ج')">جبنة وألبان <span>طازج</span></div>
+                <div class="option-item" onclick="orderItem('زيوت وسمن ومكرونة', '35 ج')">سلع أساسية <span>منوع</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الخضار والفواكه -->
+    <div class="modal" id="vegetablesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>خضار وفواكه طازجة</h3>
+                <button class="close-btn" id="closeVegetablesModalBtn">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="orderItem('طماطم (كيلو)', '15 ج')">طماطم طازجة <span>15 جنيه / كيلو</span></div>
+                <div class="option-item" onclick="orderItem('بطاطس (كيلو)', '18 ج')">بطاطس طبخ <span>18 جنيه / كيلو</span></div>
+                <div class="option-item" onclick="orderItem('بصل (كيلو)', '20 ج')">بصل أحمر/أبيض <span>20 جنيه / كيلو</span></div>
+                <div class="option-item" onclick="orderItem('خيار (كيلو)', '15 ج')">خيار بلدي <span>15 جنيه / كيلو</span></div>
+                <div class="option-item" onclick="orderItem('موز (كيلو)', '25 ج')">موز طازج <span>25 جنيه / كيلو</span></div>
+                <div class="option-item" onclick="orderItem('تفاح (كيلو)', '45 ج')">تفاح مستورد <span>45 جنيه / كيلو</span></div>
             </div>
         </div>
     </div>
@@ -619,23 +649,31 @@
             modals.forEach(m => m.style.display = 'none');
         }
 
-        // نافذة البقالة
-        const groceryModal = document.getElementById('groceryModal');
-        const openGroceryBtn = document.getElementById('openGroceryBtn');
-        const closeGroceryModalBtn = document.getElementById('closeGroceryModalBtn');
+        // نافذة السوبر ماركت
+        const supermarketModal = document.getElementById('supermarketModal');
+        const openSupermarketBtn = document.getElementById('openSupermarketBtn');
+        const closeSupermarketModalBtn = document.getElementById('closeSupermarketModalBtn');
 
-        openGroceryBtn.addEventListener('click', () => {
-            groceryModal.style.display = 'flex';
+        openSupermarketBtn.addEventListener('click', () => {
+            supermarketModal.style.display = 'flex';
         });
 
-        closeGroceryModalBtn.addEventListener('click', () => {
-            groceryModal.style.display = 'none';
+        closeSupermarketModalBtn.addEventListener('click', () => {
+            supermarketModal.style.display = 'none';
         });
 
-        function selectGroceryOption(optionName) {
-            alert(`جاري الانتقال إلى قسم: ${optionName} في صان الحجر ⚡`);
-            groceryModal.style.display = 'none';
-        }
+        // نافذة الخضار والفواكه
+        const vegetablesModal = document.getElementById('vegetablesModal');
+        const openVegetablesBtn = document.getElementById('openVegetablesBtn');
+        const closeVegetablesModalBtn = document.getElementById('closeVegetablesModalBtn');
+
+        openVegetablesBtn.addEventListener('click', () => {
+            vegetablesModal.style.display = 'flex';
+        });
+
+        closeVegetablesModalBtn.addEventListener('click', () => {
+            vegetablesModal.style.display = 'none';
+        });
 
         // إغلاق أي نافذة عند النقر خارجها
         window.addEventListener('click', (e) => {
