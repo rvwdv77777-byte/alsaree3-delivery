@@ -479,11 +479,14 @@
                 <button class="close-btn" id="closeRestaurantsModalBtn">&times;</button>
             </div>
             <div class="options-list">
+                <div class="option-item" onclick="selectRestaurant('ايطاليانو')">
+                    مطعم إيطاليانو <span>بيتزا وكريب ⚡</span>
+                </div>
                 <div class="option-item" onclick="selectRestaurant('البيك حسن')">
-                    مطعم البيك حسن <span>متاح للطلب ⚡</span>
+                    مطعم البيك حسن <span>مشويات وبيتزا وبروست ⚡</span>
                 </div>
                 <div class="option-item" onclick="selectRestaurant('الزعيم')">
-                    الزعيم <span>متاح للطلب ⚡</span>
+                    مطعم الزعيم (كشري ومشويات وطواجن) <span>متاح للطلب ⚡</span>
                 </div>
                 <div class="option-item" onclick="selectRestaurant('الريان')">
                     الريان <span>متاح للطلب ⚡</span>
@@ -495,7 +498,197 @@
         </div>
     </div>
 
-    <!-- نافذة منيو مطعم البيك حسن -->
+    <!-- ================= نافذة منيو مطعم إيطاليانو ================= -->
+    <div class="modal" id="italianoMenuModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>منيو مطعم إيطاليانو</h3>
+                <button class="close-btn" id="closeItalianoModalBtn">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="openMenuSection('italianoPizzaModal')">بيتزا إيطاليانو (صغير / وسط / كبير) 🍕 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('italianoCrepeModal')">كريبات إيطاليانو 🌯 <span>عرض الأصناف</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- أقسام مطعم إيطاليانو -->
+    <div class="modal" id="italianoPizzaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>بيتزا إيطاليانو</h3>
+                <button class="close-btn" onclick="closeModal('italianoPizzaModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="addItemToCart('بيتزا مرجرينا', 0)">بيتزا مرجرينا <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا خضروات', 0)">بيتزا خضروات <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا لحمة مفروم', 0)">بيتزا لحمة مفروم <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا سجق', 0)">بيتزا سجق <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا سوسيس', 0)">بيتزا سوسيس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا فراخ بانيه', 0)">بيتزا فراخ بانيه <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا استريس', 0)">بيتزا استريس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا شاورما فراخ', 0)">بيتزا شاورما فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا مكس جبن', 0)">بيتزا مكس جبن <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا مكس فراخ', 0)">بيتزا مكس فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا مكس لحوم', 0)">بيتزا مكس لحوم <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا مكس إيطاليانو', 0)">بيتزا مكس إيطاليانو <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا تونة', 0)">بيتزا تونة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا بسطرمة', 0)">بيتزا بسطرمة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا سلامي', 0)">بيتزا سلامي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا كالزوني', 0)">بيتزا كالزوني <span>اختر</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="italianoCrepeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>كريبات إيطاليانو</h3>
+                <button class="close-btn" onclick="closeModal('italianoCrepeModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="addItemToCart('كريب بطاطس', 0)">كريب بطاطس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب فراخ بانيه', 0)">كريب فراخ بانيه <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب فراخ فيشوي', 0)">كريب فراخ فيشوي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب فراخ بانيه بطاطس', 0)">كريب فراخ بانيه بطاطس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب سوبر فرانكي', 0)">كريب سوبر فرانكي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب استريس', 0)">كريب استريس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب شاورما', 0)">كريب شاورما <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب شيش طاووق', 0)">كريب شيش طاووق <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب مكس ملن', 0)">كريب مكس ملن <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب مشكل فراخ', 0)">كريب مشكل فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب مشكل لحوم', 0)">كريب مشكل لحوم <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب كفته', 0)">كريب كفته <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب سجق', 0)">كريب سجق <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب بيج', 0)">كريب بيج <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب سويسيس', 0)">كريب سويسيس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب كفتة أسكلجراني', 0)">كريب كفتة أسكلجراني <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب مكس إيطاليانو', 0)">كريب مكس إيطاليانو <span>اختر</span></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= نافذة منيو مطعم الزعيم المحدثة ================= -->
+    <div class="modal" id="zaeemMenuModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>منيو مطعم الزعيم</h3>
+                <button class="close-btn" id="closeZaeemModalBtn">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="openMenuSection('zaeemKosharyModal')">قسـم الكشري 🍲 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('zaeemTaginesModal')">قسـم الطواجن 🥘 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('zaeemCrepesModal')">قسـم الكريبات 🌯 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('zaeemSandwichesModal')">قسـم السندوتشات 🥖 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('zaeemGrillsModal')">قسـم المشويات والفراخ 🍗 <span>عرض الأصناف</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- أقسام مطعم الزعيم -->
+    <div class="modal" id="zaeemKosharyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>قسـم الكشري</h3>
+                <button class="close-btn" onclick="closeModal('zaeemKosharyModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="addItemToCart('كشري (أحجام مختلفة)', 0)">كشري عادي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كشري كبدة', 0)">كشري كبدة <span>اختر</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="zaeemTaginesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>قسـم الطواجن</h3>
+                <button class="close-btn" onclick="closeModal('zaeemTaginesModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="addItemToCart('مكس طاجن لحمه كبدة', 0)">مكس طاجن لحمة كبدة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('طاجن فراخ', 0)">طاجن فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('طاجن لحمه', 0)">طاجن لحمة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('موتزاريلا فراخ', 0)">موتزاريلا فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('موتزاريلا لحمه', 0)">موتزاريلا لحمة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('مكس طاجن كشري فراخ', 0)">مكس طاجن كشري فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('مكس طاجن كشري لحمه', 0)">مكس طاجن كشري لحمة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('مكس طاجن فراخ كبدة', 0)">مكس طاجن فراخ كبدة <span>اختر</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="zaeemCrepesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>قسـم الكريبات</h3>
+                <button class="close-btn" onclick="closeModal('zaeemCrepesModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="addItemToCart('كريب شيش طاووق', 0)">كريب شيش طاووق <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب شاورما فراخ', 0)">كريب شاورما فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب فاهيتا فراخ', 0)">كريب فاهيتا فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب استريس عادي', 0)">كريب استريس عادي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب لكفر رومي', 0)">كريب لكفر رومي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب رومي', 0)">كريب رومي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب نيو الزعيم', 0)">كريب نيو الزعيم <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب الكس ليف', 0)">كريب الكس ليف <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب مشكل فراخ', 0)">كريب مشكل فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب جمبري', 0)">كريب جمبري <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب بطاطس', 0)">كريب بطاطس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب مشكل جبن بسطرمة', 0)">كريب مشكل جبن بسطرمة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب مشكل جبن', 0)">كريب مشكل جبن <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب شيدر رومي', 0)">كريب شيدر رومي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('سجق موتزريلا', 0)">سجق موتزريلا <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('سندوتش شاورما سوري جريل', 0)">سندوتش شاورما سوري جريل <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('سندوتش بطاطس سوري بالجبنه', 0)">سندوتش بطاطس سوري بالجبنة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('سندوتش بطاطس سوري', 0)">سندوتش بطاطس سوري <span>اختر</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="zaeemSandwichesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>قسـم السندوتشات</h3>
+                <button class="close-btn" onclick="closeModal('zaeemSandwichesModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="addItemToCart('سندوتش سجق', 0)">سندوتش سجق <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('سندوتش كبدة', 0)">سندوتش كبدة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كبدة شرايح', 0)">كبدة شرايح <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كبدة رده', 0)">كبدة رده <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب سجق', 0)">كريب سجق <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب سوسيس', 0)">كريب سوسيس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب برجر', 0)">كريب برجر <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب كبدة', 0)">كريب كبدة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب كفته', 0)">كريب كفته <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب زنجر', 0)">كريب زنجر <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب بانيه عادي', 0)">كريب بانيه عادي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب مكس مشاوري', 0)">كريب مكس مشاوي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب مشكل لحوم', 0)">كريب مشكل لحوم <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب الروقان', 0)">كريب الروقان <span>اختر</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="zaeemGrillsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>قسـم المشويات والفراخ</h3>
+                <button class="close-btn" onclick="closeModal('zaeemGrillsModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="addItemToCart('كبابة / مشويات (أجزاء)', 0)">مشويات متنوعة <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('فرخه شيش', 0)">فرخة شيش <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('فرخة مشوية', 0)">فرخة مشوية <span>اختر</span></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= نافذة منيو مطعم البيك حسن ================= -->
     <div class="modal" id="baikMenuModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -503,8 +696,9 @@
                 <button class="close-btn" id="closeBaikModalBtn">&times;</button>
             </div>
             <div class="options-list">
-                <div class="option-item" onclick="openMenuSection('pizzaModal')">بيتزا فراخ وأقسام البيتزا 🍕 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('sandwichesModal')">سندوتشات وجبات وجريل 🌯 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('pizzaModal')">بيتزا عشاق الجبن واللحوم وفواكه البحر 🍕 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('baikChickenPizzaModal')">بيتزا فراخ 🍕 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('sandwichesModal')">سندوتشات وجبات 🌯 <span>عرض الأصناف</span></div>
                 <div class="option-item" onclick="openMenuSection('broastModal')">وجبات البروست 🍗 <span>عرض الأصناف</span></div>
                 <div class="option-item" onclick="openMenuSection('crepeChickenModal')">كريب فراخ 🌯 <span>عرض الأصناف</span></div>
                 <div class="option-item" onclick="openMenuSection('crepeMixModal')">كريبات ميكسات 🌯 <span>عرض الأصناف</span></div>
@@ -512,25 +706,57 @@
                 <div class="option-item" onclick="openMenuSection('crepeCheeseModal')">كريب جبن 🧀 <span>عرض الأصناف</span></div>
                 <div class="option-item" onclick="openMenuSection('stripesMealsModal')">وجبات استريس 🍗 <span>عرض الأصناف</span></div>
                 <div class="option-item" onclick="openMenuSection('seafoodModal')">كريبات السي فود 🍤 <span>عرض الأصناف</span></div>
+                <div class="option-item" onclick="openMenuSection('baikExtrasModal')">الإضافات 🍟 <span>عرض الأصناف</span></div>
             </div>
         </div>
     </div>
 
-    <!-- أقسام مطعم البيك حسن (البيتزا وغيرها) -->
+    <!-- أقسام مطعم البيك حسن -->
     <div class="modal" id="pizzaModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>بيتزا (صغير / وسط / كبير)</h3>
+                <h3>بيتزا (عشاق الجبن / اللحوم / فواكه البحر)</h3>
                 <button class="close-btn" onclick="closeModal('pizzaModal')">&times;</button>
             </div>
             <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('بيتزا شاورما فراخ', 0)">بيتزا شاورما فراخ <span>اختر</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا سوبر فراجني', 0)">بيتزا سوبر فراجني <span>اختر</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا استريس حار', 0)">بيتزا استريس حار <span>اختر</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا شاورما لحمة', 0)">بيتزا شاورما لحمة <span>اختر</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا مارجريتا', 0)">بيتزا مارجريتا <span>اختر</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا مكس جبن', 0)">بيتزا مكس جبن <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا مارجرينا', 0)">بيتزا مارجرينا <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا عاشق الجبن', 0)">بيتزا عاشق الجبن <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا خضروات', 0)">بيتزا خضروات <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا لحم مفروم', 0)">بيتزا لحم مفروم <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا سوسيس', 0)">بيتزا سوسيس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا سجق', 0)">بيتزا سجق <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا بيبروني', 0)">بيتزا بيبروني <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا إيطاليانو', 0)">بيتزا إيطاليانو <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا مكس لحوم', 0)">بيتزا مكس لحوم <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا سيبيشيال البيك', 0)">بيتزا سيبيشيال البيك <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا جمبري', 0)">بيتزا جمبري <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا تونة', 0)">بيتزا تونة <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('بيتزا سي فود', 0)">بيتزا سي فود <span>اختر</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="baikChickenPizzaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>بيتزا فراخ (البيك حسن)</h3>
+                <button class="close-btn" onclick="closeModal('baikChickenPizzaModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="addItemToCart('بيتزا شاورما فراخ', 0)">بيتزا شاورما فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا سوبر كرنشي', 0)">بيتزا سوبر كرنشي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا استريس حار', 0)">بيتزا استريس حار <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا تشيكن باربيكيو', 0)">بيتزا تشيكن باربيكيو <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا تشيكن رانش', 0)">بيتزا تشيكن رانش <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا بانيه', 0)">بيتزا بانيه <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا تشيكن تشيزست', 0)">بيتزا تشيكن تشيزست <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا مكسيكي', 0)">بيتزا مكسيكي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا سيبيشيال', 0)">بيتزا سيبيشيال <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا تكس مكس', 0)">بيتزا تكس مكس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا ستار سوبرم', 0)">بيتزا ستار سوبرم <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا ديليكس', 0)">بيتزا ديليكس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا مشروم فراخ', 0)">بيتزا مشروم فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيتزا كوردون بلو', 0)">بيتزا كوردون بلو <span>اختر</span></div>
             </div>
         </div>
     </div>
@@ -548,7 +774,9 @@
                 <div class="option-item" onclick="addItemToCart('كوردون بلو', 0)">كوردون بلو <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('كفته', 0)">كفته <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('برجر كومبو', 0)">برجر كومبو <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بطاطس', 0)">بطاطس <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('وجبة عربي', 0)">وجبة عربي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('وجبة عربي إكسترا', 0)">وجبة عربي إكسترا <span>اختر</span></div>
             </div>
         </div>
     </div>
@@ -561,9 +789,14 @@
             </div>
             <div class="options-list">
                 <div class="option-item" onclick="addItemToCart('وجبة فرد', 0)">وجبة فرد <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('وجبة فرد سوبر', 0)">وجبة فرد سوبر <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('وجبة سوبر', 0)">وجبة سوبر <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('وجبة كومبو', 0)">وجبة كومبو <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('وجبة جامبو', 0)">وجبة جامبو <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('وجبة فاميلي', 0)">وجبة فاميلي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('سوبر فاميلي', 0)">سوبر فاميلي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('ليالي فاميلي', 0)">ليالي فاميلي <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('بيج فاميلي', 0)">بيج فاميلي <span>اختر</span></div>
             </div>
         </div>
     </div>
@@ -576,8 +809,12 @@
             </div>
             <div class="options-list">
                 <div class="option-item" onclick="addItemToCart('كريب بانيه', 0)">كريب بانيه <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب كرنشي حار', 0)">كريب كرنشي حار <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('كريب استريس', 0)">كريب استريس <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('كريب شاورما فراخ', 0)">كريب شاورما فراخ <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب كوردون بلو', 0)">كريب كوردون بلو <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب شيش طاووق', 0)">كريب شيش طاووق <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب فرايدي', 0)">كريب فرايدي <span>اختر</span></div>
             </div>
         </div>
     </div>
@@ -591,6 +828,10 @@
             <div class="options-list">
                 <div class="option-item" onclick="addItemToCart('كريب مكس فراخ', 0)">كريب مكس فراخ <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('كريب مكس لحم', 0)">كريب مكس لحم <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب سيبيشيال', 0)">كريب سيبيشيال <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب كريسبى بو', 0)">كريب كريسبى بو <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب ستار سووبرم', 0)">كريب ستار سووبرم <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب تشيليلو', 0)">كريب تشيليلو <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('كريب البيك', 0)">كريب البيك <span>اختر</span></div>
             </div>
         </div>
@@ -605,7 +846,9 @@
             <div class="options-list">
                 <div class="option-item" onclick="addItemToCart('كريب لحم مفروم', 0)">كريب لحم مفروم <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('كريب سجق', 0)">كريب سجق <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب سوسيس', 0)">كريب سوسيس <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('كريب برجر', 0)">كريب برجر <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب إيطاليانو', 0)">كريب إيطاليانو <span>اختر</span></div>
             </div>
         </div>
     </div>
@@ -617,7 +860,8 @@
                 <button class="close-btn" onclick="closeModal('crepeCheeseModal')">&times;</button>
             </div>
             <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('كريب جبن مكس', 0)">كريب جبن مكس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب جبن', 0)">كريب جبن <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب رومي', 0)">كريب رومي <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('كريب بطاطس', 0)">كريب بطاطس <span>اختر</span></div>
             </div>
         </div>
@@ -632,6 +876,8 @@
             <div class="options-list">
                 <div class="option-item" onclick="addItemToCart('3 قطع استريس', 0)">3 قطع استريس <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('6 قطع استريس', 0)">6 قطع استريس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('8 قطع استريس', 0)">8 قطع استريس <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('10 قطع استريس', 0)">10 قطع استريس <span>اختر</span></div>
             </div>
         </div>
     </div>
@@ -645,12 +891,32 @@
             <div class="options-list">
                 <div class="option-item" onclick="addItemToCart('كريب جمبري', 0)">كريب جمبري <span>اختر</span></div>
                 <div class="option-item" onclick="addItemToCart('كريب سي فود', 0)">كريب سي فود <span>اختر</span></div>
+                <div class="option-item" onclick="addItemToCart('كريب سيبيشيال فريجا', 0)">كريب سيبيشيال فريجا <span>اختر</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="baikExtrasModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>الإضافات</h3>
+                <button class="close-btn" onclick="closeModal('baikExtrasModal')">&times;</button>
+            </div>
+            <div class="options-list">
+                <div class="option-item" onclick="addItemToCart('طبق رز', 0)">طبق رز <span>إضافة</span></div>
+                <div class="option-item" onclick="addItemToCart('بطاطس', 0)">بطاطس <span>إضافة</span></div>
+                <div class="option-item" onclick="addItemToCart('تومية', 0)">تومية <span>إضافة</span></div>
+                <div class="option-item" onclick="addItemToCart('صوص باربيكيو', 0)">صوص باربيكيو <span>إضافة</span></div>
+                <div class="option-item" onclick="addItemToCart('صوص رانش', 0)">صوص رانش <span>إضافة</span></div>
+                <div class="option-item" onclick="addItemToCart('مياه', 0)">مياه <span>إضافة</span></div>
+                <div class="option-item" onclick="addItemToCart('مخلل', 0)">مخلل <span>إضافة</span></div>
+                <div class="option-item" onclick="addItemToCart('لتر بيبسي', 0)">لتر بيبسي <span>إضافة</span></div>
             </div>
         </div>
     </div>
 
 
-    <!-- ================= نافذة سوبر ماركت الرئيسية (الأقسام المحدثة) ================= -->
+    <!-- ================= نافذة سوبر ماركت الرئيسية (الأقسام) ================= -->
     <div class="modal" id="supermarketModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -668,7 +934,7 @@
         </div>
     </div>
 
-    <!-- 1. أقسم الألبان والجبن -->
+    <!-- أقسم الألبان والجبن -->
     <div class="modal" id="dairySectionModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -685,7 +951,7 @@
         </div>
     </div>
 
-    <!-- 2. قسم المجمدات -->
+    <!-- قسم المجمدات -->
     <div class="modal" id="frozenSectionModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -700,7 +966,7 @@
         </div>
     </div>
 
-    <!-- 3. قسم البقالة والمؤونة -->
+    <!-- قسم البقالة والمؤونة -->
     <div class="modal" id="pantrySectionModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -717,7 +983,7 @@
         </div>
     </div>
 
-    <!-- 4. قسم المشروبات -->
+    <!-- قسم المشروبات -->
     <div class="modal" id="beveragesSectionModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -732,7 +998,7 @@
         </div>
     </div>
 
-    <!-- 5. قسم المخبوزات الطازجة -->
+    <!-- قسم المخبوزات الطازجة -->
     <div class="modal" id="bakerySectionModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -747,7 +1013,7 @@
         </div>
     </div>
 
-    <!-- 6. قسم التنظيف والعناية الشخصية -->
+    <!-- قسم التنظيف والعناية الشخصية -->
     <div class="modal" id="cleaningSectionModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -909,19 +1175,42 @@
 
         function selectRestaurant(restaurantName) {
             restaurantsModal.style.display = 'none';
-            if (restaurantName === 'البيك حسن') {
+            if (restaurantName === 'ايطاليانو') {
+                document.getElementById('italianoMenuModal').style.display = 'flex';
+            } else if (restaurantName === 'البيك حسن') {
                 document.getElementById('baikMenuModal').style.display = 'flex';
+            } else if (restaurantName === 'الزعيم') {
+                document.getElementById('zaeemMenuModal').style.display = 'flex';
             } else {
                 addItemToCart(`طلب من مطعم: ${restaurantName}`, 0);
             }
         }
 
+        // إغلاق قوائم المطاعم الخاصة
+        const italianoMenuModal = document.getElementById('italianoMenuModal');
+        const closeItalianoModalBtn = document.getElementById('closeItalianoModalBtn');
+        if (closeItalianoModalBtn) {
+            closeItalianoModalBtn.addEventListener('click', () => { italianoMenuModal.style.display = 'none'; });
+        }
+
+        const zaeemMenuModal = document.getElementById('zaeemMenuModal');
+        const closeZaeemModalBtn = document.getElementById('closeZaeemModalBtn');
+        if (closeZaeemModalBtn) {
+            closeZaeemModalBtn.addEventListener('click', () => { zaeemMenuModal.style.display = 'none'; });
+        }
+
         const baikMenuModal = document.getElementById('baikMenuModal');
         const closeBaikModalBtn = document.getElementById('closeBaikModalBtn');
-        closeBaikModalBtn.addEventListener('click', () => { baikMenuModal.style.display = 'none'; });
+        if (closeBaikModalBtn) {
+            closeBaikModalBtn.addEventListener('click', () => { baikMenuModal.style.display = 'none'; });
+        }
 
         function openMenuSection(sectionId) {
-            baikMenuModal.style.display = 'none';
+            // إغلاق كل المنيوهات المفتوحة أولاً
+            if(italianoMenuModal) italianoMenuModal.style.display = 'none';
+            if(zaeemMenuModal) zaeemMenuModal.style.display = 'none';
+            if(baikMenuModal) baikMenuModal.style.display = 'none';
+            
             document.getElementById(sectionId).style.display = 'flex';
         }
 
