@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ع السريع - طلب المنتجات والأكل في صان الحجر</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Tahoma,sans-serif}
@@ -43,25 +43,84 @@ body{background:#121212;color:#fff;display:flex;flex-direction:column;align-item
 .cart-total-box{border-top:1px solid #333;padding-top:12px;display:flex;justify-content:space-between;font-size:14px;font-weight:bold;margin-bottom:15px;color:#fc0}
 .checkout-btn{background:#fc0;color:#121212;border:none;width:100%;padding:10px;border-radius:8px;font-weight:bold;font-size:14px;cursor:pointer}
 .empty-cart-msg{text-align:center;color:#888;font-size:13px;padding:20px 0}
+.option-item small{display:block;color:#aaa;font-weight:normal;font-size:11px;margin-top:2px}
+.tabs{display:none;gap:8px;overflow-x:auto;position:sticky;top:0;z-index:2;background:#1e1e1e;margin:0 -20px 12px;padding:8px 20px;scrollbar-width:none}
+.tab{background:#2c2c2c;color:#fff;border:1px solid #444;border-radius:20px;padding:6px 14px;font-size:12px;white-space:nowrap;cursor:pointer;flex-shrink:0}
+.tab.on{background:#fc0;color:#121212;border-color:#fc0;font-weight:bold}
+.cart-items-container{max-height:40vh}
+.cart-item-row{display:block}
+.ci-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ci-name{flex:1;line-height:1.4}
+.ci-price{color:#fc0;font-size:12px;margin:4px 0}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{background:#fc0;color:#121212;border:none;border-radius:50%;width:26px;height:26px;font-size:16px;font-weight:bold;cursor:pointer}
+.note,.cust input,.cust textarea{width:100%;background:#121212;border:1px solid #444;color:#fff;border-radius:6px;padding:7px 9px;font-size:12px;margin-top:4px;text-align:right}
+.cust{margin-bottom:12px}.cust h4{color:#fc0;font-size:13px;margin-bottom:4px}.cust textarea{height:50px;resize:none}
+.pop{text-align:right;margin-bottom:22px}.pop h4{color:#fc0;font-size:14px;margin-bottom:8px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.chip{background:#1e1e1e;border:1px solid #fc0;color:#fff;border-radius:12px;padding:8px 12px;font-size:12px;cursor:pointer;flex-shrink:0;text-align:right}
+.chip small{display:block;color:#fc0;font-size:10px;margin-top:2px}
+#toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#fc0;color:#121212;padding:10px 18px;border-radius:20px;font-size:13px;font-weight:bold;z-index:3000;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90%;text-align:center}
+.rt{display:flex;align-items:center;gap:8px}.bd{background:#fc0;color:#121212;border-radius:10px;padding:1px 7px;font-size:11px}.option-item .qty b{color:#fff;min-width:14px;text-align:center}
+.hero{position:relative;margin:-20px -20px 22px;padding:34px 20px 22px;background:radial-gradient(circle at 50% 38%,rgba(255,204,0,.30),transparent 62%),repeating-linear-gradient(115deg,rgba(255,204,0,.07) 0 2px,transparent 2px 26px),linear-gradient(180deg,#1d1800,#121212);border-bottom:2px solid #fc0;border-radius:0 0 40px 40px;overflow:hidden;box-shadow:0 10px 30px rgba(255,204,0,.12)}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 40%,rgba(255,204,0,.14) 50%,transparent 60%);transform:translateX(-100%);animation:sweep 5s ease-in-out infinite;pointer-events:none}
+@keyframes sweep{to{transform:translateX(100%)}}
+.hero>*{position:relative;z-index:1}
+.hero .logo-box{box-shadow:0 0 0 6px rgba(255,204,0,.14),0 0 0 13px rgba(255,204,0,.07),0 0 40px rgba(255,204,0,.45)}
+.hero .tagline{margin-bottom:0}
+.hero::before{animation:none;opacity:0}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(255,204,0,.22),transparent 55%);opacity:0;animation:glow 7s ease-in-out infinite;pointer-events:none}
+.hero .bolt{position:absolute;z-index:0;color:#fc0;opacity:0;filter:drop-shadow(0 0 8px rgba(255,204,0,.8));animation:zap 7s ease-in-out infinite;pointer-events:none}
+.hero .b1{left:9%;top:16%;width:26px;height:44px}
+.hero .b2{right:8%;top:30%;width:20px;height:34px;transform:scaleX(-1);animation-delay:2.4s}
+.hero .b3{left:20%;bottom:14%;width:16px;height:28px;animation-delay:4.6s}
+@keyframes zap{0%,66%,100%{opacity:0}70%{opacity:.4}73%{opacity:.12}76%{opacity:.32}88%{opacity:0}}
+@keyframes glow{0%,66%,100%{opacity:0}70%{opacity:.7}76%{opacity:.35}90%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.hero .bolt,.hero::after{animation:none}}
+.hero .strike{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
+.hero .sk path{fill:none;stroke:#ffe9a0;stroke-width:2.6;stroke-linejoin:miter;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;filter:drop-shadow(0 0 6px rgba(255,204,0,.95)) drop-shadow(0 0 16px rgba(255,204,0,.55));animation:strike 8s ease-out infinite}
+.hero .sk path:nth-child(n+2){stroke-width:1.7}
+.hero .sk.d2 path{animation-delay:4s;stroke-width:2}
+@keyframes strike{0%,60%{stroke-dashoffset:1;opacity:0}62%{stroke-dashoffset:0;opacity:.85}65%{opacity:.25}67%{opacity:.6}82%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:0;opacity:0}}
+.hero::after{animation:glow2 8s ease-out infinite}
+@keyframes glow2{0%,60%{opacity:0}62%{opacity:.8}67%{opacity:.4}85%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.hero .sk path{animation:none;opacity:0}}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.card-img-container{background:linear-gradient(135deg,#2a2400,#1a1a1a)}
+.card-img-container::before{content:attr(data-e);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:64px;opacity:.55}
+.card-img-container img{position:relative;z-index:1}
+.card-img-container .card-title-overlay{z-index:2}
 </style>
 </head>
 <body>
 <div class="container">
+  <div class="hero">
+  <svg class="strike" viewBox="0 0 400 260" preserveAspectRatio="xMidYMin slice" aria-hidden="true"><g transform="translate(60 0)"><g class="sk "><path pathLength="1" d="M210 0 L196 38 L214 62 L190 104 L208 128 L182 176 L196 198 L176 260"/><path pathLength="1" d="M190 104 L160 128 L168 152"/><path pathLength="1" d="M208 128 L238 154 L230 186"/><path pathLength="1" d="M182 176 L154 202 L160 224"/></g></g><g transform="translate(-150 10) scale(.75)"><g class="sk d2"><path pathLength="1" d="M210 0 L196 38 L214 62 L190 104 L208 128 L182 176 L196 198 L176 260"/><path pathLength="1" d="M190 104 L160 128 L168 152"/><path pathLength="1" d="M208 128 L238 154 L230 186"/><path pathLength="1" d="M182 176 L154 202 L160 224"/></g></g></svg>
+  
   <div class="logo-box">
     <div class="lightning-icon">⚡</div>
     <div class="logo-title">ع السريع</div>
     <div class="logo-sub">توصيل كافة الطلبات في صان الحجر</div>
   </div>
   <div class="tagline">اطلب أكل، منتجات، وكل ما تحتاجه في صان الحجر</div>
+  </div>
+  <div class="cust" style="background:linear-gradient(135deg,#2a2400,#1e1e1e);border:2px solid #fc0;border-radius:16px;padding:14px;text-align:right;margin-bottom:18px;box-shadow:0 0 18px rgba(255,204,0,.25)">
+    <h4 style="font-size:16px">⚡ اطلب أي حاجة، إحنا نجيبهالك</h4>
+    <div style="font-size:12px;color:#ddd;margin-bottom:6px">اكتب اللي محتاجه حتى لو مش موجود في القوائم، وكل طلب في سطر لوحده.</div>
+    <textarea id="cReq" style="height:80px" placeholder="اكتب طلبك هنا (اسم الحاجة والكمية)&#10;كل طلب في سطر لوحده"></textarea>
+    <button class="checkout-btn" style="margin-top:8px" onclick="addCustom()">أضف طلبي للسلة 🛒</button>
+  </div>
   <div class="search-box">
     <button class="search-btn" id="searchBtn" title="بحث">←</button>
     <input type="text" id="productInput" placeholder="ابحث عن أكلة، منتج، أو طلب معين...">
   </div>
+  <div class="pop"><h4>🔥 الأكثر طلبًا</h4><div class="chips" id="pop"></div></div>
   <div class="cards-section">
-    <div class="card"><div class="card-img-container"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">اطلب الطعام</div></div><div class="card-content"><div class="card-desc">اختر من أشهى المطاعم المتاحة في صان الحجر ليصلك طعامك ساخن وسريع.</div><button class="card-btn" onclick="openRestaurants()">Order now</button></div></div>
-    <div class="card"><div class="card-img-container"><img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">سوبر ماركت</div></div><div class="card-content"><div class="card-desc">جميع احتياجات المنزل والمنتجات الغذائية تصلك بسرعة وبدقة.</div><button class="card-btn" onclick="openSupermarket()">Shop now</button></div></div>
-    <div class="card"><div class="card-img-container"><img src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">خضار وفواكه</div></div><div class="card-content"><div class="card-desc">خضار وفواكه طازجة يومياً تختار بعناية وتصلك لباب البيت.</div><button class="card-btn" onclick="openList('خضار وفواكه طازجة',VEG)">Shop now</button></div></div>
-    <div class="card"><div class="card-img-container"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">اطلب الدواء</div></div><div class="card-content"><div class="card-desc">تشعر بالتعب؟ كل الأدوية التي تحتاجها تصلك بسرعة وبدون عناء إلى منزلك.</div><button class="card-btn" onclick="addItem('أدوية / مستلزمات طبية من الصيدلية',0)">Shop now</button></div></div>
+    <div class="card"><div class="card-img-container" data-e="🍕"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">اطلب الطعام</div></div><div class="card-content"><div class="card-desc">اختر من أشهى المطاعم المتاحة في صان الحجر ليصلك طعامك ساخن وسريع.</div><button class="card-btn" onclick="openRestaurants()">Order now</button></div></div>
+    <div class="card"><div class="card-img-container" data-e="🛒"><img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">سوبر ماركت</div></div><div class="card-content"><div class="card-desc">جميع احتياجات المنزل والمنتجات الغذائية تصلك بسرعة وبدقة.</div><button class="card-btn" onclick="openSupermarket()">Shop now</button></div></div>
+    <div class="card"><div class="card-img-container" data-e="🌿"><img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">العطار</div></div><div class="card-content"><div class="card-desc">بهارات وأعشاب ومكسرات وبقوليات وعسل، كل اللي بتحتاجه من العطار يوصلك لباب البيت.</div><button class="card-btn" onclick="openAttar()">Shop now</button></div></div>
+    <div class="card"><div class="card-img-container" data-e="🥬"><img src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">خضار وفواكه</div></div><div class="card-content"><div class="card-desc">خضار وفواكه طازجة يومياً تختار بعناية وتصلك لباب البيت.</div><button class="card-btn" onclick="openList('خضار وفواكه طازجة',VEG)">Shop now</button></div></div>
+    <div class="card"><div class="card-img-container" data-e="💊"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">الصيدلية</div></div><div class="card-content"><div class="card-desc">تشعر بالتعب؟ كل الأدوية التي تحتاجها تصلك بسرعة وبدون عناء إلى منزلك.</div><button class="card-btn" onclick="openPharmacy()">Shop now</button></div></div>
   </div>
 </div>
 
@@ -74,15 +133,31 @@ body{background:#121212;color:#fff;display:flex;flex-direction:column;align-item
   <div class="modal-header"><h3>سلة طلباتك 🛒</h3><button class="close-btn" onclick="$('cartModal').style.display='none'">&times;</button></div>
   <div class="cart-items-container" id="cartItemsList"></div>
   <div class="cart-total-box"><span>الإجمالي التقديري:</span><span id="cartTotalPrice">0 جنيه</span></div>
+  <div class="cust"><h4>بيانات التوصيل</h4>
+    <input id="cName" placeholder="الاسم *" oninput="setCust('name',this.value)">
+    <input id="cPhone" type="tel" placeholder="رقم التليفون *" oninput="setCust('phone',this.value)">
+    <textarea id="cAddr" placeholder="العنوان بالتفصيل *" oninput="setCust('address',this.value)"></textarea>
+    <textarea id="cNote" placeholder="ملاحظات عامة للطلب (اختياري)" oninput="setCust('note',this.value)"></textarea>
+  </div>
   <button class="checkout-btn" onclick="sendCart()">إرسال الطلب عبر الواتساب ⚡</button>
 </div></div>
 
 <div class="modal" id="m"><div class="modal-content">
-  <div class="modal-header"><button class="back-btn" id="backBtn" onclick="back()">→ رجوع</button><h3 id="mTitle"></h3><button class="close-btn" onclick="closeAll()">&times;</button></div>
+  <div class="modal-header"><button class="back-btn" id="backBtn" onclick="back()">→ رجوع</button><h3 id="mTitle"></h3><button class="back-btn" onclick="openCart()">🛒 <b id="mCount">0</b></button></div>
+  <div class="tabs" id="mTabs"></div>
   <div class="options-list" id="mList"></div>
 </div></div>
+<div class="modal" id="pharmModal"><div class="modal-content">
+  <div class="modal-header"><h3>الصيدلية 💊</h3><button class="close-btn" onclick="$('pharmModal').style.display='none'">&times;</button></div>
+  <div class="cust"><h4>اكتب اسم العلاج اللي محتاجه</h4>
+    <textarea id="pName" style="height:110px" placeholder="مثال: بانادول إكسترا - شريط&#10;كل علاج في سطر لوحده"></textarea>
+  </div>
+  <button class="checkout-btn" onclick="addMed()">أضف للطلب 🛒</button>
+</div></div>
+<div id="toast"></div>
 
 <script>
+
 const WA="201001598125";
 const $=id=>document.getElementById(id);
 let cart=[],stack=[];
@@ -115,78 +190,170 @@ const RESTAURANTS=[
 ];
 
 const SUPER=[
-["🧀 الألبان والجبن",["لبن طازج / معبأ","جبنة بيضاء","جبنة رومي","جبنة شيدر / موتزاريلا","قشطة وزبدة"]],
-["🧊 المجمدات والجاهز للطهي",["بانيه / برجر مجمد","خضار مجمد (بامية، بسلة، ملوخية)","عجينة جلاش / رقاق مجمد"]],
-["🛒 البقالة والمؤونة",["مكرونات وأرز","زيوت وسمن","معلبات (تونة، فول، صلصة)","سكر، دقيق ومستلزمات حلويات","توابل وبهارات"]],
-["🧃 المشروبات",["شاي، بن، ونسكافيه","مياه غازية وعصائر","مياه معدنية"]],
-["🍞 المخبوزات الطازجة",["عيش فينو طازج","عيش بلدي / ملدن","معجنات وبسكويت يومي"]],
-["🧼 العناية الشخصية ومنظفات المنزل",["مسحوق غسيل ومنظفات أرضيات","سائل غسيل الأواني","شامبو، صابون، ومناديل"]]];
-const VEG=["طماطم (كيلو)","بطاطس (كيلو)","بصل (كيلو)","خيار (كيلو)","موز / فواكه موسمية"];
+["🧀 الألبان والجبن والبيض",["لبن كامل الدسم","لبن نصف دسم","لبن بدون لاكتوز","زبادي","رايب","جبنة بيضاء","جبنة فيتا","جبنة رومي","جبنة شيدر شرائح","جبنة موتزاريلا","جبنة مثلثات","جبنة كريمي","جبنة مطبوخة (مش)","قشطة","زبدة","بيض أبيض","بيض أحمر"]],
+["🛒 البقالة والمؤونة",["أرز مصري","مكرونة (اسباجتي)","مكرونة (قلم / ريشة)","مكرونة (كوع / مقطعة)","شعرية","سكر","ملح","دقيق","نشا","بيكنج باودر / فانيليا","زيت عباد الشمس","زيت ذرة","زيت خليط","سمنة نباتية","سمن بلدي","صلصة طماطم","معجون طماطم","تونة معلبة","فول معلب","سردين معلب","جبنة معلبة","ذرة معلبة","مربى","طحينة","حلاوة طحينية","خل","ليمون مجفف","خميرة","شوربة جاهزة","مخلل"]],
+["🧃 المشروبات",["شاي (أسود)","شاي أخضر","شاي أعشاب","بن (قهوة تركي)","نسكافيه","قهوة سريعة","كاكاو","بيبسي","كوكاكولا","سفن أب","ميرندا / فانتا","عصير (علب)","ريد بول","مونستر","تويست","ستينج","فولت","مياه معدنية صغيرة","مياه معدنية كبيرة","مياه معدنية جركن"]],
+["🍫 سناكس وحلويات",["شيبسي","اندومي","فشار","بسكويت","كوكيز","ويفر","كيك","شوكولاتة","بونبون / حلوى","علكة","جيلي","آيس كريم","تسالي مشكلة"]],
+["🍞 المخبوزات الطازجة",["عيش فينو","عيش بلدي","عيش شامي","عيش توست","عيش باجيت","كرواسون","كعك","بسكويت يومي","معجنات"]],
+["🧊 المجمدات والجاهز للطهي",["بانيه مجمد","برجر مجمد","كفتة مجمدة","سجق مجمد","ناجتس","استربس","بطاطس مجمدة","خضار مجمد","ملوخية مجمدة","بامية مجمدة","بسلة مجمدة","سبانخ مجمدة","عجينة جلاش","عجينة رقاق","عجينة بيتزا","سمبوسك / كبيبة","جمبري مجمد"]],
+["🍗 اللحوم والدواجن والأسماك",["فراخ بلدي","فراخ بيضاء","صدور فراخ","وراك فراخ","لحمة بتلو","لحمة ضاني","لحمة مفرومة","كبدة","كفتة طازجة","سجق طازج","سمك بلطي","سمك بوري","سمك مكرونة","جمبري طازج","ديك رومي","بط / حمام"]],
+["🧼 العناية الشخصية",["شامبو","بلسم","صابون استحمام","صابون سائل","معجون أسنان","فرشاة أسنان","غسول فم","ديودرانت","كريم ترطيب","كريم حلاقة","ماكينة حلاقة","مناديل ورقية","مناديل مبللة","فوط صحية","قطن","أعواد قطن","عطر / كولونيا"]],
+["🧹 منظفات المنزل",["مسحوق غسيل","سائل غسيل ملابس","منعم أقمشة","كلور","سائل غسيل الأواني","منظف أرضيات","منظف زجاج","منظف حمام","مزيل دهون","إسفنج وليف","أكياس قمامة","ورق ألومنيوم","ورق سلوفان","معطر جو","مبيد حشري","شمع / ولاعة / كبريت"]],
+["👶 مستلزمات الأطفال",["لبن أطفال","سيريلاك","حفاضات","مناديل أطفال","شامبو أطفال","بودرة أطفال","زجاجة رضاعة","بيبرونة / لهاية"]]];
+const ATTAR=[
+["🌶️ التوابل والبهارات",["فلفل أسود (10 جرام)","كمون (10 جرام)","كزبرة ناشفة (10 جرام)","شطة (10 جرام)","شطة حمراء (10 جرام)","بهارات مشكلة (10 جرام)","بهارات كبسة (10 جرام)","بهارات سمك (10 جرام)","بهارات دجاج (10 جرام)","قرفة (10 جرام)","هيل (10 جرام)","يانسون (10 جرام)","ينسون (10 جرام)","حبهان (10 جرام)","ثوم بودرة (10 جرام)","بصل بودرة (10 جرام)","مسمار / قرنفل (10 جرام)","ورق لورا (10 جرام)","ملح ليمون (10 جرام)","بقدونس مجفف (10 جرام)"]],
+["🌿 الأعشاب والمشروبات الشعبية",["كركديه (10 جرام)","نعناع مجفف (10 جرام)","بابونج (10 جرام)","حلبة (10 جرام)","زنجبيل (10 جرام)","شمر (10 جرام)","لويزة (10 جرام)","ميرمية (10 جرام)","زعتر مجفف (10 جرام)","حبة البركة (10 جرام)","عرقسوس (10 جرام)","تمر هندي (10 جرام)","قمر الدين (10 جرام)","قرفة عيدان (10 جرام)"]],
+["🥜 المكسرات والتسالي",["لب أبيض (كيلو)","لب سوبر (كيلو)","فول سوداني بالقشر (كيلو)","فول سوداني مقشر (كيلو)","فستق (كيلو)","لوز (كيلو)","كاجو (كيلو)","بندق (كيلو)","عين جمل (كيلو)","حمص حب (كيلو)","ترمس (كيلو)","مكسرات مشكلة (كيلو)"]],
+["🍇 الفواكه المجففة",["زبيب (كيلو)","تمر (كيلو)","بلح (كيلو)","تين مجفف (كيلو)","مشمش مجفف (كيلو)","جوز هند مبشور (كيلو)","توت مجفف (كيلو)","فواكه مجففة مشكلة (كيلو)"]],
+["🫘 البقوليات والحبوب",["عدس أصفر (كيلو)","عدس أسود (كيلو)","فول مدمس جاف (كيلو)","فول حراتي (كيلو)","حمص الشام (كيلو)","لوبيا (كيلو)","فاصوليا بيضاء (كيلو)","فريك (كيلو)","برغل (كيلو)","ذرة فشار (كيلو)","قمح (كيلو)"]],
+["🍯 العسل والدبس",["عسل نحل (كيلو)","عسل أسود (كيلو)","عسل أبيض (كيلو)","دبس رمان (كيلو)","دبس بلح (كيلو)"]]];
+/* قوائم فرعية: الصنف اللي اسمه هنا بيفتح أنواعه وأسعارها (الأسعار تقديرية، عدّلها حسب سعرك) */
+const SUBMENUS={"شيبسي":["شيبسي شطة وليمون|10/15/25","شيبسي جبنة متبلة|10/15/25","شيبسي كباب|10/15/25","تايجر جبنة مشكل|8/12/20","تايجر فلفل حار وليمون|8/12/20","تايجر كباب|8/12/20","تايجر فلفل حلو|8/12/20","تايجر طماطم|8/12/20","بيج شيبس ملح وخل|10/15/25","بيج شيبس ليمون حلو|10/15/25","بيج شيبس جبنة متبلة|10/15/25","بيج شيبس كباب|10/15/25","كرانشي سجق|8/12/20","دوريتوس حار|15/25/40","جاجوار بيتزا|10/15/25","جاجوار ملح خفيف|10/15/25"]};
+const VEG=["طماطم (كيلو)","بطاطس (كيلو)","بصل (كيلو)","خيار (كيلو)","موز (كيلو)","تفاح (كيلو)","برتقال (كيلو)","يوسفي (كيلو)","ليمون (كيلو)","مانجو (كيلو)","عنب (كيلو)","فراولة (كيلو)","جوافة (كيلو)","رمان (كيلو)","بطيخ (كيلو)","تمر (كيلو)"];
 
-/* ====== نظام النوافذ ====== */
-function view(title,rows){stack.push({title,rows});render();$('m').style.display='flex'}
+/* ====== أدوات ====== */
+const store={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const SIZES=["صغير","وسط","كبير"],SHORT=["إيطاليانو","البيك حسن","الزعيم","الريان","كبده وصدقتها"];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let tt;
+cart=store.get('ays_cart',[]);
+let cust=Object.assign({name:'',phone:'',address:'',note:''},store.get('ays_cust',{}));
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.opacity=1;clearTimeout(tt);tt=setTimeout(()=>t.style.opacity=0,1900)}
+
+/* ====== نظام النوافذ (مع تبويبات) ====== */
+function view(title,rows,extra){stack.push(Object.assign({title,rows},extra));render();$('m').style.display='flex'}
 function render(){
-  const v=stack[stack.length-1],box=$('mList');
+  const v=stack[stack.length-1],box=$('mList'),tb=$('mTabs');
   $('mTitle').textContent=v.title;
-  $('backBtn').style.visibility=stack.length>1?'visible':'hidden';
+  tb.innerHTML='';tb.style.display=v.tabs?'flex':'none';
+  let rows=v.rows;
+  if(v.tabs){
+    v.tabs.forEach((t,i)=>{const b=document.createElement('button');b.className='tab'+(i===v.active?' on':'');b.textContent=t[0];
+      b.onclick=()=>{v.active=i;render();box.parentElement.scrollTop=0};tb.append(b)});
+    const cur=v.tabs[v.active];rows=cur[1].map(s=>itemRow(s,cur[2]));
+    const on=tb.querySelector('.on');if(on)tb.scrollLeft=on.offsetLeft-tb.clientWidth/2+on.clientWidth/2;
+  }
   box.innerHTML='';
-  v.rows.forEach(r=>{const d=document.createElement('div');d.className='option-item';d.append(r.l);
-    const s=document.createElement('span');s.textContent=r.t||'';d.append(s);d.onclick=r.f;box.append(d)});
+  rows.forEach(r=>{const d=document.createElement('div');d.className='option-item';
+    const a=document.createElement('div');a.textContent=r.l;
+    if(r.s){const s=document.createElement('small');s.textContent=r.s;a.append(s)}
+    const rt=document.createElement('div');rt.className='rt';
+    const s=document.createElement('span');s.textContent=r.t||'';rt.append(s);
+    if(r.nm!==undefined){
+      const ctl=document.createElement('div');ctl.className='qty';
+      const paint=()=>{const q=qtyOf(r.nm,r.pr);
+        ctl.innerHTML=q?'<button>−</button><b>'+q+'</b><button>+</button>':'<button>+</button>';
+        const bs=ctl.querySelectorAll('button');
+        if(q){bs[0].onclick=()=>{bump(r.nm,r.pr,-1);paint()};bs[1].onclick=()=>{bump(r.nm,r.pr,1);paint()}}
+        else bs[0].onclick=()=>{bump(r.nm,r.pr,1);paint()}};
+      paint();rt.append(ctl);
+    }else{
+      const n=r.cnt?r.cnt():0;
+      if(n){const bd=document.createElement('b');bd.className='bd';bd.textContent=n;rt.append(bd)}
+      if(r.f)d.onclick=r.f;
+    }
+    d.append(a,rt);box.append(d)});
 }
 function back(){stack.pop();stack.length?render():closeAll()}
 function closeAll(){stack=[];$('m').style.display='none'}
+function openCart(){closeAll();$('cartModal').style.display='flex'}
 
-/* تحويل صنف نصي إلى صف؛ لو فيه أحجام يفتح اختيار الحجم */
-const SIZES=["صغير","وسط","كبير"];
-function itemRow(str){
-  const [n,p]=str.split('|');
-  if(p===undefined)return{l:n,t:'حسب السعر',f:()=>addItem(n,0)};
-  if(p.includes('/')){
-    const prices=p.split('/').map(Number),labels=prices.length===3?SIZES:SIZES.slice(1);
-    return{l:n,t:p+' ج',f:()=>view('اختر الحجم: '+n,prices.map((x,i)=>({l:labels[i],t:x+' ج',f:()=>addItem(`${n} (${labels[i]})`,x)})))};
+function itemRow(str,ctx,sub){
+  if(SUBMENUS[str])return{l:str,s:sub,t:'عرض الأنواع ›',cnt:()=>cart.filter(i=>SUBMENUS[str].some(x=>i.name.startsWith(x.split('|')[0]))).reduce((a,i)=>a+i.qty,0),f:()=>view(str,SUBMENUS[str].map(x=>itemRow(x,ctx)))};
+  const [n,p]=str.split('|'),c=ctx?' - '+ctx:'',b={l:n,s:sub};
+  if(p&&p.includes('/')){
+    const pr=p.split('/').map(Number),lb=pr.length===3?SIZES:SIZES.slice(1);
+    return{...b,t:p+' ج',cnt:()=>cart.filter(i=>i.name.startsWith(n+' (')&&i.name.endsWith(c)).reduce((a,i)=>a+i.qty,0),
+      f:()=>view('اختر الحجم: '+n,pr.map((x,k)=>({l:lb[k],t:x+' ج',nm:`${n} (${lb[k]})${c}`,pr:x})))};
   }
-  return{l:n,t:p+' ج',f:()=>addItem(n,+p)};
+  return{...b,t:p===undefined?'حسب السعر':p+' ج',nm:n+c,pr:p===undefined?0:+p};
 }
-function openList(title,items){view(title,items.map(itemRow))}
+function openList(title,items){view(title,items.map(s=>itemRow(s)))}
 function openRestaurants(){
-  view('اختر المطعم المفضل لديك',RESTAURANTS.map(([n,t,secs])=>({l:n,t,f:()=>{
-    if(!secs)return addItem('طلب من مطعم: '+n,0);
-    view('منيو '+n,secs.map(([st,items])=>({l:st,t:'عرض الأصناف',f:()=>openList(st,items)})));
-  }})));
+  view('اختر المطعم المفضل لديك',RESTAURANTS.map(([n,t,secs],ri)=>({l:n,t,
+    f:()=>secs?view('منيو '+n,[],{tabs:secs.map(([st,items])=>[st,items,SHORT[ri]]),active:0}):addItem('طلب من مطعم: '+n,0)})));
 }
-function openSupermarket(){
-  view('سوبر ماركت - الأقسام الرئيسية',SUPER.map(([t,items])=>({l:t,t:'تصفح',f:()=>openList(t,items)})));
+function openAttar(){view('العطار',[],{tabs:ATTAR.map(([t,items])=>[t,items,'']),active:0})}
+function openPharmacy(){$('pName').value='';$('pharmModal').style.display='flex';setTimeout(()=>$('pName').focus(),50)}
+function addMed(){
+  const lines=$('pName').value.split('\n').map(x=>x.trim()).filter(Boolean);
+  if(!lines.length)return toast('اكتب اسم العلاج أولاً');
+  lines.forEach(l=>{const it=cart.find(i=>i.name==='💊 علاج: '+l&&i.price===0);it?it.qty++:cart.push({name:'💊 علاج: '+l,price:0,qty:1,note:''})});
+  saveCart();updateCart();$('pharmModal').style.display='none';toast('تمت إضافة العلاج للسلة 💊');
 }
+function addCustom(){
+  const lines=$('cReq').value.split('\n').map(x=>x.trim()).filter(Boolean);
+  if(!lines.length)return toast('اكتب الحاجة اللي عايزها أولاً');
+  lines.forEach(l=>{const n='📝 طلب خاص: '+l,it=cart.find(i=>i.name===n&&i.price===0);it?it.qty++:cart.push({name:n,price:0,qty:1,note:''})});
+  saveCart();updateCart();$('cReq').value='';toast('تمت إضافة طلبك للسلة 📝');
+}
+function openSupermarket(){view('سوبر ماركت',[],{tabs:SUPER.map(([t,items])=>[t,items,'']),active:0})}
 
 /* ====== السلة ====== */
-function addItem(name,price){cart.push({name,price});updateCart();closeAll();alert(`تم إضافة "${name}" إلى سلة المشتريات 🛒`)}
-function removeItem(i){cart.splice(i,1);updateCart()}
+const qtyTotal=()=>cart.reduce((s,i)=>s+i.qty,0),total=()=>cart.reduce((s,i)=>s+i.price*i.qty,0);
+const saveCart=()=>store.set('ays_cart',cart);
+function addItem(name,price){
+  const it=cart.find(i=>i.name===name&&i.price===price);
+  it?it.qty++:cart.push({name,price,qty:1,note:''});
+  saveCart();updateCart();toast('تمت الإضافة 🛒 '+name);
+}
+const qtyOf=(nm,pr)=>{const i=cart.find(x=>x.name===nm&&x.price===pr);return i?i.qty:0};
+function bump(nm,pr,d){
+  const k=cart.findIndex(x=>x.name===nm&&x.price===pr);
+  if(k<0){if(d>0)cart.push({name:nm,price:pr,qty:1,note:''})}
+  else{cart[k].qty+=d;if(cart[k].qty<1)cart.splice(k,1)}
+  saveCart();updateCart();
+}
+function chg(i,d){cart[i].qty+=d;if(cart[i].qty<1)cart.splice(i,1);saveCart();updateCart()}
+function setNote(i,v){cart[i].note=v;saveCart()}
+function setCust(k,v){cust[k]=v;store.set('ays_cust',cust)}
 function updateCart(){
-  const total=cart.reduce((s,i)=>s+i.price,0);
-  $('cartCount').textContent=cart.length;
-  $('cartTotalSummary').textContent=$('cartTotalPrice').textContent=total+' جنيه';
-  $('cartItemsList').innerHTML=cart.length?cart.map((it,i)=>`<div class="cart-item-row"><span>${it.name} (${it.price} ج)</span><button class="remove-item-btn" onclick="removeItem(${i})">&times;</button></div>`).join(''):'<div class="empty-cart-msg">السلة فارغة حالياً</div>';
+  $('cartCount').textContent=$('mCount').textContent=qtyTotal();
+  $('cartTotalSummary').textContent=$('cartTotalPrice').textContent=total()+' جنيه';
+  $('cartItemsList').innerHTML=cart.length?cart.map((it,i)=>`<div class="cart-item-row"><div class="ci-top"><span class="ci-name">${esc(it.name)}</span><div class="qty"><button onclick="chg(${i},-1)">−</button><b>${it.qty}</b><button onclick="chg(${i},1)">+</button></div></div><div class="ci-price">${it.price?it.price*it.qty+' ج':'حسب السعر'}</div><input class="note" placeholder="ملاحظة (مثال: 2 كيلو / بدون بصل)" value="${esc(it.note)}" oninput="setNote(${i},this.value)"></div>`).join(''):'<div class="empty-cart-msg">السلة فارغة حالياً</div>';
 }
 function sendCart(){
-  if(!cart.length){alert('سلة المشتريات فارغة! اختر بعض المنتجات أولاً.');return}
-  const total=cart.reduce((s,i)=>s+i.price,0);
-  let msg='أهلاً ع السريع ⚡، أريد طلب الآتي:\n\n🛒 *محتويات السلة:*\n';
-  cart.forEach((it,i)=>{msg+=`${i+1}. ${it.name} - ${it.price} جنيه\n`});
-  msg+=`\n💰 *الإجمالي التقديري:* ${total} جنيه\nيرجى تأكيد التوصيل في صان الحجر.`;
+  if(!cart.length)return toast('السلة فارغة! اختر بعض المنتجات أولاً.');
+  const c=cust;
+  if(!c.name.trim()||!c.phone.trim()||!c.address.trim())return toast('من فضلك اكتب الاسم والتليفون والعنوان');
+  let msg='أهلاً ع السريع ⚡، أريد طلب الآتي:\n\n🛒 *الطلب:*\n';
+  cart.forEach((it,i)=>{msg+=`${i+1}. ${it.name} × ${it.qty} - ${it.price?it.price*it.qty+' جنيه':'(حسب السعر)'}\n`+(it.note?`   📝 ${it.note}\n`:'')});
+  msg+=`\n💰 *الإجمالي التقديري:* ${total()} جنيه\n\n👤 *الاسم:* ${c.name}\n📞 *التليفون:* ${c.phone}\n📍 *العنوان:* ${c.address}`+(c.note?`\n📝 *ملاحظات:* ${c.note}`:'');
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
-  cart=[];updateCart();$('cartModal').style.display='none';
+  cart=[];saveCart();updateCart();$('cartModal').style.display='none';toast('تم تجهيز طلبك ✅');
 }
 
-/* ====== البحث ====== */
+/* ====== البحث داخل المنيو ====== */
+const norm=s=>s.replace(/[\u064B-\u0652ـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').toLowerCase();
 function search(){
   const q=$('productInput').value.trim();
-  if(!q){alert('الرجاء كتابة اسم المنتج أو الطلب الذي تبحث عنه أولاً.');$('productInput').focus();return}
-  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(`مرحباً ع السريع ⚡، أريد البحث عن / طلب: ${q}`)}`,'_blank');
+  if(!q)return toast('اكتب اسم الصنف اللي بتدور عليه');
+  const k=norm(q).split(/\s+/),ok=s=>{const n=norm(s);return k.every(w=>n.includes(w))},res=[];
+  RESTAURANTS.forEach(([rn,,secs],ri)=>secs&&secs.forEach(([st,items])=>items.forEach(it=>{
+    if(ok(it.split('|')[0]+' '+st+' '+rn))res.push(itemRow(it,SHORT[ri],SHORT[ri]+' • '+st))})));
+  SUPER.forEach(([t,items])=>items.forEach(it=>{if(ok(it+' '+t))res.push(itemRow(it,'',t))}));
+  ATTAR.forEach(([t,items])=>items.forEach(it=>{if(ok(it+' '+t+' عطار'))res.push(itemRow(it,'','العطار • '+t))}));
+  Object.entries(SUBMENUS).forEach(([k,items])=>items.forEach(it=>{if(ok(it+' '+k))res.push(itemRow(it,'',k))}));
+  VEG.forEach(it=>{if(ok(it))res.push(itemRow(it,'','خضار وفواكه'))});
+  const rows=res.slice(0,60);
+  rows.push({l:`➕ أضف "${q}" كطلب خاص`,t:'',f:()=>addItem('طلب خاص: '+q,0)});
+  stack=[];view(res.length?`نتائج البحث: ${q}`:`لا توجد نتائج لـ "${q}"`,rows);
 }
 $('searchBtn').onclick=search;
 $('productInput').addEventListener('keypress',e=>{if(e.key==='Enter')search()});
-window.addEventListener('click',e=>{if(e.target.id==='m')closeAll();if(e.target.id==='cartModal')e.target.style.display='none'});
+
+/* ====== الأكثر طلبًا ====== */
+const POP=[[2,0,'كشري (وسط)'],[2,0,'كشري كبدة خاص'],[0,0,'بيتزا مرجرينا'],[1,3,'وجبة فرد'],[1,2,'شاورما فراخ'],[1,4,'كريب شاورما فراخ'],[2,4,'كباب 1/4'],[2,4,'فرخة مشوية نص']];
+POP.forEach(([ri,si,n])=>{
+  const str=RESTAURANTS[ri][2][si][1].find(s=>s.split('|')[0]===n);if(!str)return;
+  const b=document.createElement('button');b.className='chip';b.innerHTML=`${esc(n)}<small>${SHORT[ri]}</small>`;
+  b.onclick=()=>{const r=itemRow(str,SHORT[ri]);r.f?r.f():addItem(r.nm,r.pr)};$('pop').append(b);
+});
+
+window.addEventListener('click',e=>{if(e.target.id==='m')back();if(e.target.id==='pharmModal')e.target.style.display='none';if(e.target.id==='cartModal')e.target.style.display='none'});
+$('cName').value=cust.name;$('cPhone').value=cust.phone;$('cAddr').value=cust.address;$('cNote').value=cust.note;
 updateCart();
 </script>
+
 </body>
 </html>
