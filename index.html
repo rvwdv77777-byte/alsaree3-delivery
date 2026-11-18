@@ -1,1287 +1,192 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ع السريع - طلب المنتجات والأكل في صان الحجر</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tahoma', sans-serif;
-        }
-        body {
-            background-color: #121212;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            padding-bottom: 90px; /* مساحة للسلة العائمة */
-        }
-        .container {
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            animation: fadeIn 0.8s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        /* تصميم اللوجو مع تأثير البرق */
-        .logo-box {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
-            border: 3px solid #ffcc00;
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 15px auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
-            transition: transform 0.3s ease;
-        }
-        .logo-box:hover {
-            transform: scale(1.03);
-        }
-        .lightning-icon {
-            font-size: 28px;
-            color: #ffcc00;
-            margin-bottom: 2px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        .logo-title {
-            color: #ffcc00;
-            font-size: 22px;
-            font-weight: bold;
-        }
-        .logo-sub {
-            color: #e0e0e0;
-            font-size: 9px;
-            margin-top: 2px;
-            padding: 0 5px;
-        }
-        .tagline {
-            color: #ffcc00;
-            font-size: 15px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-        /* شريط البحث */
-        .search-box {
-            background-color: #ffffff;
-            border-radius: 35px;
-            display: flex;
-            align-items: center;
-            padding: 6px 8px 6px 12px;
-            width: 100%;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            margin-bottom: 25px;
-        }
-        .search-box input {
-            border: none;
-            outline: none;
-            width: 100%;
-            font-size: 13px;
-            text-align: right;
-            padding: 5px;
-            color: #333;
-            background: transparent;
-        }
-        .search-box input::placeholder {
-            color: #888;
-        }
-        .search-btn {
-            background-color: #ffcc00;
-            border: none;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #121212;
-            font-weight: bold;
-            font-size: 16px;
-            flex-shrink: 0;
-            transition: background-color 0.2s ease;
-        }
-        .search-btn:hover {
-            background-color: #e6b800;
-        }
-
-        /* تصميم البطاقات */
-        .cards-section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        .card {
-            background-color: #1e1e1e;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-            border: 1px solid #333;
-            text-align: right;
-            transition: transform 0.2s ease;
-        }
-        .card:hover {
-            transform: translateY(-3px);
-        }
-        .card-img-container {
-            position: relative;
-            height: 160px;
-            width: 100%;
-            background-color: #2a2a2a;
-        }
-        .card-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.85;
-        }
-        .card-title-overlay {
-            position: absolute;
-            top: 12px;
-            right: 15px;
-            color: #fff;
-            font-size: 18px;
-            font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-            background: rgba(0, 0, 0, 0.5);
-            padding: 4px 10px;
-            border-radius: 6px;
-        }
-        .card-content {
-            background-color: #ffcc00;
-            padding: 15px;
-            color: #121212;
-        }
-        .card-desc {
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-        .card-btn {
-            background-color: #121212;
-            color: #ffcc00;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            display: inline-block;
-            transition: background 0.2s;
-        }
-        .card-btn:hover {
-            background-color: #2c2c2c;
-        }
-
-        /* شريط سلة المشتريات العائم */
-        .floating-cart {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 380px;
-            background-color: #ffcc00;
-            color: #121212;
-            border-radius: 30px;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.4);
-            z-index: 999;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-        .floating-cart:hover {
-            transform: translateX(-50%) scale(1.02);
-        }
-        .cart-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-        }
-        .cart-badge {
-            background-color: #121212;
-            color: #ffcc00;
-            border-radius: 50%;
-            width: 26px;
-            height: 26px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-
-        /* نافذة منبثقة عامة (Modals) */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .modal-content {
-            background-color: #1e1e1e;
-            border: 2px solid #ffcc00;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 360px;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 20px;
-            text-align: right;
-            box-shadow: 0 5px 25px rgba(255, 204, 0, 0.3);
-            animation: fadeIn 0.3s ease;
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-        }
-        .modal-header h3 {
-            color: #ffcc00;
-            font-size: 16px;
-        }
-        .close-btn {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-        }
-       
-        /* القوائم الداخلية */
-        .options-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .option-item {
-            background-color: #2c2c2c;
-            padding: 10px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            color: #fff;
-            border-right: 4px solid #ffcc00;
-            transition: background 0.2s, transform 0.2s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-        }
-        .option-item:hover {
-            background-color: #383838;
-            transform: translateX(-3px);
-        }
-        .option-item span {
-            color: #ffcc00;
-            font-size: 12px;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        /* عناصر سلة المشتريات داخل النافذة */
-        .cart-items-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-        .cart-item-row {
-            background-color: #2c2c2c;
-            padding: 8px 12px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-        }
-        .remove-item-btn {
-            background: none;
-            border: none;
-            color: #ff4444;
-            font-size: 16px;
-            cursor: pointer;
-            padding: 0 5px;
-        }
-        .cart-total-box {
-            border-top: 1px solid #333;
-            padding-top: 12px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #ffcc00;
-        }
-        .checkout-btn {
-            background-color: #ffcc00;
-            color: #121212;
-            border: none;
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .checkout-btn:hover {
-            background-color: #e6b800;
-        }
-        .empty-cart-msg {
-            text-align: center;
-            color: #888;
-            font-size: 13px;
-            padding: 20px 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ع السريع - طلب المنتجات والأكل في صان الحجر</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Tahoma,sans-serif}
+body{background:#121212;color:#fff;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px 20px 90px}
+.container{width:100%;max-width:400px;text-align:center}
+.logo-box{background:linear-gradient(135deg,#1a1a1a,#2c2c2c);border:3px solid #fc0;border-radius:50%;width:150px;height:150px;margin:0 auto 15px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 25px rgba(255,204,0,.3)}
+.lightning-icon{font-size:28px;color:#fc0}
+.logo-title{color:#fc0;font-size:22px;font-weight:bold}
+.logo-sub{color:#e0e0e0;font-size:9px;margin-top:2px;padding:0 5px}
+.tagline{color:#fc0;font-size:15px;margin-bottom:20px;font-weight:600}
+.search-box{background:#fff;border-radius:35px;display:flex;align-items:center;padding:6px 8px 6px 12px;box-shadow:0 5px 15px rgba(0,0,0,.4);margin-bottom:25px}
+.search-box input{border:none;outline:none;width:100%;font-size:13px;text-align:right;padding:5px;color:#333;background:transparent}
+.search-btn{background:#fc0;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;color:#121212;font-weight:bold;font-size:16px;flex-shrink:0}
+.cards-section{display:flex;flex-direction:column;gap:20px;margin-bottom:20px}
+.card{background:#1e1e1e;border-radius:16px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.5);border:1px solid #333;text-align:right}
+.card-img-container{position:relative;height:160px;background:#2a2a2a}
+.card-img-container img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.card-title-overlay{position:absolute;top:12px;right:15px;font-size:18px;font-weight:bold;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:6px}
+.card-content{background:#fc0;padding:15px;color:#121212}
+.card-desc{font-size:13px;line-height:1.5;margin-bottom:12px;font-weight:500}
+.card-btn{background:#121212;color:#fc0;border:none;padding:6px 16px;border-radius:4px;font-size:12px;font-weight:bold;cursor:pointer}
+.floating-cart{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);width:90%;max-width:380px;background:#fc0;color:#121212;border-radius:30px;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 5px 20px rgba(255,204,0,.4);z-index:999;cursor:pointer;font-weight:bold}
+.cart-info{display:flex;align-items:center;gap:10px;font-size:14px}
+.cart-badge{background:#121212;color:#fc0;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.modal{display:none;position:fixed;z-index:1000;inset:0;background:rgba(0,0,0,.8);align-items:center;justify-content:center;padding:20px}
+.modal-content{background:#1e1e1e;border:2px solid #fc0;border-radius:16px;width:100%;max-width:360px;max-height:85vh;overflow-y:auto;padding:20px;text-align:right}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;border-bottom:1px solid #333;padding-bottom:10px;gap:8px}
+.modal-header h3{color:#fc0;font-size:16px;flex:1}
+.close-btn,.back-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer}
+.back-btn{font-size:14px;color:#fc0}
+.options-list{display:flex;flex-direction:column;gap:10px}
+.option-item{background:#2c2c2c;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:bold;border-right:4px solid #fc0;display:flex;justify-content:space-between;align-items:center;font-size:13px;gap:8px}
+.option-item:hover{background:#383838}
+.option-item span{color:#fc0;font-size:12px;white-space:nowrap}
+.cart-items-container{display:flex;flex-direction:column;gap:10px;margin-bottom:15px;max-height:250px;overflow-y:auto}
+.cart-item-row{background:#2c2c2c;padding:8px 12px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.remove-item-btn{background:none;border:none;color:#f44;font-size:16px;cursor:pointer}
+.cart-total-box{border-top:1px solid #333;padding-top:12px;display:flex;justify-content:space-between;font-size:14px;font-weight:bold;margin-bottom:15px;color:#fc0}
+.checkout-btn{background:#fc0;color:#121212;border:none;width:100%;padding:10px;border-radius:8px;font-weight:bold;font-size:14px;cursor:pointer}
+.empty-cart-msg{text-align:center;color:#888;font-size:13px;padding:20px 0}
+</style>
 </head>
 <body>
-
-    <div class="container">
-        <!-- دائرة الشعار مع رمز البرق -->
-        <div class="logo-box">
-            <div class="lightning-icon">⚡</div>
-            <div class="logo-title">ع السريع</div>
-            <div class="logo-sub">توصيل كافة الطلبات في صان الحجر</div>
-        </div>
-
-        <!-- النص التوضيحي -->
-        <div class="tagline">اطلب أكل، منتجات، وكل ما تحتاجه في صان الحجر</div>
-
-        <!-- شريط البحث عن المنتجات -->
-        <div class="search-box">
-            <button class="search-btn" id="searchBtn" title="بحث">←</button>
-            <input type="text" id="productInput" placeholder="ابحث عن أكلة، منتج، أو طلب معين...">
-        </div>
-
-        <!-- قسم البطاقات -->
-        <div class="cards-section">
-           
-            <!-- بطاقة 1: اطلب الطعام -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt="اطلب الطعام">
-                    <div class="card-title-overlay">اطلب الطعام</div>
-                </div>
-                <div class="card-content">
-                    <div class="card-desc">اختر من أشهى المطاعم المتاحة في صان الحجر ليصلك طعامك ساخن وسريع.</div>
-                    <button class="card-btn" id="openRestaurantsBtn">Order now</button>
-                </div>
-            </div>
-
-            <!-- بطاقة 2: سوبر ماركت -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80" alt="سوبر ماركت">
-                    <div class="card-title-overlay">سوبر ماركت</div>
-                </div>
-                <div class="card-content">
-                    <div class="card-desc">جميع احتياجات المنزل والمنتجات الغذائية تصلك بسرعة وبدقة.</div>
-                    <button class="card-btn" id="openSupermarketBtn">Shop now</button>
-                </div>
-            </div>
-
-            <!-- بطاقة 3: خضار وفواكه -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&w=600&q=80" alt="خضار وفواكه">
-                    <div class="card-title-overlay">خضار وفواكه</div>
-                </div>
-                <div class="card-content">
-                    <div class="card-desc">خضار وفواكه طازجة يومياً تختار بعناية وتصلك لباب البيت.</div>
-                    <button class="card-btn" id="openVegetablesBtn">Shop now</button>
-                </div>
-            </div>
-
-            <!-- بطاقة 4: اطلب الدواء -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="اطلب الدواء">
-                    <div class="card-title-overlay">اطلب الدواء</div>
-                </div>
-                <div class="card-content">
-                    <div class="card-desc">تشعر بالتعب؟ كل الأدوية التي تحتاجها تصلك بسرعة وبدون عناء إلى منزلك.</div>
-                    <button class="card-btn" id="medicineBtn">Shop now</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- شريط سلة المشتريات العائم -->
-    <div class="floating-cart" id="openCartBtn">
-        <div class="cart-info">
-            <div class="cart-badge" id="cartCount">0</div>
-            <span>🛒 سلة المشتريات</span>
-        </div>
-        <div id="cartTotalSummary">0 جنيه</div>
-    </div>
-
-    <!-- نافذة عرض السلة -->
-    <div class="modal" id="cartModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>سلة طلباتك 🛒</h3>
-                <button class="close-btn" id="closeCartModalBtn">&times;</button>
-            </div>
-            <div class="cart-items-container" id="cartItemsList">
-                <div class="empty-cart-msg">السلة فارغة حالياً</div>
-            </div>
-            <div class="cart-total-box">
-                <span>الإجمالي التقديري:</span>
-                <span id="cartTotalPrice">0 جنيه</span>
-            </div>
-            <button class="checkout-btn" onclick="sendCartToWhatsApp()">إرسال الطلب عبر الواتساب ⚡</button>
-        </div>
-    </div>
-
-    <!-- نافذة المطاعم المتاحة -->
-    <div class="modal" id="restaurantsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>اختر المطعم المفضل لديك</h3>
-                <button class="close-btn" id="closeRestaurantsModalBtn">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="selectRestaurant('ايطاليانو')">
-                    مطعم إيطاليانو <span>بيتزا وكريب ⚡</span>
-                </div>
-                <div class="option-item" onclick="selectRestaurant('البيك حسن')">
-                    مطعم البيك حسن <span>مشويات وبيتزا وبروست ⚡</span>
-                </div>
-                <div class="option-item" onclick="selectRestaurant('الزعيم')">
-                    مطعم الزعيم (كشري ومشويات وطواجن) <span>متاح للطلب ⚡</span>
-                </div>
-                <div class="option-item" onclick="selectRestaurant('الريان')">
-                    الريان <span>متاح للطلب ⚡</span>
-                </div>
-                <div class="option-item" onclick="selectRestaurant('كبده وصدقتها')">
-                    كبده وصدقتها <span>متاح للطلب ⚡</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= نافذة منيو مطعم إيطاليانو ================= -->
-    <div class="modal" id="italianoMenuModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>منيو مطعم إيطاليانو</h3>
-                <button class="close-btn" id="closeItalianoModalBtn">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="openMenuSection('italianoPizzaModal')">بيتزا إيطاليانو (صغير / وسط / كبير) 🍕 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('italianoCrepeModal')">كريبات إيطاليانو 🌯 <span>عرض الأصناف</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- أقسام مطعم إيطاليانو -->
-    <div class="modal" id="italianoPizzaModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>بيتزا إيطاليانو (صغير/وسط/كبير)</h3>
-                <button class="close-btn" onclick="closeModal('italianoPizzaModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('بيتزا مرجرينا (صغير 80 / وسط 100 / كبير 140)', 100)">بيتزا مرجرينا <span>80/100/140 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا خضروات (صغير 100 / وسط 120 / كبير 150)', 120)">بيتزا خضروات <span>100/120/150 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا لحمة مفروم (صغير 120 / وسط 150 / كبير 200)', 150)">بيتزا لحمة مفروم <span>120/150/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا سجق (صغير 120 / وسط 150 / كبير 200)', 150)">بيتزا سجق <span>120/150/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا سوسيس (صغير 130 / وسط 160 / كبير 220)', 160)">بيتزا سوسيس <span>130/160/220 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا فراخ بانيه (صغير 110 / وسط 160 / كبير 200)', 160)">بيتزا فراخ بانيه <span>110/160/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا استريس (صغير 125 / وسط 160 / كبير 220)', 160)">بيتزا استريس <span>125/160/220 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا شاورما فراخ (صغير 130 / وسط 160 / كبير 230)', 160)">بيتزا شاورما فراخ <span>130/160/230 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا مكس جبن (صغير 120 / وسط 160 / كبير 220)', 160)">بيتزا مكس جبن <span>120/160/220 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا مكس فراخ (صغير 130 / وسط 170 / كبير 240)', 170)">بيتزا مكس فراخ <span>130/170/240 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا مكس لحوم (صغير 130 / وسط 170 / كبير 230)', 170)">بيتزا مكس لحوم <span>130/170/230 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا مكس إيطاليانو (وسط 200 / كبير 300)', 250)">بيتزا مكس إيطاليانو <span>200 / 300 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="italianoCrepeModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>كريبات إيطاليانو</h3>
-                <button class="close-btn" onclick="closeModal('italianoCrepeModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('كريب بطاطس', 50)">كريب بطاطس <span>50 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب فراخ بانيه', 70)">كريب فراخ بانيه <span>70 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب فراخ فيشوي', 80)">كريب فراخ فيشوي <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب فراخ بانيه بطاطس', 75)">كريب بانيه بطاطس <span>75 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب سوبر فرانكي', 90)">كريب سوبر فرانكي <span>90 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب استريس', 110)">كريب استريس <span>110 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب شاورما', 110)">كريب شاورما <span>110 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب شيش طاووق', 110)">كريب شيش طاووق <span>110 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب مشق ملى / مكس', 80)">كريب مشق ملى <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب مشكل فراخ', 120)">كريب مشكل فراخ <span>120 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب مشكل لحوم', 120)">كريب مشكل لحوم <span>120 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب كفته', 100)">كريب كفته <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب سجق', 80)">كريب سجق <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب بيج', 80)">كريب بيج <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب سويسيس', 90)">كريب سويسيس <span>90 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب كفتة أسكلجراني', 75)">كريب كفتة أسكلجراني <span>75 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب مكس إيطاليانو', 200)">كريب مكس إيطاليانو <span>200 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ================= نافذة منيو مطعم الزعيم ================= -->
-    <div class="modal" id="zaeemMenuModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>منيو مطعم الزعيم</h3>
-                <button class="close-btn" id="closeZaeemModalBtn">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="openMenuSection('zaeemKosharyModal')">قسـم الكشري 🍲 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('zaeemTaginesModal')">قسـم الطواجن 🥘 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('zaeemCrepesModal')">قسـم الكريبات 🌯 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('zaeemSandwichesModal')">قسـم السندوتشات 🥖 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('zaeemGrillsModal')">قسـم المشويات والفراخ 🍗 <span>عرض الأصناف</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- أقسام مطعم الزعيم -->
-    <div class="modal" id="zaeemKosharyModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>قسـم الكشري</h3>
-                <button class="close-btn" onclick="closeModal('zaeemKosharyModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('كشري (صغير)', 20)">كشري <span>20 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري (وسط)', 25)">كشري <span>25 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري (كبير)', 30)">كشري <span>30 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري إكسترا', 35)">كشري <span>35 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري كبدة (حجم 1)', 40)">كشري كبدة <span>40 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري كبدة (حجم 2)', 45)">كشري كبدة <span>45 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري كبدة (حجم 3)', 50)">كشري كبدة <span>50 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري كبدة (جامبو)', 60)">كشري كبدة <span>60 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري كبدة خاص', 40)">كشري كبدة <span>40 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري كبدة وسط', 50)">كشري كبدة <span>50 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري كبدة كبير', 60)">كشري كبدة <span>60 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كشري كبدة عائلي', 70)">كشري كبدة <span>70 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="zaeemTaginesModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>قسـم الطواجن</h3>
-                <button class="close-btn" onclick="closeModal('zaeemTaginesModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('مكس طاجن لحمه كبدة', 65)">مكس طاجن لحمه كبدة <span>65 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('طاجن فراخ', 45)">طاجن فراخ <span>45 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('طاجن لحمه', 40)">طاجن لحمه <span>40 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('موتزاريلا فراخ', 70)">موتزاريلا فراخ <span>70 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('موتزاريلا لحمه', 65)">موتزاريلا لحمه <span>65 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('مكس طاجن كشري فراخ', 70)">مكس طاجن كشري فراخ <span>70 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('مكس طاجن كشري لحمه', 60)">مكس طاجن كشري لحمه <span>60 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('مكس طاجن فراخ كبدة', 65)">مكس طاجن فراخ كبدة <span>65 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="zaeemCrepesModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>قسـم الكريبات</h3>
-                <button class="close-btn" onclick="closeModal('zaeemCrepesModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('كريب شيش طاووق', 80)">كريب شيش طاووق <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب شاورما فراخ', 80)">كريب شاورما فراخ <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب فاهيتا فراخ', 85)">كريب فاهيتا فراخ <span>85 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب استريس عادي', 80)">كريب استريس عادي <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب لكفر رومي', 65)">كريب لكفر رومي <span>65 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب رومي', 60)">كريب رومي <span>60 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب نيو الزعيم', 100)">كريب نيو الزعيم <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب الكس ليف', 95)">كريب الكس ليف <span>95 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب مشكل فراخ', 85)">كريب مشكل فراخ <span>85 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب جمبري', 120)">كريب جمبري <span>120 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب بطاطس', 50)">كريب بطاطس <span>50 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب مشكل جبن بسطرمة', 80)">كريب مشكل جبن بسطرمة <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب مشكل جبن', 70)">كريب مشكل جبن <span>70 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب شيدر رومي', 60)">كريب شيدر رومي <span>60 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('سجق موتزريلا', 25)">سجق موتزريلا <span>25 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('سندوتش شاورما سوري جريل', 90)">سندوتش شاورما سوري جريل <span>90 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('سندوتش بطاطس سوري بالجبنه', 45)">سندوتش بطاطس سوري بالجبنة <span>45 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('سندوتش بطاطس سوري', 30)">سندوتش بطاطس سوري <span>30 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="zaeemSandwichesModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>قسـم السندوتشات</h3>
-                <button class="close-btn" onclick="closeModal('zaeemSandwichesModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('سندوتش سجق', 25)">سندوتش سجق <span>25 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('سندوتش كبدة', 30)">سندوتش كبدة <span>30 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كبدة شرايح', 25)">كبدة شرايح <span>25 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كبدة رده 1/4', 100)">كبدة رده 1/4 <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كبدة رده 1/8', 60)">كبدة رده 1/8 <span>60 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب سجق', 75)">كريب سجق <span>75 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب سوسيس', 75)">كريب سوسيس <span>75 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب برجر', 75)">كريب برجر <span>75 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب كبدة', 70)">كريب كبدة <span>70 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب كفته', 80)">كريب كفته <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب زنجر', 80)">كريب زنجر <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب بانيه عادي', 70)">كريب بانيه عادي <span>70 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب مكس مشاوي', 100)">كريب مكس مشاوي <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب مشكل لحوم', 100)">كريب مشكل لحوم <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب الروقان', 85)">كريب الروقان <span>85 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="zaeemGrillsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>قسـم المشويات والفراخ</h3>
-                <button class="close-btn" onclick="closeModal('zaeemGrillsModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('كباب 1/8', 75)">كباب 1/8 <span>75 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كباب 1/4', 150)">كباب 1/4 <span>150 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كباب 1/2', 300)">كباب 1/2 <span>300 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كباب 3/4', 450)">كباب 3/4 <span>450 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كباب كيلو', 600)">كباب كيلو <span>600 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('فرخه شيش', 350)">فرخة شيش <span>350 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كفتة 1/8', 60)">كفتة 1/8 <span>60 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كفتة 1/4', 100)">كفتة 1/4 <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كفتة 1/2', 200)">كفتة 1/2 <span>200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كفتة كيلو', 400)">كفتة كيلو <span>400 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('فرخه شيش نص', 368)">فرخة شيش نص <span>368 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('فرخه مشوية ربع', 80)">فرخة مشوية ربع <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('فرخه مشوية نص', 180)">فرخة مشوية نص <span>180 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('فرخه مشوية 3/4', 270)">فرخة مشوية 3/4 <span>270 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ================= نافذة منيو مطعم البيك حسن ================= -->
-    <div class="modal" id="baikMenuModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>منيو مطعم البيك حسن</h3>
-                <button class="close-btn" id="closeBaikModalBtn">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="openMenuSection('pizzaModal')">بيتزا عشاق الجبن واللحوم وفواكه البحر 🍕 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('baikChickenPizzaModal')">بيتزا فراخ 🍕 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('sandwichesModal')">سندوتشات وجبات 🌯 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('broastModal')">وجبات البروست 🍗 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('crepeChickenModal')">كريب فراخ 🌯 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('crepeMixModal')">كريبات ميكسات 🌯 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('crepeMeatModal')">كريب اللحوم 🥩 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('crepeCheeseModal')">كريب جبن 🧀 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('stripesMealsModal')">وجبات استريس 🍗 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('seafoodModal')">كريبات السي فود 🍤 <span>عرض الأصناف</span></div>
-                <div class="option-item" onclick="openMenuSection('baikExtrasModal')">الإضافات 🍟 <span>عرض الأصناف</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- أقسام مطعم البيك حسن -->
-    <div class="modal" id="pizzaModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>بيتزا (عشاق الجبن / اللحوم / فواكه البحر)</h3>
-                <button class="close-btn" onclick="closeModal('pizzaModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('بيتزا مارجرينا (صغير 105 / وسط 130 / كبير 165)', 130)">بيتزا مارجرينا <span>105/130/165 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا عاشق الجبن (صغير 110 / وسط 135 / كبير 175)', 135)">بيتزا عاشق الجبن <span>110/135/175 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا خضروات (صغير 115 / وسط 140 / كبير 175)', 140)">بيتزا خضروات <span>115/140/175 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا لحم مفروم (صغير 130 / وسط 170 / كبير 200)', 170)">بيتزا لحم مفروم <span>130/170/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا سوسيس (صغير 125 / وسط 160 / كبير 200)', 160)">بيتزا سوسيس <span>125/160/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا سجق (صغير 130 / وسط 170 / كبير 200)', 170)">بيتزا سجق <span>130/170/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا بيبروني (صغير 130 / وسط 170 / كبير 200)', 170)">بيتزا بيبروني <span>130/170/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا إيطاليانو (صغير 130 / وسط 170 / كبير 200)', 170)">بيتزا إيطاليانو <span>130/170/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا مكس لحوم (صغير 130 / وسط 170 / كبير 200)', 170)">بيتزا مكس لحوم <span>130/170/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا سيبيشيال البيك (صغير 130 / وسط 165 / كبير 205)', 165)">بيتزا سيبيشيال البيك <span>130/165/205 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا جمبري (صغير 165 / وسط 215 / كبير 270)', 215)">بيتزا جمبري <span>165/215/270 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا تونة (صغير 155 / وسط 180 / كبير 235)', 180)">بيتزا تونة <span>155/180/235 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا سي فود (صغير 165 / وسط 215 / كبير 270)', 215)">بيتزا سي فود <span>165/215/270 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="baikChickenPizzaModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>بيتزا فراخ (البيك حسن)</h3>
-                <button class="close-btn" onclick="closeModal('baikChickenPizzaModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('بيتزا شاورما فراخ (صغير 135 / وسط 170 / كبير 210)', 170)">بيتزا شاورما فراخ <span>135/170/210 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا سوبر كرنشي (صغير 120 / وسط 150 / كبير 190)', 150)">بيتزا سوبر كرنشي <span>120/150/190 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا استريس حار (صغير 130 / وسط 170 / كبير 200)', 170)">بيتزا استريس حار <span>130/170/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا تشيكن باربيكيو (صغير 130 / وسط 170 / كبير 200)', 170)">بيتزا باربيكيو <span>130/170/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا تشيكن رانش (صغير 130 / وسط 179 / كبير 200)', 179)">بيتزا تشيكن رانش <span>130/179/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا بانيه (صغير 120 / وسط 160 / كبير 190)', 160)">بيتزا بانيه <span>120/160/190 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا تشيكن تشيزست (صغير 130 / وسط 170 / كبير 205)', 170)">بيتزا تشيزست <span>130/170/205 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا مكسيكي (صغير 135 / وسط 170 / كبير 210)', 170)">بيتزا مكسيكي <span>135/170/210 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا سيبيشيال (صغير 130 / وسط 170 / كبير 205)', 170)">بيتزا سيبيشيال <span>130/170/205 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا تكس مكس (صغير 140 / وسط 175 / كبير 215)', 175)">بيتزا تكس مكس <span>140/175/215 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا ستار سوبرم (صغير 130 / وسط 170 / كبير 200)', 170)">بيتزا ستار سوبرم <span>130/170/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا ديليكس (صغير 130 / وسط 170 / كبير 200)', 170)">بيتزا ديليكس <span>130/170/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا مشروم فراخ (صغير 130 / وسط 165 / كبير 200)', 165)">بيتزا مشروم فراخ <span>130/165/200 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيتزا كوردون بلو (صغير 130 / وسط 165 / كبير 200)', 165)">بيتزا كوردون بلو <span>130/165/200 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="sandwichesModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>سندوتشات وجبات</h3>
-                <button class="close-btn" onclick="closeModal('sandwichesModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('شاورما فراخ', 80)">شاورما فراخ <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('شاورما لحمة', 100)">شاورما لحمة <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('استريس', 80)">استريس <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كوردون بلو', 80)">كوردون بلو <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كفته', 80)">كفته <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('برجر كومبو', 90)">برجر كومبو <span>90 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بطاطس', 40)">بطاطس <span>40 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('وجبة عربي', 140)">وجبة عربي <span>140 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('وجبة عربي إكسترا', 220)">وجبة عربي إكسترا <span>220 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="broastModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>وجبات البروست</h3>
-                <button class="close-btn" onclick="closeModal('broastModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('وجبة فرد', 120)">وجبة فرد <span>120 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('وجبة فرد سوبر', 160)">وجبة فرد سوبر <span>160 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('وجبة سوبر', 210)">وجبة سوبر <span>210 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('وجبة كومبو', 250)">وجبة كومبو <span>250 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('وجبة جامبو', 300)">وجبة جامبو <span>300 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('وجبة فاميلي', 420)">وجبة فاميلي <span>420 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('سوبر فاميلي', 550)">سوبر فاميلي <span>550 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('ليالي فاميلي', 650)">ليالي فاميلي <span>650 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بيج فاميلي', 850)">بيج فاميلي <span>850 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="crepeChickenModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>كريب فراخ</h3>
-                <button class="close-btn" onclick="closeModal('crepeChickenModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('كريب بانيه', 80)">كريب بانيه <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب كرنشي حار', 80)">كريب كرنشي حار <span>80 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب استريس', 100)">كريب استريس <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب شاورما فراخ', 105)">كريب شاورما فراخ <span>105 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب كوردون بلو', 95)">كريب كوردون بلو <span>95 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب شيش طاووق', 110)">كريب شيش طاووق <span>110 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب فرايدي', 105)">كريب فرايدي <span>105 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="crepeMixModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>كريبات ميكسات</h3>
-                <button class="close-btn" onclick="closeModal('crepeMixModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('كريب مكس فراخ', 100)">كريب مكس فراخ <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب مكس لحم', 100)">كريب مكس لحم <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب سيبيشيال', 130)">كريب سيبيشيال <span>130 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب كريسبى بو', 90)">كريب كريسبى بو <span>90 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب ستار سووبرم', 95)">كريب ستار سووبرم <span>95 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب تشيليلو', 100)">كريب تشيليلو <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب البيك', 130)">كريب البيك <span>130 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="crepeMeatModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>كريب اللحوم</h3>
-                <button class="close-btn" onclick="closeModal('crepeMeatModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('كريب لحم مفروم', 90)">كريب لحم مفروم <span>90 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب سجق', 100)">كريب سجق <span>100 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب سوسيس', 90)">كريب سوسيس <span>90 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب برجر', 90)">كريب برجر <span>90 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب إيطاليانو', 100)">كريب إيطاليانو <span>100 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="crepeCheeseModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>كريب جبن</h3>
-                <button class="close-btn" onclick="closeModal('crepeCheeseModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('كريب جبن', 65)">كريب جبن <span>65 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب رومي', 70)">كريب رومي <span>70 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب بطاطس', 65)">كريب بطاطس <span>65 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="stripesMealsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>وجبات استريس</h3>
-                <button class="close-btn" onclick="closeModal('stripesMealsModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('3 قطع استريس', 120)">3 قطع استريس <span>120 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('6 قطع استريس', 230)">6 قطع استريس <span>230 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('8 قطع استريس', 300)">8 قطع استريس <span>300 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('10 قطع استريس', 370)">10 قطع استريس <span>370 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="seafoodModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>كريبات السي فود</h3>
-                <button class="close-btn" onclick="closeModal('seafoodModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('كريب جمبري', 140)">كريب جمبري <span>140 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب سي فود', 145)">كريب سي فود <span>145 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('كريب سيبيشيال فريجا', 150)">كريب سيبيشيال فريجا <span>150 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="baikExtrasModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>الإضافات</h3>
-                <button class="close-btn" onclick="closeModal('baikExtrasModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('طبق رز', 25)">طبق رز <span>25 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('بطاطس', 30)">بطاطس <span>30 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('تومية', 10)">تومية <span>10 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('صوص باربيكيو', 20)">صوص باربيكيو <span>20 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('صوص رانش', 20)">صوص رانش <span>20 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('مياه', 10)">مياه <span>10 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('مخلل', 20)">مخلل <span>20 ج</span></div>
-                <div class="option-item" onclick="addItemToCart('لتر بيبسي', 50)">لتر بيبسي <span>50 ج</span></div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ================= نافذة سوبر ماركت الرئيسية ================= -->
-    <div class="modal" id="supermarketModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>سوبر ماركت - الأقسام الرئيسية</h3>
-                <button class="close-btn" id="closeSupermarketModalBtn">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="openSupermarketSection('dairySectionModal')">🧀 الألبان والجبن <span>تصفح</span></div>
-                <div class="option-item" onclick="openSupermarketSection('frozenSectionModal')">🧊 المجمدات والجاهز للطهي <span>تصفح</span></div>
-                <div class="option-item" onclick="openSupermarketSection('pantrySectionModal')">🛒 البقالة والمؤونة <span>تصفح</span></div>
-                <div class="option-item" onclick="openSupermarketSection('beveragesSectionModal')">🧃 المشروبات <span>تصفح</span></div>
-                <div class="option-item" onclick="openSupermarketSection('bakerySectionModal')">🍞 المخبوزات الطازجة <span>تصفح</span></div>
-                <div class="option-item" onclick="openSupermarketSection('cleaningSectionModal')">🧼 العناية الشخصية ومنظفات المنزل <span>تصفح</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- أقسم الألبان والجبن -->
-    <div class="modal" id="dairySectionModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>الألبان والجبن</h3>
-                <button class="close-btn" onclick="closeModal('dairySectionModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('لبن طازج / معبأ', 0)">لبن طازج / معبأ <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('جبنة بيضاء', 0)">جبنة بيضاء <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('جبنة رومي', 0)">جبنة رومي <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('جبنة شيدر / موتزاريلا', 0)">جبنة شيدر / موتزاريلا <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('قشطة وزبدة', 0)">قشطة وزبدة <span>حسب السعر</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم المجمدات -->
-    <div class="modal" id="frozenSectionModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>المجمدات والجاهز للطهي</h3>
-                <button class="close-btn" onclick="closeModal('frozenSectionModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('بانيه / برجر مجمد', 0)">بانيه / برجر مجمد <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('خضار مجمد (بامية، بسلة، ملوخية)', 0)">خضار مجمد <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('عجينة جلاش / رقاق مجمد', 0)">عجينة جلاش / رقاق <span>حسب السعر</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم البقالة والمؤونة -->
-    <div class="modal" id="pantrySectionModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>البقالة والمؤونة</h3>
-                <button class="close-btn" onclick="closeModal('pantrySectionModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('مكرونات وأرز', 0)">مكرونات وأرز <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('زيوت وسمن', 0)">زيوت وسمن <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('معلبات (تونة، فول، صلصة)', 0)">معلبات متنوعة <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('سكر، دقيق ومستلزمات حلويات', 0)">سكر ودقيق <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('توابل وبهارات', 0)">توابل وبهارات <span>حسب السعر</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم المشروبات -->
-    <div class="modal" id="beveragesSectionModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>المشروبات</h3>
-                <button class="close-btn" onclick="closeModal('beveragesSectionModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('شاي، بن، ونسكافيه', 0)">شاي، بن، ونسكافيه <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('مياه غازية وعصائر', 0)">مياه غازية وعصائر <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('مياه معدنية', 0)">مياه معدنية <span>حسب السعر</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم المخبوزات الطازجة -->
-    <div class="modal" id="bakerySectionModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>المخبوزات الطازجة</h3>
-                <button class="close-btn" onclick="closeModal('bakerySectionModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('عيش فينو طازج', 0)">عيش فينو طازج <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('عيش بلدي / ملدن', 0)">عيش بلدي / ملدن <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('معجنات وبسكويت يومي', 0)">معجنات وبسكويت <span>حسب السعر</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم التنظيف والعناية الشخصية -->
-    <div class="modal" id="cleaningSectionModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>العناية الشخصية ومنظفات المنزل</h3>
-                <button class="close-btn" onclick="closeModal('cleaningSectionModal')">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('مسحوق غسيل ومنظفات أرضيات', 0)">مساحيق ومنظفات <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('سائل غسيل الأواني', 0)">سائل غسيل الأواني <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('شامبو، صابون، ومناديل', 0)">عناية شخصية ومناديل <span>حسب السعر</span></div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- نافذة الخضار والفواكه -->
-    <div class="modal" id="vegetablesModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>خضار وفواكه طازجة</h3>
-                <button class="close-btn" id="closeVegetablesModalBtn">&times;</button>
-            </div>
-            <div class="options-list">
-                <div class="option-item" onclick="addItemToCart('طماطم (كيلو)', 0)">طماطم طازجة <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('بطاطس (كيلو)', 0)">بطاطس طبخ <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('بصل (كيلو)', 0)">بصل أحمر/أبيض <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('خيار (كيلو)', 0)">خيار بلدي <span>حسب السعر</span></div>
-                <div class="option-item" onclick="addItemToCart('موز / فواكه موسمية', 0)">فواكه طازجة <span>حسب السعر</span></div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // رقم الواتساب الرسمي لخدمة ع السريع في صان الحجر ⚡
-        const deliveryWhatsAppNumber = "201001598125";
-        
-        // مصفوفة سلة المشتريات
-        let cart = [];
-
-        // إضافة منتج للسلة
-        function addItemToCart(name, price) {
-            cart.push({ name: name, price: price });
-            updateCartUI();
-            
-            // إغلاق كافة النوافذ المفتوحة
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(m => m.style.display = 'none');
-
-            // إشعار سريع ومؤقت
-            alert(`تم إضافة "${name}" إلى سلة المشتريات 🛒`);
-        }
-
-        // حذف منتج من السلة
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        // تحديث واجهة السلة (العدد، الإجمالي، محتويات النافذة)
-        function updateCartUI() {
-            const cartCount = document.getElementById('cartCount');
-            const cartTotalSummary = document.getElementById('cartTotalSummary');
-            const cartTotalPrice = document.getElementById('cartTotalPrice');
-            const cartItemsList = document.getElementById('cartItemsList');
-
-            cartCount.textContent = cart.length;
-
-            let total = cart.reduce((sum, item) => sum + item.price, 0);
-            cartTotalSummary.textContent = total + " جنيه";
-            cartTotalPrice.textContent = total + " جنيه";
-
-            if (cart.length === 0) {
-                cartItemsList.innerHTML = '<div class="empty-cart-msg">السلة فارغة حالياً</div>';
-            } else {
-                let html = '';
-                cart.forEach((item, index) => {
-                    html += `
-                        <div class="cart-item-row">
-                            <span>${item.name} (${item.price} ج)</span>
-                            <button class="remove-item-btn" onclick="removeFromCart(${index})">&times;</button>
-                        </div>
-                    `;
-                });
-                cartItemsList.innerHTML = html;
-            }
-        }
-
-        // إرسال محتوى السلة عبر الواتساب
-        function sendCartToWhatsApp() {
-            if (cart.length === 0) {
-                alert('سلة المشتريات فارغة! اختر بعض المنتجات أولاً.');
-                return;
-            }
-
-            let total = cart.reduce((sum, item) => sum + item.price, 0);
-            let message = `أهلاً ع السريع ⚡، أريد طلب الآتي:\n\n🛒 *محتويات السلة:*\n`;
-            
-            cart.forEach((item, i) => {
-                message += `${i + 1}. ${item.name} - ${item.price} جنيه\n`;
-            });
-
-            message += `\n💰 *الإجمالي التقديري:* ${total} جنيه\nيرجى تأكيد التوصيل في صان الحجر.`;
-
-            const whatsappUrl = `https://wa.me/${deliveryWhatsAppNumber}?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
-
-            // تفريغ السلة بعد الطلب وإغلاق النافذة
-            cart = [];
-            updateCartUI();
-            document.getElementById('cartModal').style.display = 'none';
-        }
-
-        // تحكم في فتح وإغلاق نافذة السلة
-        const cartModal = document.getElementById('cartModal');
-        const openCartBtn = document.getElementById('openCartBtn');
-        const closeCartModalBtn = document.getElementById('closeCartModalBtn');
-
-        openCartBtn.addEventListener('click', () => {
-            cartModal.style.display = 'flex';
-        });
-
-        closeCartModalBtn.addEventListener('click', () => {
-            cartModal.style.display = 'none';
-        });
-
-        // البحث العام
-        const searchBtn = document.getElementById('searchBtn');
-        const productInput = document.getElementById('productInput');
-
-        function handleSearch() {
-            const query = productInput.value.trim();
-            if (query) {
-                const whatsappUrl = `https://wa.me/${deliveryWhatsAppNumber}?text=${encodeURIComponent(`مرحباً ع السريع ⚡، أريد البحث عن / طلب: ${query}`)}`;
-                window.open(whatsappUrl, '_blank');
-            } else {
-                alert('الرجاء كتابة اسم المنتج أو الطلب الذي تبحث عنه أولاً.');
-                productInput.focus();
-            }
-        }
-
-        searchBtn.addEventListener('click', handleSearch);
-        productInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                handleSearch();
-            }
-        });
-
-        // نافذة المطاعم
-        const restaurantsModal = document.getElementById('restaurantsModal');
-        const openRestaurantsBtn = document.getElementById('openRestaurantsBtn');
-        const closeRestaurantsModalBtn = document.getElementById('closeRestaurantsModalBtn');
-
-        openRestaurantsBtn.addEventListener('click', () => {
-            restaurantsModal.style.display = 'flex';
-        });
-
-        closeRestaurantsModalBtn.addEventListener('click', () => {
-            restaurantsModal.style.display = 'none';
-        });
-
-        function selectRestaurant(restaurantName) {
-            restaurantsModal.style.display = 'none';
-            if (restaurantName === 'ايطاليانو') {
-                document.getElementById('italianoMenuModal').style.display = 'flex';
-            } else if (restaurantName === 'البيك حسن') {
-                document.getElementById('baikMenuModal').style.display = 'flex';
-            } else if (restaurantName === 'الزعيم') {
-                document.getElementById('zaeemMenuModal').style.display = 'flex';
-            } else {
-                addItemToCart(`طلب من مطعم: ${restaurantName}`, 0);
-            }
-        }
-
-        // إغلاق قوائم المطاعم الخاصة
-        const italianoMenuModal = document.getElementById('italianoMenuModal');
-        const closeItalianoModalBtn = document.getElementById('closeItalianoModalBtn');
-        if (closeItalianoModalBtn) {
-            closeItalianoModalBtn.addEventListener('click', () => { italianoMenuModal.style.display = 'none'; });
-        }
-
-        const zaeemMenuModal = document.getElementById('zaeemMenuModal');
-        const closeZaeemModalBtn = document.getElementById('closeZaeemModalBtn');
-        if (closeZaeemModalBtn) {
-            closeZaeemModalBtn.addEventListener('click', () => { zaeemMenuModal.style.display = 'none'; });
-        }
-
-        const baikMenuModal = document.getElementById('baikMenuModal');
-        const closeBaikModalBtn = document.getElementById('closeBaikModalBtn');
-        if (closeBaikModalBtn) {
-            closeBaikModalBtn.addEventListener('click', () => { baikMenuModal.style.display = 'none'; });
-        }
-
-        function openMenuSection(sectionId) {
-            if(italianoMenuModal) italianoMenuModal.style.display = 'none';
-            if(zaeemMenuModal) zaeemMenuModal.style.display = 'none';
-            if(baikMenuModal) baikMenuModal.style.display = 'none';
-            
-            document.getElementById(sectionId).style.display = 'flex';
-        }
-
-        function closeModal(sectionId) {
-            document.getElementById(sectionId).style.display = 'none';
-        }
-
-        // نافذة السوبر ماركت الرئيسية
-        const supermarketModal = document.getElementById('supermarketModal');
-        const openSupermarketBtn = document.getElementById('openSupermarketBtn');
-        const closeSupermarketModalBtn = document.getElementById('closeSupermarketModalBtn');
-
-        openSupermarketBtn.addEventListener('click', () => {
-            supermarketModal.style.display = 'flex';
-        });
-
-        closeSupermarketModalBtn.addEventListener('click', () => {
-            supermarketModal.style.display = 'none';
-        });
-
-        function openSupermarketSection(sectionId) {
-            supermarketModal.style.display = 'none';
-            document.getElementById(sectionId).style.display = 'flex';
-        }
-
-        // نافذة الخضار والفواكه
-        const vegetablesModal = document.getElementById('vegetablesModal');
-        const openVegetablesBtn = document.getElementById('openVegetablesBtn');
-        const closeVegetablesModalBtn = document.getElementById('closeVegetablesModalBtn');
-
-        openVegetablesBtn.addEventListener('click', () => {
-            vegetablesModal.style.display = 'flex';
-        });
-
-        closeVegetablesModalBtn.addEventListener('click', () => {
-            vegetablesModal.style.display = 'none';
-        });
-
-        // زر اطلب الدواء (البطاقة الرابعة)
-        const medicineBtn = document.getElementById('medicineBtn');
-        if (medicineBtn) {
-            medicineBtn.addEventListener('click', () => {
-                addItemToCart('أدوية / مستلزمات طبية من الصيدلية', 0);
-            });
-        }
-
-        // إغلاق أي نافذة عند النقر خارجها
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                e.target.style.display = 'none';
-            }
-        });
-    </script>
-
+<div class="container">
+  <div class="logo-box">
+    <div class="lightning-icon">⚡</div>
+    <div class="logo-title">ع السريع</div>
+    <div class="logo-sub">توصيل كافة الطلبات في صان الحجر</div>
+  </div>
+  <div class="tagline">اطلب أكل، منتجات، وكل ما تحتاجه في صان الحجر</div>
+  <div class="search-box">
+    <button class="search-btn" id="searchBtn" title="بحث">←</button>
+    <input type="text" id="productInput" placeholder="ابحث عن أكلة، منتج، أو طلب معين...">
+  </div>
+  <div class="cards-section">
+    <div class="card"><div class="card-img-container"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">اطلب الطعام</div></div><div class="card-content"><div class="card-desc">اختر من أشهى المطاعم المتاحة في صان الحجر ليصلك طعامك ساخن وسريع.</div><button class="card-btn" onclick="openRestaurants()">Order now</button></div></div>
+    <div class="card"><div class="card-img-container"><img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">سوبر ماركت</div></div><div class="card-content"><div class="card-desc">جميع احتياجات المنزل والمنتجات الغذائية تصلك بسرعة وبدقة.</div><button class="card-btn" onclick="openSupermarket()">Shop now</button></div></div>
+    <div class="card"><div class="card-img-container"><img src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">خضار وفواكه</div></div><div class="card-content"><div class="card-desc">خضار وفواكه طازجة يومياً تختار بعناية وتصلك لباب البيت.</div><button class="card-btn" onclick="openList('خضار وفواكه طازجة',VEG)">Shop now</button></div></div>
+    <div class="card"><div class="card-img-container"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt=""><div class="card-title-overlay">اطلب الدواء</div></div><div class="card-content"><div class="card-desc">تشعر بالتعب؟ كل الأدوية التي تحتاجها تصلك بسرعة وبدون عناء إلى منزلك.</div><button class="card-btn" onclick="addItem('أدوية / مستلزمات طبية من الصيدلية',0)">Shop now</button></div></div>
+  </div>
+</div>
+
+<div class="floating-cart" onclick="$('cartModal').style.display='flex'">
+  <div class="cart-info"><div class="cart-badge" id="cartCount">0</div><span>🛒 سلة المشتريات</span></div>
+  <div id="cartTotalSummary">0 جنيه</div>
+</div>
+
+<div class="modal" id="cartModal"><div class="modal-content">
+  <div class="modal-header"><h3>سلة طلباتك 🛒</h3><button class="close-btn" onclick="$('cartModal').style.display='none'">&times;</button></div>
+  <div class="cart-items-container" id="cartItemsList"></div>
+  <div class="cart-total-box"><span>الإجمالي التقديري:</span><span id="cartTotalPrice">0 جنيه</span></div>
+  <button class="checkout-btn" onclick="sendCart()">إرسال الطلب عبر الواتساب ⚡</button>
+</div></div>
+
+<div class="modal" id="m"><div class="modal-content">
+  <div class="modal-header"><button class="back-btn" id="backBtn" onclick="back()">→ رجوع</button><h3 id="mTitle"></h3><button class="close-btn" onclick="closeAll()">&times;</button></div>
+  <div class="options-list" id="mList"></div>
+</div></div>
+
+<script>
+const WA="201001598125";
+const $=id=>document.getElementById(id);
+let cart=[],stack=[];
+
+/* صيغة الأصناف: "الاسم|سعر" أو "الاسم|صغير/وسط/كبير" أو "الاسم|وسط/كبير" أو "الاسم" (حسب السعر) */
+const RESTAURANTS=[
+["مطعم إيطاليانو","بيتزا وكريب ⚡",[
+ ["بيتزا إيطاليانو 🍕",["بيتزا مرجرينا|80/100/140","بيتزا خضروات|100/120/150","بيتزا لحمة مفروم|120/150/200","بيتزا سجق|120/150/200","بيتزا سوسيس|130/160/220","بيتزا فراخ بانيه|110/160/200","بيتزا استريس|125/160/220","بيتزا شاورما فراخ|130/160/230","بيتزا مكس جبن|120/160/220","بيتزا مكس فراخ|130/170/240","بيتزا مكس لحوم|130/170/230","بيتزا مكس إيطاليانو|200/300"]],
+ ["كريبات إيطاليانو 🌯",["كريب بطاطس|50","كريب فراخ بانيه|70","كريب فراخ فيشوي|80","كريب بانيه بطاطس|75","كريب سوبر فرانكي|90","كريب استريس|110","كريب شاورما|110","كريب شيش طاووق|110","كريب مشق ملى|80","كريب مشكل فراخ|120","كريب مشكل لحوم|120","كريب كفته|100","كريب سجق|80","كريب بيج|80","كريب سويسيس|90","كريب كفتة أسكلجراني|75","كريب مكس إيطاليانو|200"]]]],
+["مطعم البيك حسن","مشويات وبيتزا وبروست ⚡",[
+ ["بيتزا عشاق الجبن واللحوم وفواكه البحر 🍕",["بيتزا مارجرينا|105/130/165","بيتزا عاشق الجبن|110/135/175","بيتزا خضروات|115/140/175","بيتزا لحم مفروم|130/170/200","بيتزا سوسيس|125/160/200","بيتزا سجق|130/170/200","بيتزا بيبروني|130/170/200","بيتزا إيطاليانو|130/170/200","بيتزا مكس لحوم|130/170/200","بيتزا سيبيشيال البيك|130/165/205","بيتزا جمبري|165/215/270","بيتزا تونة|155/180/235","بيتزا سي فود|165/215/270"]],
+ ["بيتزا فراخ 🍕",["بيتزا شاورما فراخ|135/170/210","بيتزا سوبر كرنشي|120/150/190","بيتزا استريس حار|130/170/200","بيتزا باربيكيو|130/170/200","بيتزا تشيكن رانش|130/179/200","بيتزا بانيه|120/160/190","بيتزا تشيزست|130/170/205","بيتزا مكسيكي|135/170/210","بيتزا سيبيشيال|130/170/205","بيتزا تكس مكس|140/175/215","بيتزا ستار سوبرم|130/170/200","بيتزا ديليكس|130/170/200","بيتزا مشروم فراخ|130/165/200","بيتزا كوردون بلو|130/165/200"]],
+ ["سندوتشات وجبات 🌯",["شاورما فراخ|80","شاورما لحمة|100","استريس|80","كوردون بلو|80","كفته|80","برجر كومبو|90","بطاطس|40","وجبة عربي|140","وجبة عربي إكسترا|220"]],
+ ["وجبات البروست 🍗",["وجبة فرد|120","وجبة فرد سوبر|160","وجبة سوبر|210","وجبة كومبو|250","وجبة جامبو|300","وجبة فاميلي|420","سوبر فاميلي|550","ليالي فاميلي|650","بيج فاميلي|850"]],
+ ["كريب فراخ 🌯",["كريب بانيه|80","كريب كرنشي حار|80","كريب استريس|100","كريب شاورما فراخ|105","كريب كوردون بلو|95","كريب شيش طاووق|110","كريب فرايدي|105"]],
+ ["كريبات ميكسات 🌯",["كريب مكس فراخ|100","كريب مكس لحم|100","كريب سيبيشيال|130","كريب كريسبى بو|90","كريب ستار سووبرم|95","كريب تشيليلو|100","كريب البيك|130"]],
+ ["كريب اللحوم 🥩",["كريب لحم مفروم|90","كريب سجق|100","كريب سوسيس|90","كريب برجر|90","كريب إيطاليانو|100"]],
+ ["كريب جبن 🧀",["كريب جبن|65","كريب رومي|70","كريب بطاطس|65"]],
+ ["وجبات استريس 🍗",["3 قطع استريس|120","6 قطع استريس|230","8 قطع استريس|300","10 قطع استريس|370"]],
+ ["كريبات السي فود 🍤",["كريب جمبري|140","كريب سي فود|145","كريب سيبيشيال فريجا|150"]],
+ ["الإضافات 🍟",["طبق رز|25","بطاطس|30","تومية|10","صوص باربيكيو|20","صوص رانش|20","مياه|10","مخلل|20","لتر بيبسي|50"]]]],
+["مطعم الزعيم (كشري ومشويات وطواجن)","متاح للطلب ⚡",[
+ ["قسـم الكشري 🍲",["كشري (صغير)|20","كشري (وسط)|25","كشري (كبير)|30","كشري إكسترا|35","كشري كبدة (حجم 1)|40","كشري كبدة (حجم 2)|45","كشري كبدة (حجم 3)|50","كشري كبدة (جامبو)|60","كشري كبدة خاص|40","كشري كبدة وسط|50","كشري كبدة كبير|60","كشري كبدة عائلي|70"]],
+ ["قسـم الطواجن 🥘",["مكس طاجن لحمه كبدة|65","طاجن فراخ|45","طاجن لحمه|40","موتزاريلا فراخ|70","موتزاريلا لحمه|65","مكس طاجن كشري فراخ|70","مكس طاجن كشري لحمه|60","مكس طاجن فراخ كبدة|65"]],
+ ["قسـم الكريبات 🌯",["كريب شيش طاووق|80","كريب شاورما فراخ|80","كريب فاهيتا فراخ|85","كريب استريس عادي|80","كريب لكفر رومي|65","كريب رومي|60","كريب نيو الزعيم|100","كريب الكس ليف|95","كريب مشكل فراخ|85","كريب جمبري|120","كريب بطاطس|50","كريب مشكل جبن بسطرمة|80","كريب مشكل جبن|70","كريب شيدر رومي|60","سجق موتزريلا|25","سندوتش شاورما سوري جريل|90","سندوتش بطاطس سوري بالجبنة|45","سندوتش بطاطس سوري|30"]],
+ ["قسـم السندوتشات 🥖",["سندوتش سجق|25","سندوتش كبدة|30","كبدة شرايح|25","كبدة رده 1/4|100","كبدة رده 1/8|60","كريب سجق|75","كريب سوسيس|75","كريب برجر|75","كريب كبدة|70","كريب كفته|80","كريب زنجر|80","كريب بانيه عادي|70","كريب مكس مشاوي|100","كريب مشكل لحوم|100","كريب الروقان|85"]],
+ ["قسـم المشويات والفراخ 🍗",["كباب 1/8|75","كباب 1/4|150","كباب 1/2|300","كباب 3/4|450","كباب كيلو|600","فرخة شيش|350","كفتة 1/8|60","كفتة 1/4|100","كفتة 1/2|200","كفتة كيلو|400","فرخة شيش نص|368","فرخة مشوية ربع|80","فرخة مشوية نص|180","فرخة مشوية 3/4|270"]]]],
+["الريان","متاح للطلب ⚡",null],
+["كبده وصدقتها","متاح للطلب ⚡",null]
+];
+
+const SUPER=[
+["🧀 الألبان والجبن",["لبن طازج / معبأ","جبنة بيضاء","جبنة رومي","جبنة شيدر / موتزاريلا","قشطة وزبدة"]],
+["🧊 المجمدات والجاهز للطهي",["بانيه / برجر مجمد","خضار مجمد (بامية، بسلة، ملوخية)","عجينة جلاش / رقاق مجمد"]],
+["🛒 البقالة والمؤونة",["مكرونات وأرز","زيوت وسمن","معلبات (تونة، فول، صلصة)","سكر، دقيق ومستلزمات حلويات","توابل وبهارات"]],
+["🧃 المشروبات",["شاي، بن، ونسكافيه","مياه غازية وعصائر","مياه معدنية"]],
+["🍞 المخبوزات الطازجة",["عيش فينو طازج","عيش بلدي / ملدن","معجنات وبسكويت يومي"]],
+["🧼 العناية الشخصية ومنظفات المنزل",["مسحوق غسيل ومنظفات أرضيات","سائل غسيل الأواني","شامبو، صابون، ومناديل"]]];
+const VEG=["طماطم (كيلو)","بطاطس (كيلو)","بصل (كيلو)","خيار (كيلو)","موز / فواكه موسمية"];
+
+/* ====== نظام النوافذ ====== */
+function view(title,rows){stack.push({title,rows});render();$('m').style.display='flex'}
+function render(){
+  const v=stack[stack.length-1],box=$('mList');
+  $('mTitle').textContent=v.title;
+  $('backBtn').style.visibility=stack.length>1?'visible':'hidden';
+  box.innerHTML='';
+  v.rows.forEach(r=>{const d=document.createElement('div');d.className='option-item';d.append(r.l);
+    const s=document.createElement('span');s.textContent=r.t||'';d.append(s);d.onclick=r.f;box.append(d)});
+}
+function back(){stack.pop();stack.length?render():closeAll()}
+function closeAll(){stack=[];$('m').style.display='none'}
+
+/* تحويل صنف نصي إلى صف؛ لو فيه أحجام يفتح اختيار الحجم */
+const SIZES=["صغير","وسط","كبير"];
+function itemRow(str){
+  const [n,p]=str.split('|');
+  if(p===undefined)return{l:n,t:'حسب السعر',f:()=>addItem(n,0)};
+  if(p.includes('/')){
+    const prices=p.split('/').map(Number),labels=prices.length===3?SIZES:SIZES.slice(1);
+    return{l:n,t:p+' ج',f:()=>view('اختر الحجم: '+n,prices.map((x,i)=>({l:labels[i],t:x+' ج',f:()=>addItem(`${n} (${labels[i]})`,x)})))};
+  }
+  return{l:n,t:p+' ج',f:()=>addItem(n,+p)};
+}
+function openList(title,items){view(title,items.map(itemRow))}
+function openRestaurants(){
+  view('اختر المطعم المفضل لديك',RESTAURANTS.map(([n,t,secs])=>({l:n,t,f:()=>{
+    if(!secs)return addItem('طلب من مطعم: '+n,0);
+    view('منيو '+n,secs.map(([st,items])=>({l:st,t:'عرض الأصناف',f:()=>openList(st,items)})));
+  }})));
+}
+function openSupermarket(){
+  view('سوبر ماركت - الأقسام الرئيسية',SUPER.map(([t,items])=>({l:t,t:'تصفح',f:()=>openList(t,items)})));
+}
+
+/* ====== السلة ====== */
+function addItem(name,price){cart.push({name,price});updateCart();closeAll();alert(`تم إضافة "${name}" إلى سلة المشتريات 🛒`)}
+function removeItem(i){cart.splice(i,1);updateCart()}
+function updateCart(){
+  const total=cart.reduce((s,i)=>s+i.price,0);
+  $('cartCount').textContent=cart.length;
+  $('cartTotalSummary').textContent=$('cartTotalPrice').textContent=total+' جنيه';
+  $('cartItemsList').innerHTML=cart.length?cart.map((it,i)=>`<div class="cart-item-row"><span>${it.name} (${it.price} ج)</span><button class="remove-item-btn" onclick="removeItem(${i})">&times;</button></div>`).join(''):'<div class="empty-cart-msg">السلة فارغة حالياً</div>';
+}
+function sendCart(){
+  if(!cart.length){alert('سلة المشتريات فارغة! اختر بعض المنتجات أولاً.');return}
+  const total=cart.reduce((s,i)=>s+i.price,0);
+  let msg='أهلاً ع السريع ⚡، أريد طلب الآتي:\n\n🛒 *محتويات السلة:*\n';
+  cart.forEach((it,i)=>{msg+=`${i+1}. ${it.name} - ${it.price} جنيه\n`});
+  msg+=`\n💰 *الإجمالي التقديري:* ${total} جنيه\nيرجى تأكيد التوصيل في صان الحجر.`;
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
+  cart=[];updateCart();$('cartModal').style.display='none';
+}
+
+/* ====== البحث ====== */
+function search(){
+  const q=$('productInput').value.trim();
+  if(!q){alert('الرجاء كتابة اسم المنتج أو الطلب الذي تبحث عنه أولاً.');$('productInput').focus();return}
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(`مرحباً ع السريع ⚡، أريد البحث عن / طلب: ${q}`)}`,'_blank');
+}
+$('searchBtn').onclick=search;
+$('productInput').addEventListener('keypress',e=>{if(e.key==='Enter')search()});
+window.addEventListener('click',e=>{if(e.target.id==='m')closeAll();if(e.target.id==='cartModal')e.target.style.display='none'});
+updateCart();
+</script>
 </body>
 </html>
