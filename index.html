@@ -99,7 +99,6 @@ body{background:#121212;color:#fff;display:flex;flex-direction:column;align-item
 .rx-note{font-size:11px;color:#aaa;margin-top:6px}
 #rxLinks{display:flex;flex-direction:column;gap:6px;margin:10px 0}
 #rxLinks a{color:#fc0;font-size:12px}
-/* نافذة تكبير صورة المنتج */
 #imgModal{z-index:2000}
 .img-preview-box{background:#1e1e1e;border:2px solid #fc0;border-radius:16px;width:100%;max-width:390px;padding:16px;text-align:center}
 .img-preview-stage{width:100%;height:260px;border-radius:12px;background:#121212;border:1px solid #333;display:flex;align-items:center;justify-content:center;overflow:hidden;margin:12px 0;font-size:88px}
@@ -257,66 +256,41 @@ const OPTS={"عصير مانجا":JS,"عصير برتقال":JS,"عصير تفا
 const AMT=new Set(["عيش فينو","عيش بلدي","عيش شامي","عيش توست","عيش باجيت"]);
 const VEG=["طماطم (كيلو)","بطاطس (كيلو)","بصل (كيلو)","خيار (كيلو)","فلفل عادي (كيلو)","فلفل حراق (كيلو)","فلفل رومي ألوان (كيلو)","جزر (كيلو)","ثوم (كيلو)","كزبرة (ربطة)","بقدونس (ربطة)","شبت (ربطة)","خس (كيلو)","جرجير (ربطة)","بصل أخضر (ربطة)","كوسة (كيلو)","بتنجان رومي (كيلو)","بتنجان (كيلو)","بتنجان محشي (كيلو)","كرنب (كيلو)","موز (كيلو)","تفاح (كيلو)","برتقال (كيلو)","يوسفي (كيلو)","ليمون (كيلو)","مانجو (كيلو)","عنب (كيلو)","فراولة (كيلو)","جوافة (كيلو)","رمان (كيلو)","بطيخ (كيلو)"];
 
-/* ====== صور حقيقية للمنتجات والبهارات والمشروبات والمقلة والخضار ====== */
-const CAT_IMGS={
-  dairy:"https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=75",
-  cheese:"https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=500&q=75",
-  pantry:"https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=75",
-  drinks:"https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=500&q=75",
-  coffee:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=500&q=75",
-  snacks:"https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=500&q=75",
-  bread:"https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=75",
-  frozen:"https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=500&q=75",
-  meat:"https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=500&q=75",
-  care:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=500&q=75",
-  clean:"https://images.unsplash.com/photo-1583947581924-860bda6a26df?auto=format&fit=crop&w=500&q=75",
-  baby:"https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=500&q=75",
-  spices:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=500&q=75",
-  herbs:"https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=500&q=75",
-  honey:"https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=500&q=75",
-  nuts:"https://images.unsplash.com/photo-1536591375665-1e698545466e?auto=format&fit=crop&w=500&q=75",
-  veg:"https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=500&q=75",
-  fruit:"https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=500&q=75"
-};
-
+/* صور مطابقة لكل صنف بدقة - بدون صور تشبيهية عامة */
 const PICS={
-  "لبن":CAT_IMGS.dairy,"زبادي":CAT_IMGS.dairy,"زبادو":CAT_IMGS.dairy,"قشطة":CAT_IMGS.dairy,"بيض أبيض":CAT_IMGS.dairy,"بيض أحمر":CAT_IMGS.dairy,
-  "لبن المراعي":CAT_IMGS.dairy,"لبن جهينة":CAT_IMGS.dairy,"لبن بخيره":CAT_IMGS.dairy,"زبادي سادة":CAT_IMGS.dairy,"زبادي فراولة":CAT_IMGS.dairy,
-  "زبادو سادة":CAT_IMGS.dairy,"زبادو فراولة":CAT_IMGS.dairy,"زبادو مانجا":CAT_IMGS.dairy,"زبادو خوخ":CAT_IMGS.dairy,
-  "جبنة فيتا":CAT_IMGS.cheese,"جبنة رومي":CAT_IMGS.cheese,"جبنة موتزاريلا (ربع كيلو)":CAT_IMGS.cheese,"جبنة مثلثات":CAT_IMGS.cheese,
-  "جبنة فيتا مراعي":CAT_IMGS.cheese,"جبنة فيتا دومتي":CAT_IMGS.cheese,"جبنة فيتا رودس":CAT_IMGS.cheese,
-  "جبنة مثلثات باندا":CAT_IMGS.cheese,"جبنة مثلثات لافاش كيري":CAT_IMGS.cheese,"جبنة مثلثات العمدة":CAT_IMGS.cheese,"جبنة مثلثات ابن الوليد":CAT_IMGS.cheese,
-  "شاي":CAT_IMGS.drinks,"شاي أخضر":CAT_IMGS.herbs,"شاي أعشاب":CAT_IMGS.herbs,"شاي كرك":CAT_IMGS.drinks,
-  "شاي ليبتون":CAT_IMGS.drinks,"شاي العروسة":CAT_IMGS.drinks,"شاي كابوس":CAT_IMGS.drinks,
-  "بن":CAT_IMGS.coffee,"نسكافيه":CAT_IMGS.coffee,"قهوة سريعة":CAT_IMGS.coffee,"كاكاو":CAT_IMGS.coffee,
-  "بن أبو عوف":CAT_IMGS.coffee,"بن الشتري":CAT_IMGS.coffee,"بن شاهين":CAT_IMGS.coffee,"بن النجار":CAT_IMGS.coffee,"بن عبد المعبود":CAT_IMGS.coffee,
-  "مشروبات غازية":CAT_IMGS.drinks,"مشروبات الطاقة":CAT_IMGS.drinks,"عصير (علب)":CAT_IMGS.drinks,
-  "مياه معدنية صغيرة":CAT_IMGS.drinks,"مياه معدنية كبيرة":CAT_IMGS.drinks,"مياه معدنية جركن":CAT_IMGS.drinks,
-  "عصير مانجا":CAT_IMGS.drinks,"عصير برتقال":CAT_IMGS.drinks,"عصير تفاح":CAT_IMGS.drinks,"عصير فواكه":CAT_IMGS.drinks,
-  "عصير كوكتيل":CAT_IMGS.drinks,"عصير جوافة":CAT_IMGS.drinks,"عصير أناناس":CAT_IMGS.drinks,
-  "عسل نحل (كيلو)":CAT_IMGS.honey,"عسل أسود (كيلو)":CAT_IMGS.honey,"دبس رمان (كيلو)":CAT_IMGS.honey,"دبس بلح (كيلو)":CAT_IMGS.honey,
-  "موز (كيلو)":CAT_IMGS.fruit,"تفاح (كيلو)":CAT_IMGS.fruit,"برتقال (كيلو)":CAT_IMGS.fruit,"يوسفي (كيلو)":CAT_IMGS.fruit,
-  "ليمون (كيلو)":CAT_IMGS.fruit,"مانجو (كيلو)":CAT_IMGS.fruit,"عنب (كيلو)":CAT_IMGS.fruit,"فراولة (كيلو)":CAT_IMGS.fruit,
-  "جوافة (كيلو)":CAT_IMGS.fruit,"رمان (كيلو)":CAT_IMGS.fruit,"بطيخ (كيلو)":CAT_IMGS.fruit
+  "لبن":"https://cocktailgarnishes.uk/cdn/shop/files/milk-carton-cocktail-glass-cocktail-garnish-540700.jpg?v=1720703084&width=1445",
+  "لبن المراعي":"https://cocktailgarnishes.uk/cdn/shop/files/milk-carton-cocktail-glass-cocktail-garnish-540700.jpg?v=1720703084&width=1445",
+  "لبن جهينة":"https://cocktailgarnishes.uk/cdn/shop/files/milk-carton-cocktail-glass-cocktail-garnish-540700.jpg?v=1720703084&width=1445",
+  "لبن بخيره":"https://cocktailgarnishes.uk/cdn/shop/files/milk-carton-cocktail-glass-cocktail-garnish-540700.jpg?v=1720703084&width=1445",
+
+  "زبادي":"https://iprsoftwaremedia.com/67/files/20125/4ffe08ac29371a067f000015_Yogurt_flavored_in_cup_with_spoon_verticle/Yogurt_flavored_in_cup_with_spoon_verticle_1125a4a5-6429-40c9-8543-38c7f6d85d8e-prv.jpg?v=1125a4a5-6429-40c9-8543-38c7f6d85d8e",
+  "زبادي سادة":"https://iprsoftwaremedia.com/67/files/20125/4ffe08ac29371a067f000015_Yogurt_flavored_in_cup_with_spoon_verticle/Yogurt_flavored_in_cup_with_spoon_verticle_1125a4a5-6429-40c9-8543-38c7f6d85d8e-prv.jpg?v=1125a4a5-6429-40c9-8543-38c7f6d85d8e",
+  "زبادي فراولة":"https://iprsoftwaremedia.com/67/files/20125/4ffe08ac29371a067f000015_Yogurt_flavored_in_cup_with_spoon_verticle/Yogurt_flavored_in_cup_with_spoon_verticle_1125a4a5-6429-40c9-8543-38c7f6d85d8e-prv.jpg?v=1125a4a5-6429-40c9-8543-38c7f6d85d8e",
+
+  "بيض أبيض":"https://omeletteeggs.com/wp-content/uploads/2024/09/30WhiteCarton.webp",
+  "بيض أحمر":"https://omeletteeggs.com/wp-content/uploads/2024/09/30WhiteCarton.webp",
+
+  "جبنة فيتا":"https://media.istockphoto.com/id/577945994/photo/raw-organic-white-feta-cheese.jpg?s=612x612&w=0&k=20&c=WepAtgk91Q6R5YrJ0rqXtMXZwOShjCmL5BiyYiIuj7Y=",
+  "جبنة فيتا مراعي":"https://media.istockphoto.com/id/577945994/photo/raw-organic-white-feta-cheese.jpg?s=612x612&w=0&k=20&c=WepAtgk91Q6R5YrJ0rqXtMXZwOShjCmL5BiyYiIuj7Y=",
+  "جبنة فيتا دومتي":"https://media.istockphoto.com/id/577945994/photo/raw-organic-white-feta-cheese.jpg?s=612x612&w=0&k=20&c=WepAtgk91Q6R5YrJ0rqXtMXZwOShjCmL5BiyYiIuj7Y=",
+  "جبنة فيتا رودس":"https://media.istockphoto.com/id/577945994/photo/raw-organic-white-feta-cheese.jpg?s=612x612&w=0&k=20&c=WepAtgk91Q6R5YrJ0rqXtMXZwOShjCmL5BiyYiIuj7Y=",
+
+  "جبنة رومي":"http://www.wisconsincheesemart.com/cdn/shop/products/CheddarWheel5lb.jpg?v=1762439901",
+  "جبنة موتزاريلا (ربع كيلو)":"https://www.conatycatering.com/image/cache/wp/cj/uploads/Main_Product_Images/01769218_3-550x550w.webp",
+
+  "أرز مصري":"https://static.vecteezy.com/system/resources/previews/060/243/242/large_2x/bowl-filled-with-white-rice-grains-showcasing-an-abundant-amount-of-uncooked-rice-with-a-clean-background-photo.jpg",
+  "رز بسمتي":"https://static.vecteezy.com/system/resources/previews/060/243/242/large_2x/bowl-filled-with-white-rice-grains-showcasing-an-abundant-amount-of-uncooked-rice-with-a-clean-background-photo.jpg",
+
+  "مكرونة":"https://www.foodiecrush.com/easy-homemade-marinara-sauce/penne-marinara-sauce-foodiecrush-com-004/",
+  "مكرونة سباجيتي":"https://www.foodiecrush.com/easy-homemade-marinara-sauce/penne-marinara-sauce-foodiecrush-com-004/",
+  "مكرونة قلم":"https://www.foodiecrush.com/easy-homemade-marinara-sauce/penne-marinara-sauce-foodiecrush-com-004/",
+  "مكرونة فرن":"https://www.foodiecrush.com/easy-homemade-marinara-sauce/penne-marinara-sauce-foodiecrush-com-004/",
+
+  "فلفل أسود (10 جنيه)":"https://www.wholespice.com/cdn/shop/products/pepper_black_powder_1411152_a.jpg?v=1633665435&width=400",
+  "مكسرات مشكلة (كيلو)":"https://cdn.sanity.io/images/i7rljdcx/production/3c221a39e3207b510569f0140221aaa2a687b558-3387x2205.png?auto=format&fit=max&w=3840"
 };
 
-const pickPic=n=>{
-  if(PICS[n])return PICS[n];
-  if(/بهارات|فلفل|كمون|كزبرة|شطة|بابريكا|قرفة|هيل|حبهان|كركم|ثوم بودرة|بصل بودرة|مسمار|قرنفل|ورق لورا|بقدونس مجفف|مرقة|زعتر|ليمون مجفف|فيجيتار/.test(n))return CAT_IMGS.spices;
-  if(/كركديه|نعناع|بابونج|حلبة|زنجبيل|شمر|ينسون|مرمرية|حبة البركة|عرقسوس|تمر هندي|قمر الدين/.test(n))return CAT_IMGS.herbs;
-  if(/لب |سوداني|فستق|لوز|كاجو|بندق|عين جمل|حمص حب|ترمس|مكسرات/.test(n))return CAT_IMGS.nuts;
-  if(/عصير|بيبسي|كوكاكولا|سفن|ميرندا|تويست|ريد بول|مونستر|ستينج|فولت|مشروبات/.test(n))return CAT_IMGS.drinks;
-  if(/شيبسي|تايجر|دوريتوس|جاجوار|كرانشي|اندومي|فشار|بسكويت|كوكيز|شوكولاتة|بونبون|لبان|جيلي|آيس/.test(n))return CAT_IMGS.snacks;
-  if(/عيش/.test(n))return CAT_IMGS.bread;
-  if(/مجمد|عجينة|سمبوسك/.test(n))return CAT_IMGS.frozen;
-  if(/فراخ|صدور|وراك|لحمة|كبدة|سمك|جمبري|ديك|بط/.test(n))return CAT_IMGS.meat;
-  if(/شامبو|بلسم|صابون|معجون|فرشاة|غسول|ديودرانت|كريم|ماكينة|مناديل|فوط|قطن|أعواد|عطر/.test(n))return CAT_IMGS.care;
-  if(/مسحوق|غسيل|منعم|كلور|أرضيات|زجاج|حمام|دهون|الأواني|إسفنج|قمامة|ألومنيوم|سلوفان|معطر|مبيد|شمع/.test(n))return CAT_IMGS.clean;
-  if(/أطفال|سيريلاك|حفاض|زجاجة|بيبرونة/.test(n))return CAT_IMGS.baby;
-  if(/طماطم|بطاطس|بصل|خيار|فلفل|جزر|ثوم|كزبرة|بقدونس|شبت|خس|جرجير|كوسة|بتنجان|كرنب|ملوخية|بامية|بسلة|سبانخ|خضار/.test(n))return CAT_IMGS.veg;
-  if(/أرز|رز|مكرونة|شعرية|سكر|ملح|دقيق|نشا|بيكنج|فانيليا|زيت|سمنة|سمن|صلصة|كاتشب|مايونيز|معلب|مربى|طحينة|حلاوة|خل|خميرة|شوربة|مخلل|عدس|فول|لوبيا|فاصوليا|برغل|قمح/.test(n))return CAT_IMGS.pantry;
-  return null;
-};
+const pickPic=n=>PICS[n]||null;
 
 const EMO=[["لبن أطفال","🍼"],["سيريلاك","🍼"],["زجاجة","🍼"],["بيبرونة","🍼"],["حفاض","👶"],["أطفال","👶"],
 ["لبن","🥛"],["زبادي","🥣"],["زبادو","🥣"],["جبنة","🧀"],["قشطة","🥛"],["بيض","🥚"],["أرز","🍚"],["رز","🍚"],["مكرونة","🍝"],["شعرية","🍝"],["سكر","🍬"],["ملح","🧂"],["دقيق","🌾"],["نشا","🌾"],["بيكنج","🧁"],["فانيليا","🧁"],["زيت","🫒"],["سمن","🧈"],["صلصة","🍅"],["كاتشب","🍅"],["مايونيز","🥫"],["معلب","🥫"],["مربى","🍓"],["طحينة","🍯"],["حلاوة","🍯"],["خل","🍶"],["خميرة","🍞"],["شوربة","🍲"],["مخلل","🥒"],
