@@ -89,10 +89,10 @@ body{background:#121212;color:#fff;display:flex;flex-direction:column;align-item
 .rx-th{position:relative;width:64px;height:64px;border-radius:8px;overflow:hidden;border:1px solid #444}
 .rx-th img{width:100%;height:100%;object-fit:cover}
 .rx-th button{position:absolute;top:2px;left:2px;background:rgba(0,0,0,.7);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:13px;cursor:pointer}
-.option-item.th{padding:12px;gap:12px;min-height:104px}
+.option-item.th{padding:12px;gap:12px;min-height:106px}
 .option-item.th .nm{flex:1;font-size:14px;line-height:1.5}
 .option-item.th .rt{flex-direction:column;align-items:flex-end;gap:6px}
-.thumb{width:84px;height:84px;border-radius:12px;background:#181818;border:1.5px solid rgba(255,204,0,.45);display:flex;align-items:center;justify-content:center;font-size:38px;flex-shrink:0;overflow:hidden;cursor:zoom-in;transition:transform .18s,border-color .18s}
+.thumb{width:86px;height:86px;border-radius:12px;background:#181818;border:1.5px solid rgba(255,204,0,.45);display:flex;align-items:center;justify-content:center;font-size:38px;flex-shrink:0;overflow:hidden;cursor:zoom-in;transition:transform .18s,border-color .18s}
 .thumb:hover{transform:scale(1.03);border-color:#fc0}
 .thumb img{width:100%;height:100%;object-fit:cover}
 .amt-btn{background:#2c2c2c;color:#fc0;border:1px solid #fc0;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;white-space:nowrap}
@@ -238,7 +238,7 @@ const SUPER=[
 ["🧃 المشروبات",["شاي","شاي أخضر","شاي أعشاب","شاي كرك","بن","نسكافيه","قهوة سريعة","كاكاو","مشروبات غازية","مشروبات الطاقة","عصير (علب)","مياه معدنية صغيرة","مياه معدنية كبيرة","مياه معدنية جركن"]],
 ["🍫 سناكس وحلويات",["شيبسي","اندومي","فشار","بسكويت","كوكيز العبد","شوكولاتة","بونبون / حلوى","لبان","جيلي","آيس كريم"]],
 ["🍞 المخبوزات الطازجة",["عيش فينو","عيش بلدي","عيش شامي","عيش توست","عيش باجيت","بسكويت يومي"]],
-["🧊 المجمدات والجاهز للطهي",["بانيه مجمد","برجر مجمد","كفتة مجمدة","سجق مجمد","ناجتس","استربس","بطاطس مجمدة","خضار مجمد","ملوخية مجمدة","بامية مجمدة","بسلة مجمدة","سبانخ مجمدة","عجينة جلاش","عجينة رقاق","عجينة بيتزا","سمبوسك / كبيبة","جمبري مجمد"]],
+["🧊 المجمدات والجاهز للطهي",["بانيه مجمد","برجر مجمد","كفتة مجمدة","سجق مجمدة","ناجتس","استربس","بطاطس مجمدة","خضار مجمد","ملوخية مجمدة","بامية مجمدة","بسلة مجمدة","سبانخ مجمدة","عجينة جلاش","عجينة رقاق","عجينة بيتزا","سمبوسك / كبيبة","جمبري مجمد"]],
 ["🍗 اللحوم والدواجن والأسماك",["فراخ بلدي","فراخ بيضاء","صدور فراخ","وراك فراخ","لحمة بتلو","لحمة ضاني","لحمة مفرومة","كبدة","كفتة طازجة","سجق طازج","سمك بلطي","سمك بوري","سمك مكرونة","جمبري طازج","ديك رومي","بط / حمام"]],
 ["🧼 العناية الشخصية",["شامبو","بلسم","صابون استحمام","صابون سائل","معجون أسنان","فرشاة أسنان","غسول فم","ديودرانت","كريم ترطيب","كريم حلاقة","ماكينة حلاقة","مناديل ورقية","مناديل مبللة","فوط صحية","قطن","أعواد قطن","عطر / كولونيا"]],
 ["🧹 منظفات المنزل",["مسحوق غسيل","سائل غسيل ملابس","منعم أقمشة","كلور","سائل غسيل الأواني","منظف أرضيات","منظف زجاج","منظف حمام","مزيل دهون","إسفنج وليف","أكياس قمامة","ورق ألومنيوم","ورق سلوفان","معطر جو","مبيد حشري","شمع / ولاعة / كبريت"]],
@@ -256,38 +256,123 @@ const OPTS={"عصير مانجا":JS,"عصير برتقال":JS,"عصير تفا
 const AMT=new Set(["عيش فينو","عيش بلدي","عيش شامي","عيش توست","عيش باجيت"]);
 const VEG=["طماطم (كيلو)","بطاطس (كيلو)","بصل (كيلو)","خيار (كيلو)","فلفل عادي (كيلو)","فلفل حراق (كيلو)","فلفل رومي ألوان (كيلو)","جزر (كيلو)","ثوم (كيلو)","كزبرة (ربطة)","بقدونس (ربطة)","شبت (ربطة)","خس (كيلو)","جرجير (ربطة)","بصل أخضر (ربطة)","كوسة (كيلو)","بتنجان رومي (كيلو)","بتنجان (كيلو)","بتنجان محشي (كيلو)","كرنب (كيلو)","موز (كيلو)","تفاح (كيلو)","برتقال (كيلو)","يوسفي (كيلو)","ليمون (كيلو)","مانجو (كيلو)","عنب (كيلو)","فراولة (كيلو)","جوافة (كيلو)","رمان (كيلو)","بطيخ (كيلو)"];
 
-/* صور مطابقة لكل صنف بدقة - بدون صور تشبيهية عامة */
+/* ====== صور لكل منتج في القوائم ====== */
+const IMG={
+  milk:"https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=75",
+  yogurt:"https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=75",
+  cream:"https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=500&q=75",
+  eggs:"https://images.unsplash.com/photo-1506976785307-8732e854ad1a?auto=format&fit=crop&w=500&q=75",
+  cheese:"https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=500&q=75",
+  rice:"https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=75",
+  pasta:"https://images.unsplash.com/photo-1551462147-ff29053bfc14?auto=format&fit=crop&w=500&q=75",
+  sugar:"https://images.unsplash.com/photo-1581441363689-1f3c3c414635?auto=format&fit=crop&w=500&q=75",
+  salt:"https://images.unsplash.com/photo-1518110925495-5e6c4da39c3c?auto=format&fit=crop&w=500&q=75",
+  flour:"https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=75",
+  oil:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=75",
+  butter:"https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=500&q=75",
+  tomatoPaste:"https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=500&q=75",
+  canned:"https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=500&q=75",
+  jam:"https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=500&q=75",
+  tahini:"https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=500&q=75",
+  tea:"https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=500&q=75",
+  coffee:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=500&q=75",
+  soda:"https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=75",
+  juice:"https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=500&q=75",
+  water:"https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=500&q=75",
+  chips:"https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&w=500&q=75",
+  noodles:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=500&q=75",
+  popcorn:"https://images.unsplash.com/photo-1578849251787-6639a22c0db6?auto=format&fit=crop&w=500&q=75",
+  cookies:"https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=500&q=75",
+  chocolate:"https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=500&q=75",
+  candy:"https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?auto=format&fit=crop&w=500&q=75",
+  icecream:"https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=500&q=75",
+  bread:"https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=75",
+  chicken:"https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=500&q=75",
+  meat:"https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=500&q=75",
+  fish:"https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=500&q=75",
+  shrimp:"https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=500&q=75",
+  care:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=500&q=75",
+  clean:"https://images.unsplash.com/photo-1583947581924-860bda6a26df?auto=format&fit=crop&w=500&q=75",
+  baby:"https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=500&q=75",
+  spices:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=500&q=75",
+  herbs:"https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=500&q=75",
+  legumes:"https://images.unsplash.com/photo-1515543904379-3d7578aa8745?auto=format&fit=crop&w=500&q=75",
+  honey:"https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=500&q=75",
+  nuts:"https://images.unsplash.com/photo-1536591375665-1e698545466e?auto=format&fit=crop&w=500&q=75",
+  tomato:"https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=500&q=75",
+  potato:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500&q=75",
+  onion:"https://images.unsplash.com/photo-1618512498012-541ce302052b?auto=format&fit=crop&w=500&q=75",
+  cucumber:"https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?auto=format&fit=crop&w=500&q=75",
+  pepper:"https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?auto=format&fit=crop&w=500&q=75",
+  carrot:"https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=500&q=75",
+  garlic:"https://images.unsplash.com/photo-1540148426945-6cf22a6b2383?auto=format&fit=crop&w=500&q=75",
+  greens:"https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=500&q=75",
+  eggplant:"https://images.unsplash.com/photo-1615484477778-ca3b77940c25?auto=format&fit=crop&w=500&q=75",
+  banana:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=500&q=75",
+  apple:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=500&q=75",
+  orange:"https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=500&q=75",
+  lemon:"https://images.unsplash.com/photo-1590502593747-42a996133562?auto=format&fit=crop&w=500&q=75",
+  mango:"https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=500&q=75",
+  grapes:"https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=500&q=75",
+  strawberry:"https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=500&q=75",
+  guava:"https://images.unsplash.com/photo-1536511132770-e5058c7e8c46?auto=format&fit=crop&w=500&q=75",
+  pomegranate:"https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&w=500&q=75",
+  watermelon:"https://images.unsplash.com/photo-1587049633312-d628ae50a8ae?auto=format&fit=crop&w=500&q=75"
+};
+
 const PICS={
-  "لبن":"https://cocktailgarnishes.uk/cdn/shop/files/milk-carton-cocktail-glass-cocktail-garnish-540700.jpg?v=1720703084&width=1445",
-  "لبن المراعي":"https://cocktailgarnishes.uk/cdn/shop/files/milk-carton-cocktail-glass-cocktail-garnish-540700.jpg?v=1720703084&width=1445",
-  "لبن جهينة":"https://cocktailgarnishes.uk/cdn/shop/files/milk-carton-cocktail-glass-cocktail-garnish-540700.jpg?v=1720703084&width=1445",
-  "لبن بخيره":"https://cocktailgarnishes.uk/cdn/shop/files/milk-carton-cocktail-glass-cocktail-garnish-540700.jpg?v=1720703084&width=1445",
-
-  "زبادي":"https://iprsoftwaremedia.com/67/files/20125/4ffe08ac29371a067f000015_Yogurt_flavored_in_cup_with_spoon_verticle/Yogurt_flavored_in_cup_with_spoon_verticle_1125a4a5-6429-40c9-8543-38c7f6d85d8e-prv.jpg?v=1125a4a5-6429-40c9-8543-38c7f6d85d8e",
-  "زبادي سادة":"https://iprsoftwaremedia.com/67/files/20125/4ffe08ac29371a067f000015_Yogurt_flavored_in_cup_with_spoon_verticle/Yogurt_flavored_in_cup_with_spoon_verticle_1125a4a5-6429-40c9-8543-38c7f6d85d8e-prv.jpg?v=1125a4a5-6429-40c9-8543-38c7f6d85d8e",
-  "زبادي فراولة":"https://iprsoftwaremedia.com/67/files/20125/4ffe08ac29371a067f000015_Yogurt_flavored_in_cup_with_spoon_verticle/Yogurt_flavored_in_cup_with_spoon_verticle_1125a4a5-6429-40c9-8543-38c7f6d85d8e-prv.jpg?v=1125a4a5-6429-40c9-8543-38c7f6d85d8e",
-
-  "بيض أبيض":"https://omeletteeggs.com/wp-content/uploads/2024/09/30WhiteCarton.webp",
-  "بيض أحمر":"https://omeletteeggs.com/wp-content/uploads/2024/09/30WhiteCarton.webp",
-
-  "جبنة فيتا":"https://media.istockphoto.com/id/577945994/photo/raw-organic-white-feta-cheese.jpg?s=612x612&w=0&k=20&c=WepAtgk91Q6R5YrJ0rqXtMXZwOShjCmL5BiyYiIuj7Y=",
-  "جبنة فيتا مراعي":"https://media.istockphoto.com/id/577945994/photo/raw-organic-white-feta-cheese.jpg?s=612x612&w=0&k=20&c=WepAtgk91Q6R5YrJ0rqXtMXZwOShjCmL5BiyYiIuj7Y=",
-  "جبنة فيتا دومتي":"https://media.istockphoto.com/id/577945994/photo/raw-organic-white-feta-cheese.jpg?s=612x612&w=0&k=20&c=WepAtgk91Q6R5YrJ0rqXtMXZwOShjCmL5BiyYiIuj7Y=",
-  "جبنة فيتا رودس":"https://media.istockphoto.com/id/577945994/photo/raw-organic-white-feta-cheese.jpg?s=612x612&w=0&k=20&c=WepAtgk91Q6R5YrJ0rqXtMXZwOShjCmL5BiyYiIuj7Y=",
-
-  "جبنة رومي":"http://www.wisconsincheesemart.com/cdn/shop/products/CheddarWheel5lb.jpg?v=1762439901",
-  "جبنة موتزاريلا (ربع كيلو)":"https://www.conatycatering.com/image/cache/wp/cj/uploads/Main_Product_Images/01769218_3-550x550w.webp",
-
-  "أرز مصري":"https://static.vecteezy.com/system/resources/previews/060/243/242/large_2x/bowl-filled-with-white-rice-grains-showcasing-an-abundant-amount-of-uncooked-rice-with-a-clean-background-photo.jpg",
-  "رز بسمتي":"https://static.vecteezy.com/system/resources/previews/060/243/242/large_2x/bowl-filled-with-white-rice-grains-showcasing-an-abundant-amount-of-uncooked-rice-with-a-clean-background-photo.jpg",
-
-  "مكرونة":"https://www.foodiecrush.com/easy-homemade-marinara-sauce/penne-marinara-sauce-foodiecrush-com-004/",
-  "مكرونة سباجيتي":"https://www.foodiecrush.com/easy-homemade-marinara-sauce/penne-marinara-sauce-foodiecrush-com-004/",
-  "مكرونة قلم":"https://www.foodiecrush.com/easy-homemade-marinara-sauce/penne-marinara-sauce-foodiecrush-com-004/",
-  "مكرونة فرن":"https://www.foodiecrush.com/easy-homemade-marinara-sauce/penne-marinara-sauce-foodiecrush-com-004/",
-
-  "فلفل أسود (10 جنيه)":"https://www.wholespice.com/cdn/shop/products/pepper_black_powder_1411152_a.jpg?v=1633665435&width=400",
-  "مكسرات مشكلة (كيلو)":"https://cdn.sanity.io/images/i7rljdcx/production/3c221a39e3207b510569f0140221aaa2a687b558-3387x2205.png?auto=format&fit=max&w=3840"
+  "لبن":IMG.milk,"لبن المراعي":IMG.milk,"لبن جهينة":IMG.milk,"لبن بخيره":IMG.milk,"لبن أطفال":IMG.milk,
+  "زبادي":IMG.yogurt,"زبادي سادة":IMG.yogurt,"زبادي فراولة":IMG.yogurt,
+  "زبادو":IMG.yogurt,"زبادو سادة":IMG.yogurt,"زبادو فراولة":IMG.yogurt,"زبادو مانجا":IMG.yogurt,"زبادو خوخ":IMG.yogurt,
+  "قشطة":IMG.cream,"بيض أبيض":IMG.eggs,"بيض أحمر":IMG.eggs,
+  "جبنة فيتا":IMG.cheese,"جبنة فيتا مراعي":IMG.cheese,"جبنة فيتا دومتي":IMG.cheese,"جبنة فيتا رودس":IMG.cheese,
+  "جبنة رومي":IMG.cheese,"جبنة موتزاريلا (ربع كيلو)":IMG.cheese,
+  "جبنة مثلثات":IMG.cheese,"جبنة مثلثات باندا":IMG.cheese,"جبنة مثلثات لافاش كيري":IMG.cheese,"جبنة مثلثات العمدة":IMG.cheese,"جبنة مثلثات ابن الوليد":IMG.cheese,
+  "أرز مصري":IMG.rice,"رز بسمتي":IMG.rice,
+  "مكرونة":IMG.pasta,"مكرونة سباجيتي":IMG.pasta,"مكرونة خواتم كبيرة":IMG.pasta,"مكرونة خواتم صغيرة":IMG.pasta,"مكرونة قلم":IMG.pasta,"مكرونة فرن":IMG.pasta,"شعرية":IMG.pasta,
+  "سكر":IMG.sugar,"ملح":IMG.salt,"دقيق":IMG.flour,"نشا":IMG.flour,"بيكنج باودر":IMG.flour,"فانيليا":IMG.spices,
+  "زيت":IMG.oil,"زيت كريستال":IMG.oil,"زيت قاليه":IMG.oil,"زيت حلوة الممتاز":IMG.oil,"زيت شطارة":IMG.oil,
+  "سمنة":IMG.butter,"سمنة روابي":IMG.butter,"سمنة هانم":IMG.butter,"سمنة كريستال":IMG.butter,
+  "صلصة طماطم":IMG.tomatoPaste,"كاتشب":IMG.tomatoPaste,"مايونيز":IMG.canned,
+  "تونة معلبة":IMG.canned,"فول معلب":IMG.canned,"سردين معلب":IMG.canned,"ذرة معلبة":IMG.canned,"شوربة جاهزة":IMG.canned,"مخلل":IMG.canned,
+  "مربى":IMG.jam,"مربى فراولة":IMG.jam,"مربى تين":IMG.jam,"مربى مشمش":IMG.jam,
+  "طحينة":IMG.tahini,"حلاوة طحينية":IMG.tahini,"خل عادي":IMG.oil,"خميرة":IMG.flour,
+  "شاي":IMG.tea,"شاي أخضر":IMG.tea,"شاي أعشاب":IMG.herbs,"شاي كرك":IMG.tea,"شاي ليبتون":IMG.tea,"شاي العروسة":IMG.tea,"شاي كابوس":IMG.tea,
+  "بن":IMG.coffee,"بن أبو عوف":IMG.coffee,"بن الشتري":IMG.coffee,"بن شاهين":IMG.coffee,"بن النجار":IMG.coffee,"بن عبد المعبود":IMG.coffee,
+  "نسكافيه":IMG.coffee,"قهوة سريعة":IMG.coffee,"كاكاو":IMG.coffee,
+  "مشروبات غازية":IMG.soda,"بيبسي":IMG.soda,"كوكاكولا":IMG.soda,"سفن أب":IMG.soda,"ميرندا / فانتا":IMG.soda,"تويست":IMG.soda,
+  "مشروبات الطاقة":IMG.soda,"ريد بول":IMG.soda,"مونستر":IMG.soda,"ستينج":IMG.soda,"فولت":IMG.soda,
+  "عصير (علب)":IMG.juice,"عصير مانجا":IMG.juice,"عصير برتقال":IMG.juice,"عصير تفاح":IMG.juice,"عصير فواكه":IMG.juice,"عصير كوكتيل":IMG.juice,"عصير جوافة":IMG.juice,"عصير أناناس":IMG.juice,"عصير ميكس شوكولاتة":IMG.juice,"عصير ميكس فراولة":IMG.juice,"عصير موز باللبن":IMG.juice,"عصير فانيليا":IMG.juice,
+  "مياه معدنية صغيرة":IMG.water,"مياه معدنية كبيرة":IMG.water,"مياه معدنية جركن":IMG.water,
+  "شيبسي":IMG.chips,"شيبسي شطة وليمون":IMG.chips,"شيبسي جبنة متبلة":IMG.chips,"شيبسي كباب":IMG.chips,"تايجر جبنة مشكل":IMG.chips,"تايجر فلفل حار وليمون":IMG.chips,"تايجر كباب":IMG.chips,"تايجر فلفل حلو":IMG.chips,"تايجر طماطم":IMG.chips,"بيج شيبس ملح وخل":IMG.chips,"بيج شيبس ليمون حلو":IMG.chips,"بيج شيبس جبنة متبلة":IMG.chips,"بيج شيبس كباب":IMG.chips,"كرانشي سجق":IMG.chips,"دوريتوس حار":IMG.chips,"جاجوار بيتزا":IMG.chips,"جاجوار ملح خفيف":IMG.chips,
+  "اندومي":IMG.noodles,"اندومي خضار":IMG.noodles,"اندومي لحمة":IMG.noodles,"اندومي خضروات حراق":IMG.noodles,
+  "فشار":IMG.popcorn,"ذرة فشار (ربع كيلو)":IMG.popcorn,
+  "بسكويت":IMG.cookies,"كوكيز العبد":IMG.cookies,"بسكويت يومي":IMG.cookies,
+  "شوكولاتة":IMG.chocolate,"شوكولاتة جالاكسي":IMG.chocolate,"شوكولاتة داري ميلك":IMG.chocolate,"شوكولاتة كيت كات":IMG.chocolate,"شوكولاتة كندر":IMG.chocolate,"شوكولاتة سنيكرز":IMG.chocolate,
+  "بونبون / حلوى":IMG.candy,"لبان":IMG.candy,"جيلي":IMG.candy,"آيس كريم":IMG.icecream,
+  "عيش فينو":IMG.bread,"عيش بلدي":IMG.bread,"عيش شامي":IMG.bread,"عيش توست":IMG.bread,"عيش باجيت":IMG.bread,
+  "بانيه مجمد":IMG.chicken,"برجر مجمد":IMG.meat,"كفتة مجمدة":IMG.meat,"سجق مجمد":IMG.meat,"ناجتس":IMG.chicken,"استربس":IMG.chicken,
+  "بطاطس مجمدة":IMG.potato,"خضار مجمد":IMG.greens,"ملوخية مجمدة":IMG.greens,"بامية مجمدة":IMG.greens,"بسلة مجمدة":IMG.greens,"سبانخ مجمدة":IMG.greens,
+  "عجينة جلاش":IMG.flour,"عجينة رقاق":IMG.flour,"عجينة بيتزا":IMG.flour,"سمبوسك / كبيبة":IMG.flour,
+  "فراخ بلدي":IMG.chicken,"فراخ بيضاء":IMG.chicken,"صدور فراخ":IMG.chicken,"وراك فراخ":IMG.chicken,"ديك رومي":IMG.chicken,"بط / حمام":IMG.chicken,
+  "لحمة بتلو":IMG.meat,"لحمة ضاني":IMG.meat,"لحمة مفرومة":IMG.meat,"كبدة":IMG.meat,"كفتة طازجة":IMG.meat,"سجق طازج":IMG.meat,
+  "سمك بلطي":IMG.fish,"سمك بوري":IMG.fish,"سمك مكرونة":IMG.fish,"جمبري طازج":IMG.shrimp,"جمبري مجمد":IMG.shrimp,
+  "شامبو":IMG.care,"بلسم":IMG.care,"صابون استحمام":IMG.care,"صابون سائل":IMG.care,"معجون أسنان":IMG.care,"فرشاة أسنان":IMG.care,"غسول فم":IMG.care,"ديودرانت":IMG.care,"كريم ترطيب":IMG.care,"كريم حلاقة":IMG.care,"ماكينة حلاقة":IMG.care,"مناديل ورقية":IMG.care,"مناديل مبللة":IMG.care,"فوط صحية":IMG.care,"قطن":IMG.care,"أعواد قطن":IMG.care,"عطر / كولونيا":IMG.care,
+  "مسحوق غسيل":IMG.clean,"سائل غسيل ملابس":IMG.clean,"منعم أقمشة":IMG.clean,"كلور":IMG.clean,"سائل غسيل الأواني":IMG.clean,"منظف أرضيات":IMG.clean,"منظف زجاج":IMG.clean,"منظف حمام":IMG.clean,"مزيل دهون":IMG.clean,"إسفنج وليف":IMG.clean,"أكياس قمامة":IMG.clean,"ورق ألومنيوم":IMG.clean,"ورق سلوفان":IMG.clean,"معطر جو":IMG.clean,"مبيد حشري":IMG.clean,"شمع / ولاعة / كبريت":IMG.clean,
+  "سيريلاك":IMG.baby,"حفاضات":IMG.baby,"مناديل أطفال":IMG.baby,"شامبو أطفال":IMG.baby,"بودرة أطفال":IMG.baby,"زجاجة رضاعة":IMG.baby,"بيبرونة / لهاية":IMG.baby,
+  "فلفل أسود (10 جنيه)":IMG.spices,"فلفل أبيض (10 جنيه)":IMG.spices,"كمون (10 جنيه)":IMG.spices,"كزبرة ناشفة (10 جنيه)":IMG.spices,"شطة (10 جنيه)":IMG.spices,"بابريكا (10 جنيه)":IMG.spices,"بهارات لحمة (10 جنيه)":IMG.spices,"بهارات كبسة (10 جنيه)":IMG.spices,"بهارات دجاج (10 جنيه)":IMG.spices,"قرفة عود (10 جنيه)":IMG.spices,"هيل (10 جنيه)":IMG.spices,"حبهان (10 جنيه)":IMG.spices,"كركم (10 جنيه)":IMG.spices,"ثوم بودرة (10 جنيه)":IMG.spices,"بصل بودرة (10 جنيه)":IMG.spices,"مسمار / قرنفل (10 جنيه)":IMG.spices,"ورق لورا (10 جنيه)":IMG.spices,"بقدونس مجفف (10 جنيه)":IMG.spices,"مرقة دجاج (10 جنيه)":IMG.spices,"زعتر (10 جنيه)":IMG.spices,"ليمون مجفف (10 جنيه)":IMG.spices,"خلطة فيجيتار (10 جنيه)":IMG.spices,
+  "كركديه (10 جرام)":IMG.herbs,"نعناع مجفف (10 جرام)":IMG.herbs,"بابونج (10 جرام)":IMG.herbs,"حلبة (10 جرام)":IMG.herbs,"زنجبيل (10 جرام)":IMG.herbs,"شمر (10 جرام)":IMG.herbs,"ينسون (10 جرام)":IMG.herbs,"مرمرية (10 جرام)":IMG.herbs,"حبة البركة (10 جرام)":IMG.herbs,"عرقسوس (10 جرام)":IMG.herbs,"تمر هندي (10 جرام)":IMG.herbs,"قمر الدين (10 جرام)":IMG.herbs,
+  "عدس أصفر (ربع كيلو)":IMG.legumes,"عدس بجبة (ربع كيلو)":IMG.legumes,"فول مدمس جاف (ربع كيلو)":IMG.legumes,"فول حراتي (ربع كيلو)":IMG.legumes,"حمص الشام (ربع كيلو)":IMG.legumes,"لوبيا (ربع كيلو)":IMG.legumes,"فاصوليا بيضاء (ربع كيلو)":IMG.legumes,"برغل (ربع كيلو)":IMG.legumes,"قمح (ربع كيلو)":IMG.legumes,
+  "عسل نحل (كيلو)":IMG.honey,"عسل أسود (كيلو)":IMG.honey,"دبس رمان (كيلو)":IMG.honey,"دبس بلح (كيلو)":IMG.honey,
+  "لب أبيض (كيلو)":IMG.nuts,"لب سوبر (كيلو)":IMG.nuts,"فول سوداني بالقشر (كيلو)":IMG.nuts,"فول سوداني مقشر (كيلو)":IMG.nuts,"فستق (كيلو)":IMG.nuts,"لوز (كيلو)":IMG.nuts,"كاجو (كيلو)":IMG.nuts,"بندق (كيلو)":IMG.nuts,"عين جمل (كيلو)":IMG.nuts,"حمص حب (كيلو)":IMG.nuts,"ترمس (كيلو)":IMG.nuts,"مكسرات مشكلة (كيلو)":IMG.nuts,
+  "طماطم (كيلو)":IMG.tomato,"بطاطس (كيلو)":IMG.potato,"بصل (كيلو)":IMG.onion,"خيار (كيلو)":IMG.cucumber,
+  "فلفل عادي (كيلو)":IMG.pepper,"فلفل حراق (كيلو)":IMG.pepper,"فلفل رومي ألوان (كيلو)":IMG.pepper,
+  "جزر (كيلو)":IMG.carrot,"ثوم (كيلو)":IMG.garlic,
+  "كزبرة (ربطة)":IMG.greens,"بقدونس (ربطة)":IMG.greens,"شبت (ربطة)":IMG.greens,"خس (كيلو)":IMG.greens,"جرجير (ربطة)":IMG.greens,"بصل أخضر (ربطة)":IMG.greens,"كوسة (كيلو)":IMG.greens,"كرنب (كيلو)":IMG.greens,
+  "بتنجان رومي (كيلو)":IMG.eggplant,"بتنجان (كيلو)":IMG.eggplant,"بتنجان محشي (كيلو)":IMG.eggplant,
+  "موز (كيلو)":IMG.banana,"تفاح (كيلو)":IMG.apple,"برتقال (كيلو)":IMG.orange,"يوسفي (كيلو)":IMG.orange,
+  "ليمون (كيلو)":IMG.lemon,"مانجو (كيلو)":IMG.mango,"عنب (كيلو)":IMG.grapes,"فراولة (كيلو)":IMG.strawberry,
+  "جوافة (كيلو)":IMG.guava,"رمان (كيلو)":IMG.pomegranate,"بطيخ (كيلو)":IMG.watermelon
 };
 
 const pickPic=n=>PICS[n]||null;
@@ -383,7 +468,7 @@ function closeAll(){stack=[];$('m').style.display='none'}
 function openCart(){closeAll();$('cartModal').style.display='flex'}
 
 function itemRow(str,ctx,sub){
-  if(SUBMENUS[str])return{l:str,s:sub,t:'عرض الأنواع ›',cnt:()=>cart.filter(i=>SUBMENUS[str].some(x=>i.name.startsWith(x.split('|')[0]))).reduce((a,i)=>a+i.qty,0),f:()=>view(str,SUBMENUS[str].map(x=>itemRow(x,ctx)))};
+  if(SUBMENUS[str])return{l:str,s:sub,t:'عرض الأنواع ›',cnt:()=>cart.filter(i=>SUBMENUS[str].some(x=>i.name.startsWith(x.split('|')[0]))).reduce((a,i)=>a+i.qty,0),f:()=>view(str,SUBMENUS[str].map(x=>itemRow(x,ctx)),{thumbs:true})};
   if(OPTS[str])return{l:str,s:sub,t:'اختر الحجم ›',cnt:()=>cart.filter(i=>i.name.startsWith(str+' (')).reduce((a,i)=>a+i.qty,0),f:()=>view('اختر الحجم: '+str,OPTS[str].map(o=>({l:o,t:'حسب السعر',nm:`${str} (${o})${ctx?' - '+ctx:''}`,pr:0,ni:1})))};
   const [n,p]=str.split('|'),c=ctx?' - '+ctx:'',b={l:n,s:sub};
   if(p&&p.includes('/')){
